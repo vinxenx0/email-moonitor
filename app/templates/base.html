@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Flask App{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    -->
     <!-- Aquí puedes agregar otros enlaces a CSS si es necesario -->
 </head>
 <body>
@@ -11,7 +15,6 @@
         {% block content %}
         {% endblock %}
     </div>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <!-- Aquí puedes agregar otros enlaces a JavaScript si es necesario -->
 </body>
 </html>

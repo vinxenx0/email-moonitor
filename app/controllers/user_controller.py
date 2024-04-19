@@ -1,5 +1,5 @@
 # controllers/user_controller.py
-from app.models.user import User
+from app.models.user_model import User
 from app import db
 
 def create_user(username, email, password):

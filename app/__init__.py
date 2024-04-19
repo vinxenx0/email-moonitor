@@ -18,3 +18,5 @@ def handle_exception(error):
 # Importar modelos y vistas
 
 from app.controllers import main_controller, user_controller
+from app.views import user_views
+from app.models import user_model
