@@ -1,0 +1,42 @@
+/* no funciona */
+{% from '../instance/config.py' import CORPORATE_COLORS %}
+
+/* Utiliza los colores corporativos en tu CSS */
+body {
+    background-color: {{ CORPORATE_COLORS['light'] }};
+    color: {{ CORPORATE_COLORS['dark'] }};
+}
+
+.navbar {
+    background-color: {{ CORPORATE_COLORS['primary'] }};
+}
+
+.footer {
+    background-color: {{ CORPORATE_COLORS['dark'] }};
+    color: {{ CORPORATE_COLORS['light'] }};
+}
+
+
+body {
+    padding-top: 70px; /* Ajusta el espacio para la barra de navegación */
+    margin-bottom: 100px; /* Añade espacio al final de la página para el footer */
+}
+.sidebar {
+    position: fixed;
+    top: 56px; /* Ajusta el espacio para la barra de navegación */
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Coloca la barra lateral sobre el contenido */
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Añade desplazamiento vertical */
+    border-right: 1px solid #dee2e6; /* Borde derecho */
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px; /* Altura del footer */
+    text-align: center;
+    line-height: 100px; /* Alinea el texto verticalmente */
+}

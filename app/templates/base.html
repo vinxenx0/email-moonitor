@@ -3,17 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Flask App{% endblock %}</title>
-    <!-- 
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Agrega otros enlaces CSS si es necesario -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    -->
-    <!-- Aquí puedes agregar otros enlaces a CSS si es necesario -->
+    <style>
+       
+      
+
+    </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Cabecera -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Flask App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Acerca de</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-        <div class="flash_message">
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Configuración</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="container-fluid">
+        <div class="row flash_message col-md-9 ml-sm-auto col-lg-10 px-4">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <div class="alert alert-danger" role="alert">
@@ -24,11 +64,27 @@
                 {% endif %}
             {% endwith %}
         </div>
-        <div class="content">
-            {% block content %}
-            {% endblock %}
+     
+        <div class="row">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                {% block content %}
+                {% endblock %}
+            </main>
         </div>
     </div>
-    <!-- Aquí puedes agregar otros enlaces a JavaScript si es necesario -->
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 Flask App</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Agrega otros enlaces JS si es necesario -->
 </body>
 </html>
+
+

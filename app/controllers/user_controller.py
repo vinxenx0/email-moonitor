@@ -18,7 +18,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.password == form.password.data:
             login_user(user)
-            flash('Usuario correcto.', 'sucess')
+            flash('Usuario correcto.', 'success')
             next_page = request.args.get('next')
             return redirect(next_page or url_for('index'))
         else:
