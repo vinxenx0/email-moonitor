@@ -8,15 +8,31 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <style>
-       
-      
+
+      /* Estilos personalizados */
+      body {
+            background-color: {{ config.COLOR_PRIMARY }};
+            color: {{ config.COLOR_SECONDARY }};
+        }
+
+        
+
+        .navbar {
+            background-color: {{ config.COLOR_PRIMARY }};
+            color: {{ config.COLOR_SECONDARY }};
+        }
+
+        .footer {
+            background-color: {{ config.COLOR_SECONDARY }};
+            color: {{ config.COLOR_PRIMARY }};
+      }   
 
     </style>
 </head>
 <body>
     <!-- Cabecera -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Flask App</a>
+        <a class="navbar-brand" href="#">{{ config.WEB_NAME }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

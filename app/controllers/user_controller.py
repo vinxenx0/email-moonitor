@@ -32,7 +32,8 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('test'))
+    flash('Hasta la vista', 'success')
+    return render_template('user/logout.html')
 
 
 def create_user(username, email, password):
