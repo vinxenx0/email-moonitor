@@ -15,8 +15,6 @@
             color: {{ config.COLOR_SECONDARY }};
         }
 
-        
-
         .navbar {
             background-color: {{ config.COLOR_PRIMARY }};
             color: {{ config.COLOR_SECONDARY }};
@@ -33,36 +31,41 @@
     <!-- Cabecera -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#">{{ config.WEB_NAME }}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-link" href="#">Hola usuario {{ current_user.username }}</a>
+                    {% else %}
+                    <a class="nav-link" href="#">Hola usuario anónimo</a>
+                    {% endif %}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Acerca de</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    {% else %}
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
     </nav>
-
     <!-- Barra lateral -->
     <div class="sidebar">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="#">Dashboard</a>
+                <a class="nav-link" href="{{ url_for('index') }}">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Usuarios</a>
+                <a class="nav-link" href="{{ url_for('usuarios') }}">Usuarios</a>
             </li>
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register') }}">Añadir usuarios</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="#">Configuración</a>
+                <a class="nav-link" href="{{ url_for('configuracion') }}">Configuración</a>
             </li>
         </ul>
     </div>
