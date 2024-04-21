@@ -3,5 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(80) UNIQUE NOT NULL,
     email VARCHAR(120) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    config JSON
+    config JSON,
+    rol VARCHAR(20) NOT NULL DEFAULT 'usuario'
 );
+
