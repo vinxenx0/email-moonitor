@@ -56,17 +56,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('index') }}">Dashboard</a>
             </li>
+            {% if current_user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('usuarios') }}">Usuarios</a>
+            
+                {% if current_user.role == 'admin' %}
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('register') }}">Añadir usuarios</a>
+                    </li>
+                </ul>
+                {% endif %}
             </li>
-            {% if current_user.is_authenticated and current_user.role == 'admin' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('register') }}">Añadir usuarios</a>
-                </li>
-            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('configuracion') }}">Configuración</a>
             </li>
+            {% endif %}
         </ul>
     </div>
 

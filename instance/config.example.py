@@ -1,7 +1,17 @@
 SECRET_KEY = 'tu_clave_secreta'
-SQLALCHEMY_DATABASE_URI = 'mysql://user:password@host/db'
+#SQLALCHEMY_DATABASE_URI = 'mysql://user:password@host/db' # requiere mysqlclient
+SQLALCHEMY_DATABASE_URI = 'sqlite:///../instance/database.db'  
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+
+#SEND_FILE_MAX_AGE_DEFAULT = 0
+
+COLOR_PRIMARY = "#ffffff"
+COLOR_SECONDARY = "#000000"
+COLOR_TERTIARY= "#0066cc"
+WEB_NAME = "FLASKAPP"
+LOGO_URL = "https://web.com/asdfadsf.png"
+logo_url = "https://web.com/asdfadsf.png"
 
 # Colores corporativos
 CORPORATE_COLORS = {
