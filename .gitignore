@@ -4,3 +4,4 @@ instance/config.py
 error.log
 logs/
 *.bak
+.vscode
