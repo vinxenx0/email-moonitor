@@ -1,7 +1,6 @@
 .venv
+.vscode
 __pycache__
 instance/config.py
-error.log
-logs/
 *.bak
-.vscode
+*.log
