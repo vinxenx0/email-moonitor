@@ -248,8 +248,8 @@ def ping_lookup(domain):
 
 def traceroute_lookup(domain):
     try:
-        result = subprocess.run(['traceroute', domain], capture_output=True, text=True)
-        return {'stdout': result.stdout, 'stderr': result.stderr}
+       result = subprocess.run(['traceroute', '-m', '12', domain], capture_output=True, text=True)
+       return {'stdout': result.stdout, 'stderr': result.stderr}
     except Exception as e:
         return {'error': str(e)}
 
