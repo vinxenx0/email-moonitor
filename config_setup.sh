@@ -14,7 +14,7 @@ create_db() {
             echo "La base de datos $db_name ya existe. No es necesario crearla."
         else
             # Creamos la base de datos
-            mysql -h "$db_name" -u "$db_user" -p"$db_pwd" -e "CREATE DATABASE $db_name"
+            mysql -h "$db_host" -u "$db_user" -p"$db_pwd" -e "CREATE DATABASE $db_name"
             if [ $? -eq 0 ]; then
                 echo "La base de datos $db_name se ha creado correctamente."
             else
