@@ -34,3 +34,6 @@ class ConfigForm(FlaskForm):
     web_name = StringField('Nombre de la web', validators=[DataRequired()])
     logo_url = StringField('URL del logotipo', validators=[DataRequired(), URL()])
 
+class PingForm(FlaskForm):
+    domain = StringField('Dominio a pingear', validators=[DataRequired()])
+    submit = SubmitField('Enviar')

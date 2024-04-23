@@ -6,7 +6,7 @@ import logging
 from flask_login import LoginManager, current_user
 
 # Configurar el registro
-logging.basicConfig(filename='instance/error.log', level=logging.ERROR)
+#logging.basicConfig(filename='instance/error.log', level=logging.ERROR)
 
 app = Flask(__name__)
 app.config.from_pyfile('../instance/config.py')
@@ -23,8 +23,8 @@ login_manager.login_view = 'login'
 
 # Importar modelos y vistas
 
-from app.controllers import main_controller, user_controller
-from app.views import user_views
+from app.controllers import main_controller, user_controller, tools_controller
+from app.views import user_views, tools_views
 from app.models.user_model import User
 from app.forms import LoginForm, ConfigForm
 
