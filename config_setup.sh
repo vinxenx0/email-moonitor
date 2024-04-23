@@ -7,13 +7,14 @@ install_mysqlclient() {
 }
 
 create_db() {
-            # Comprobamos si la base de datos ya existe
+        
+        # Comprobamos si la base de datos ya existe
         mysql -h "$db_host" -u "$db_user" -p"$db_pwd" -e "USE $db_name" 2>/dev/null
         if [ $? -eq 0 ]; then
             echo "La base de datos $db_name ya existe. No es necesario crearla."
         else
             # Creamos la base de datos
-            mysql -h "$db_name" -u "$db_user" -p"$db_pwd" -e "CREATE DATABASE $db_name"
+            mysql -h "$db_host" -u "$db_user" -p"$db_pwd" -e "CREATE DATABASE $db_name"
             if [ $? -eq 0 ]; then
                 echo "La base de datos $db_name se ha creado correctamente."
             else
@@ -52,6 +53,8 @@ ask_and_save_config() {
     echo "DB_TYPE = '$db_type'" >> instance/install.log
     echo "SECRET_KEY = '$secret_key'" > instance/config.py
 
+
+    # añadir app.run(debug=True, port='8000', host='0.0.0.0')
 
      if [[ "$db_type" == "1" ]]; then
         echo "SQLALCHEMY_DATABASE_URI = 'mysql://$db_user:$db_pwd@$db_host/$db_name'" >> instance/config.py

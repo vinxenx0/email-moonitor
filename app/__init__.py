@@ -6,7 +6,7 @@ import logging
 from flask_login import LoginManager, current_user
 
 # Configurar el registro
-#logging.basicConfig(filename='error.log', level=logging.ERROR)
+logging.basicConfig(filename='instance/error.log', level=logging.ERROR)
 
 app = Flask(__name__)
 app.config.from_pyfile('../instance/config.py')

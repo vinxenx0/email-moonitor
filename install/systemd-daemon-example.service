@@ -1,5 +1,5 @@
 [Unit]
-Description=gunicorn-guestbook
+Description=flask app
 After=network.target
 
 [Install]
