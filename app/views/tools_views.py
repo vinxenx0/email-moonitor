@@ -2,13 +2,12 @@
 from flask import Flask, request, jsonify
 from app import app
 from app.controllers.tools_controller import *
+import time
 
 @app.route('/check_domain/<string:domain>') #, methods=['POST'])
 def check_domain(domain):
-    #data = request.json
-    #domain = data.get('domain')
-    #domain = 'cineblog.net'
-
+    start_time = time.time()  # Guardar el tiempo de inicio
+    
     if domain:
         results = {
             'mx_lookup': mx_lookup(domain),
@@ -45,11 +44,17 @@ def check_domain(domain):
         }
 
         sorted_results = {key: results[key] for key in sorted(results.keys())}
-
+        
+        end_time = time.time()  # Guardar el tiempo de finalización
+        duration = end_time - start_time  # Calcular la duración total
+        
+        sorted_results['duration'] = duration  # Agregar la duración al resultado
+        
         return jsonify(sorted_results)
  
     else:
         return jsonify({'error': 'Domain not provided'}), 400
+
 
 import subprocess
 from flask import render_template, request

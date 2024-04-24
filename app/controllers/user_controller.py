@@ -4,10 +4,35 @@ from flask_login import login_user, logout_user, current_user
 from app import app, db
 from app.models.user_model import User
 from app.forms import LoginForm
-from app.forms import RegistrationForm
+from app.forms import NewUserRegistrationForm, RegistrationForm
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    form = NewUserRegistrationForm()
+    
+    if form.validate_on_submit():
+        config_data = {
+            "color_primary": "#ffffff",
+            "color_secondary": "#000000",
+            "color_tertiary": "#0066cc",
+            "web_name": form.username.data,
+            "logo_url": "https://web.com/asdfadsf.png"
+        }
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            role='usuario',
+            config=config_data  # Asignamos el valor inicial al campo config
+        )
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success')
+        return redirect(url_for('login'))
+    return render_template('user/new_user.html', title='Registro', form=form)
+
+@app.route('/admin/register', methods=['GET', 'POST'])
+def admin_register():
     form = RegistrationForm()
     if form.validate_on_submit():
         config_data = {
