@@ -9,8 +9,11 @@ from flask import current_app
 from app import db, login_manager
 from flask_login import UserMixin
 import datetime
+#from jwt import PyJWT
 import jwt
 from jwt import encode
+#import PyJWT
+#from PyJWT import encode
 from flask import current_app
 from app import db, login_manager
 from flask_login import UserMixin
