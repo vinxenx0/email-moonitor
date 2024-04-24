@@ -2,8 +2,8 @@ alembic==1.12.1
 aniso8601==9.0.1
 annotated-types==0.6.0
 anyio==4.2.0
-apturl==0.5.2
-arandr==0.1.10
+#apturl
+#arandr==0.1.10
 argcomplete==1.8.1
 asn1crypto==0.24.0
 aspell-python-py3==1.15
