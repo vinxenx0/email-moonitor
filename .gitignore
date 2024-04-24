@@ -4,3 +4,4 @@ __pycache__
 *.bak
 *.log
 instance/database.db
+migrations/*

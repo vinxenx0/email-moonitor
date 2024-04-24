@@ -6,6 +6,7 @@ from app import app, db
 from app.forms import ConfigForm
 
 
+
 @app.route('/')
 @app.route('/home')
 def index():
@@ -54,3 +55,6 @@ def configuracion():
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+
+
