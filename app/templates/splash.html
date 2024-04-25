@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Moonitor App{% endblock %}</title>
+  <title>{% block title %}Registrate para desbloquear mas herramientas{% endblock %}</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
@@ -17,7 +17,6 @@
    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
   -->
-
 
 <style>
   /* Custom Styles */
@@ -74,12 +73,7 @@
     <div class="container">
       <div class="row">
 
-       
-        <div class="col-md-3">
-          {% include 'inc/sidebar.html' %}
-        </div>
-
-        <div class="col-md-9">  
+        <div class="col-md-12 mb-3">
 
           {% include 'inc/flashmsg.html' %}
 
@@ -89,6 +83,7 @@
               {% endblock %}
             </main>
           </div>
+          
 
         </div>
       </div>
