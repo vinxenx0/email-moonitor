@@ -13,6 +13,9 @@ from flask_mail import Message
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    
     form = NewUserRegistrationForm()
     
     if form.validate_on_submit():
@@ -40,7 +43,9 @@ def register():
     return render_template('user/new_user.html', title='Registro', form=form)
 
 @app.route('/admin/register', methods=['GET', 'POST'])
+@login_required
 def admin_register():
+    #if current_user.role == 'admin'
     form = RegistrationForm()
     if form.validate_on_submit():
         config_data = {
