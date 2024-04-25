@@ -8,9 +8,12 @@ from app.forms import ConfigForm
 
 
 @app.route('/')
-@app.route('/home')
 def index():
-    return render_template('index.html')
+   return render_template('index.html')
+
+@app.route('/app')
+def dashboard():
+   return render_template('dashboard.html')
 
 @app.route('/config', methods=['GET', 'POST'])
 @login_required
@@ -54,7 +57,7 @@ def configuracion():
 
 @app.route('/test')
 def test():
-    return render_template('test.html')
+    return render_template('layout.html')
 
 
 
