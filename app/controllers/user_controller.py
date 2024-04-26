@@ -3,12 +3,12 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
 from app import app, db, mail
 from app.models.user_model import User
-from app.forms import LoginForm
+from app.forms import LoginForm, PasswordResetRequestForm
 from app.forms import NewUserRegistrationForm, RegistrationForm
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
-from app.forms import RegistrationForm
+from app.forms import RegistrationForm, PasswordResetForm, PasswordChangeForm
 from flask_mail import Message
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -79,7 +79,8 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.check_password(form.password.data):
             if not user.active:
-                flash('Tu cuenta aún no ha sido activada. Por favor, revisa tu correo electrónico para activarla.', 'danger')
+                send_activation_email(user)
+                flash('Tu cuenta aún no está activada. Se ha enviado un nuevo correo electrónico de activación.', 'warning')
                 return redirect(url_for('login'))
             login_user(user)
 
@@ -117,15 +118,77 @@ def activate(token):
     flash('El enlace de activación es inválido o ha expirado.', 'danger')
     return redirect(url_for('login'))
 
+
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    form = PasswordResetRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            token = user.get_token(expires_sec=600)  # Token válido por 10 minutos (600 segundos)
+            send_password_reset_email(user, token)
+            flash('Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.', 'success')
+            return redirect(url_for('login'))
+        else:
+            flash('No se encontró ninguna cuenta con ese correo electrónico. Por favor, verifica tu dirección de correo electrónico.', 'danger')
+    return render_template('reset_password_request.html', title='Recuperar contraseña', form=form)
+
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = PasswordChangeForm()
+    if form.validate_on_submit():
+        if current_user.check_password(form.old_password.data):
+            current_user.set_password(form.password.data)
+            db.session.commit()
+            flash('Tu contraseña ha sido cambiada exitosamente.', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('La contraseña antigua no es correcta. Por favor, inténtalo de nuevo.', 'danger')
+    return render_template('change_password.html', title='Cambiar Contraseña', form=form)
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_token(token)
+    if not user:
+        flash('El enlace de restablecimiento de contraseña es inválido o ha expirado.', 'danger')
+        return redirect(url_for('login'))
+    form = PasswordResetForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Tu contraseña ha sido restablecida. Ahora puedes iniciar sesión con tu nueva contraseña.', 'success')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', title='Restablecer contraseña', form=form)
+
+
+def send_password_reset_email(user, token):
+    msg = Message('Recuperar contraseña', sender='vicente@ciberpunk.es', recipients=[user.email])
+    print(url_for('reset_password', token=token, _external=True))
+    msg.body = f'''Para restablecer tu contraseña, visita el siguiente enlace:
+{url_for('reset_password', token=token, _external=True)}
+
+If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.
+
+El enlace es válido por 10 minutos.
+
+
+'''
+    #mail.send(msg)
+
+
 def send_activation_email(user):
     token = user.get_token()
     msg = Message('Confirma tu cuenta', sender='vicente@ciberpunk.es', recipients=[user.email])
+    print(url_for('activate', token=token, _external=True))
     msg.body = f'''Para activar tu cuenta, visita el siguiente enlace:
 {url_for('activate', token=token, _external=True)}
 
+If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.
+
 El enlace es válido por 1 hora.
 '''
-    mail.send(msg)
-    print(url_for('activate', token=token, _external=True))
-
-
+    #mail.send(msg)
