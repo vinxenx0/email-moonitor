@@ -18,6 +18,11 @@ from flask import current_app
 from app import db, login_manager
 from flask_login import UserMixin
 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 class User(UserMixin, db.Model):
     __tablename__='users'
     id = db.Column(db.Integer, primary_key=True)
@@ -29,7 +34,9 @@ class User(UserMixin, db.Model):
     registered_on = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     config = db.Column(JSONType)   
     role = db.Column(db.String(20), nullable=False, default='usuario')
-    
+    database_name = db.Column(db.String(64), unique=True)  # Nombre de la base de datos del usuario
+  #  logs = db.relationship('Log', backref='user', lazy='dynamic')
+   
     def __repr__(self):
         return '<User %r>' % self.username
 
@@ -51,7 +58,12 @@ class User(UserMixin, db.Model):
             return None
         return User.query.get(user_id)
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+class Log(db.Model):
+    __tablename__='logs'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow())
+    # Otros campos según los datos que desees almacenar
+
+
 

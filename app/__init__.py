@@ -47,7 +47,7 @@ login_manager.login_view = 'login'
 
 from app.controllers import main_controller, user_controller, tools_controller, admin_controller
 from app.views import user_views, tools_views
-from app.models.user_model import User
+from app.models.user_model import User, Log
 #from app.forms import LoginForm, ConfigForm
 
 # Comprobamos si la base de datos SQLite existe, y si no, la creamos
@@ -60,7 +60,7 @@ if not os.path.exists(database_path):
 with app.app_context():
     db.create_all()
     if not User.query.first():
-        new_user = User(username='user', email='user@user.com', role='usuario', active=True, 
+        new_user = User(username='user', email='user@user.com', role='usuario', active=True, database_name="user_db.sqlite", 
                         config = {"color_primary": "#ffffff", "color_secondary": "#000000", "color_tertiary": "#0066cc", 
                                   "web_name": "WHITE", "logo_url": "https://web.com/asdfadsf.png"}
                         )
@@ -68,7 +68,7 @@ with app.app_context():
         db.session.add(new_user)
         db.session.commit()
 
-        new_admin = User(username='admin', email='admin@admin.com', role='admin', active=True,
+        new_admin = User(username='admin', email='admin@admin.com', role='admin', active=True, database_name="admin_db.sqlite",
                         config = {"color_primary": "#ffffff", "color_secondary": "#000000", "color_tertiary": "#0066cc", 
                                   "web_name": "WHITE", "logo_url": "https://web.com/asdfadsf.png"}
                         )

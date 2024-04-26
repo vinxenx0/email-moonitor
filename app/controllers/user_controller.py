@@ -1,8 +1,10 @@
 # app/controllers/user_controller.py
+import datetime
 from flask import render_template, redirect, session, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
+from sqlalchemy import create_engine
 from app import app, db, mail
-from app.models.user_model import User
+from app.models.user_model import User, Log
 from app.forms import LoginForm, PasswordResetRequestForm
 from app.forms import NewUserRegistrationForm, RegistrationForm
 from flask import render_template, redirect, url_for, flash, request
@@ -111,6 +113,14 @@ def admin_register():
             config=config_data  # Asignamos el valor inicial al campo config
         )
         user.set_password(form.password.data)
+        
+        # Crear la base de datos para el usuario
+        database_name = f"{form.username.data}_db.sqlite"
+        engine = create_engine(f'sqlite:///../instance/{database_name}')
+        db.create_all(bind=engine)
+
+        user.database_name = database_name
+
         db.session.add(user)
         db.session.commit()
         flash('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success')
@@ -126,6 +136,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+        print(user)
         if user and user.check_password(form.password.data):
             if not user.active:
                 send_activation_email(user)
@@ -134,6 +145,16 @@ def login():
                     'warning')
                 return redirect(url_for('login'))
             login_user(user)
+
+            # Conectar a la base de datos del usuario
+            engine = create_engine(f'sqlite:///../instance/{user.database_name}_db.sqlite')
+            session['database_engine'] = engine
+
+            # Registrar el inicio de sesión del usuario en la tabla de registros
+            log = Log(user_id=user.id, timestamp=datetime.datetime.utcnow())
+            print(log)
+            db.session.add(log)
+   
 
             app.config['COLOR_PRIMARY'] = user.config.get(
                 'color_primary', app.config['COLOR_PRIMARY'])
