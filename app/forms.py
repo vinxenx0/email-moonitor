@@ -59,3 +59,21 @@ class ConfigForm(FlaskForm):
 class PingForm(FlaskForm):
     domain = StringField('Dominio a pingear', validators=[DataRequired()])
     submit = SubmitField('Enviar')
+
+
+class PasswordResetRequestForm(FlaskForm):
+    email = StringField('Correo electrónico', validators=[DataRequired(), Email()])
+    submit = SubmitField('Enviar correo electrónico de recuperación')
+
+class PasswordResetForm(FlaskForm):
+    password = PasswordField('Nueva Contraseña', validators=[DataRequired(), Length(min=6)])
+    confirm_password = PasswordField('Confirmar Nueva Contraseña', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Restablecer Contraseña')
+
+class PasswordChangeForm(FlaskForm):
+    old_password = PasswordField('Contraseña Antigua', validators=[DataRequired()])
+    password = PasswordField('Nueva Contraseña', validators=[DataRequired(), Length(min=6)])
+    confirm_password = PasswordField('Confirmar Nueva Contraseña', validators=[DataRequired()])
+    submit = SubmitField('Cambiar Contraseña')
+
+

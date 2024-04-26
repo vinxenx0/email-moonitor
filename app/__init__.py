@@ -6,6 +6,7 @@ import logging
 from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 from flask_mail import Mail
+from flask_wtf.csrf import CSRFProtect
 #from mailhog import Mailhog
 
 
@@ -31,6 +32,7 @@ app.config['MAIL_PASSWORD'] = 'rt6K_22MHj'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
+csrf = CSRFProtect(app)
 #mailhog = Mailhog()
 
 login_manager = LoginManager(app)
@@ -58,7 +60,7 @@ if not os.path.exists(database_path):
 with app.app_context():
     db.create_all()
     if not User.query.first():
-        new_user = User(username='user', email='example@example.com', role='usuario', 
+        new_user = User(username='user', email='user@user.com', role='usuario', 
                         config = {"color_primary": "#ffffff", "color_secondary": "#000000", "color_tertiary": "#0066cc", 
                                   "web_name": "WHITE", "logo_url": "https://web.com/asdfadsf.png"}
                         )
@@ -66,7 +68,7 @@ with app.app_context():
         db.session.add(new_user)
         db.session.commit()
 
-        new_admin = User(username='admin', email='admin@example.com', role='admin', 
+        new_admin = User(username='admin', email='admin@admin.com', role='admin', 
                         config = {"color_primary": "#ffffff", "color_secondary": "#000000", "color_tertiary": "#0066cc", 
                                   "web_name": "WHITE", "logo_url": "https://web.com/asdfadsf.png"}
                         )
