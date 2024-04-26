@@ -45,7 +45,7 @@ login_manager.login_view = 'login'
 
 # Importar modelos y vistas
 
-from app.controllers import main_controller, user_controller, tools_controller
+from app.controllers import main_controller, user_controller, tools_controller, admin_controller
 from app.views import user_views, tools_views
 from app.models.user_model import User
 #from app.forms import LoginForm, ConfigForm
