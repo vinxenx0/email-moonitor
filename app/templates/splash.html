@@ -18,48 +18,55 @@
 
   -->
 
-<style>
-  /* Custom Styles */
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Establece la altura mínima del cuerpo para ocupar toda la ventana */
-  }
+  <!-- SimpleDatatables CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
 
-  .header {
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-  }
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Custom Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* Establece la altura mínima del cuerpo para ocupar toda la ventana */
+    }
 
-  .navbar-nav .nav-link {
-    color: #000000;
-  }
+    .header {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
 
-  .main-content {
-    padding: 20px;
-    flex-grow: 1; /* Hace que el contenido principal ocupe el espacio restante */
-  }
+    .navbar-nav .nav-link {
+      color: #000000;
+    }
 
-  .footer {
-    background-color: #343a40;
-    color: #ffffff;
-    padding: 20px 0;
-    margin-top: auto; /* Empuja el pie de página hacia la parte inferior */
-  }
+    .main-content {
+      padding: 20px;
+      flex-grow: 1;
+      /* Hace que el contenido principal ocupe el espacio restante */
+    }
 
-  .sidebar-dropdown {
-    background-color: #ffffff;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-</style>
+    .footer {
+      background-color: #343a40;
+      color: #ffffff;
+      padding: 20px 0;
+      margin-top: auto;
+      /* Empuja el pie de página hacia la parte inferior */
+    }
+
+    .sidebar-dropdown {
+      background-color: #ffffff;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
 
 
 </head>
@@ -68,11 +75,11 @@
   <header class="header">
     {% include 'inc/header.html' %}
   </header>
-  
+
   <div class="main-content">
     <div class="container">
       <div class="row">
-
+        {% include 'inc/breadcrumbs.html' %}
         <div class="col-md-12 mb-3">
 
           {% include 'inc/flashmsg.html' %}
@@ -83,7 +90,7 @@
               {% endblock %}
             </main>
           </div>
-          
+
 
         </div>
       </div>

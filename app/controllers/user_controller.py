@@ -11,6 +11,7 @@ from app import app, db
 from app.forms import RegistrationForm, PasswordResetForm, PasswordChangeForm, EditProfileForm
 from flask_mail import Message
 
+
 @app.route('/profile')
 @login_required
 def profile():
@@ -50,15 +51,19 @@ def edit_profile():
             return redirect(url_for('profile'))
     elif request.method == 'GET':
         form.username.data = user.username
-    return render_template('user/edit_profile.html', user=user, form=form, can_edit=can_edit)
+    return render_template('user/edit_profile.html',
+                           user=user,
+                           form=form,
+                           can_edit=can_edit)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    
+
     form = NewUserRegistrationForm()
-    
+
     if form.validate_on_submit():
         config_data = {
             "color_primary": "#ffffff",
@@ -79,9 +84,12 @@ def register():
         db.session.commit()
         # flash('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success')
         send_activation_email(user)
-        flash('Se ha enviado un correo electrónico de confirmación. Por favor, verifica tu cuenta.', 'success')
+        flash(
+            'Se ha enviado un correo electrónico de confirmación. Por favor, verifica tu cuenta.',
+            'success')
         return redirect(url_for('login'))
     return render_template('user/new_user.html', title='Registro', form=form)
+
 
 @app.route('/admin/register', methods=['GET', 'POST'])
 @login_required
@@ -121,15 +129,22 @@ def login():
         if user and user.check_password(form.password.data):
             if not user.active:
                 send_activation_email(user)
-                flash('Tu cuenta aún no está activada. Se ha enviado un nuevo correo electrónico de activación.', 'warning')
+                flash(
+                    'Tu cuenta aún no está activada. Se ha enviado un nuevo correo electrónico de activación.',
+                    'warning')
                 return redirect(url_for('login'))
             login_user(user)
 
-            app.config['COLOR_PRIMARY'] = user.config.get('color_primary', app.config['COLOR_PRIMARY'])
-            app.config['COLOR_SECONDARY'] = user.config.get('color_secondary', app.config['COLOR_SECONDARY'])
-            app.config['COLOR_TERTIARY'] = user.config.get('color_tertiary', app.config['COLOR_TERTIARY'])
-            app.config['WEB_NAME'] = user.config.get('web_name', app.config['WEB_NAME'])
-            app.config['LOGO_URL'] = user.config.get('logo_url', app.config['LOGO_URL'])
+            app.config['COLOR_PRIMARY'] = user.config.get(
+                'color_primary', app.config['COLOR_PRIMARY'])
+            app.config['COLOR_SECONDARY'] = user.config.get(
+                'color_secondary', app.config['COLOR_SECONDARY'])
+            app.config['COLOR_TERTIARY'] = user.config.get(
+                'color_tertiary', app.config['COLOR_TERTIARY'])
+            app.config['WEB_NAME'] = user.config.get('web_name',
+                                                     app.config['WEB_NAME'])
+            app.config['LOGO_URL'] = user.config.get('logo_url',
+                                                     app.config['LOGO_URL'])
 
             flash('Inicio de sesión exitoso.', 'success')
             next_page = request.args.get('next')
@@ -148,13 +163,15 @@ def logout():
     flash('Hasta la vista', 'success')
     return render_template('user/logout.html')
 
+
 @app.route('/activate/<token>')
 def activate(token):
     user = User.verify_token(token)
     if user:
         user.active = True
         db.session.commit()
-        flash('¡Tu cuenta ha sido activada! Ya puedes iniciar sesión.', 'success')
+        flash('¡Tu cuenta ha sido activada! Ya puedes iniciar sesión.',
+              'success')
         return redirect(url_for('login'))
     flash('El enlace de activación es inválido o ha expirado.', 'danger')
     return redirect(url_for('login'))
@@ -166,13 +183,21 @@ def reset_password_request():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
-            token = user.get_token(expires_sec=600)  # Token válido por 10 minutos (600 segundos)
+            token = user.get_token(
+                expires_sec=600)  # Token válido por 10 minutos (600 segundos)
             send_password_reset_email(user, token)
-            flash('Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.', 'success')
+            flash(
+                'Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.',
+                'success')
             return redirect(url_for('login'))
         else:
-            flash('No se encontró ninguna cuenta con ese correo electrónico. Por favor, verifica tu dirección de correo electrónico.', 'danger')
-    return render_template('user/reset_password_request.html', title='Recuperar contraseña', form=form)
+            flash(
+                'No se encontró ninguna cuenta con ese correo electrónico. Por favor, verifica tu dirección de correo electrónico.',
+                'danger')
+    return render_template('user/reset_password_request.html',
+                           title='Recuperar contraseña',
+                           form=form)
+
 
 @app.route('/change_password', methods=['GET', 'POST'])
 @login_required
@@ -185,8 +210,12 @@ def change_password():
             flash('Tu contraseña ha sido cambiada exitosamente.', 'success')
             return redirect(url_for('index'))
         else:
-            flash('La contraseña antigua no es correcta. Por favor, inténtalo de nuevo.', 'danger')
-    return render_template('user/change_password.html', title='Cambiar Contraseña', form=form)
+            flash(
+                'La contraseña antigua no es correcta. Por favor, inténtalo de nuevo.',
+                'danger')
+    return render_template('user/change_password.html',
+                           title='Cambiar Contraseña',
+                           form=form)
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -195,19 +224,27 @@ def reset_password(token):
         return redirect(url_for('index'))
     user = User.verify_token(token)
     if not user:
-        flash('El enlace de restablecimiento de contraseña es inválido o ha expirado.', 'danger')
+        flash(
+            'El enlace de restablecimiento de contraseña es inválido o ha expirado.',
+            'danger')
         return redirect(url_for('login'))
     form = PasswordResetForm()
     if form.validate_on_submit():
         user.set_password(form.password.data)
         db.session.commit()
-        flash('Tu contraseña ha sido restablecida. Ahora puedes iniciar sesión con tu nueva contraseña.', 'success')
+        flash(
+            'Tu contraseña ha sido restablecida. Ahora puedes iniciar sesión con tu nueva contraseña.',
+            'success')
         return redirect(url_for('login'))
-    return render_template('user/reset_password.html', title='Restablecer contraseña', form=form)
+    return render_template('user/reset_password.html',
+                           title='Restablecer contraseña',
+                           form=form)
 
 
 def send_password_reset_email(user, token):
-    msg = Message('Recuperar contraseña', sender='vicente@ciberpunk.es', recipients=[user.email])
+    msg = Message('Recuperar contraseña',
+                  sender='vicente@ciberpunk.es',
+                  recipients=[user.email])
     print(url_for('reset_password', token=token, _external=True))
     msg.body = f'''Para restablecer tu contraseña, visita el siguiente enlace:
 {url_for('reset_password', token=token, _external=True)}
@@ -223,7 +260,9 @@ El enlace es válido por 10 minutos.
 
 def send_activation_email(user):
     token = user.get_token()
-    msg = Message('Confirma tu cuenta', sender='vicente@ciberpunk.es', recipients=[user.email])
+    msg = Message('Confirma tu cuenta',
+                  sender='vicente@ciberpunk.es',
+                  recipients=[user.email])
     print(url_for('activate', token=token, _external=True))
     msg.body = f'''Para activar tu cuenta, visita el siguiente enlace:
 {url_for('activate', token=token, _external=True)}
@@ -233,6 +272,7 @@ If clicking the link above doesn't work, please copy and paste the URL in a new 
 El enlace es válido por 1 hora.
 '''
     #mail.send(msg)
+
 
 #@app.route('/accept_cookies', methods=['POST'])
 #def accept_cookies():
