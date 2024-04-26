@@ -68,7 +68,6 @@ def ping():
     if form.validate_on_submit():
         domain = form.domain.data
         try:
-            # Ejecutar el comando de ping en el sistema operativo
             result = subprocess.run(['ping', '-c', '4', domain], capture_output=True, text=True, timeout=10)
             if result.returncode == 0:
                 ping_result = result.stdout

@@ -1,6 +1,6 @@
 # __init__py
 import os
-from flask import Flask
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from flask_login import LoginManager, current_user
@@ -48,7 +48,7 @@ login_manager.login_view = 'login'
 from app.controllers import main_controller, user_controller, tools_controller
 from app.views import user_views, tools_views
 from app.models.user_model import User
-from app.forms import LoginForm, ConfigForm
+#from app.forms import LoginForm, ConfigForm
 
 # Comprobamos si la base de datos SQLite existe, y si no, la creamos
 database_path = os.path.join(os.path.dirname(__file__), '..', 'instance', 'database.db')
@@ -60,7 +60,7 @@ if not os.path.exists(database_path):
 with app.app_context():
     db.create_all()
     if not User.query.first():
-        new_user = User(username='user', email='user@user.com', role='usuario', 
+        new_user = User(username='user', email='user@user.com', role='usuario', active=True, 
                         config = {"color_primary": "#ffffff", "color_secondary": "#000000", "color_tertiary": "#0066cc", 
                                   "web_name": "WHITE", "logo_url": "https://web.com/asdfadsf.png"}
                         )
@@ -68,7 +68,7 @@ with app.app_context():
         db.session.add(new_user)
         db.session.commit()
 
-        new_admin = User(username='admin', email='admin@admin.com', role='admin', 
+        new_admin = User(username='admin', email='admin@admin.com', role='admin', active=True,
                         config = {"color_primary": "#ffffff", "color_secondary": "#000000", "color_tertiary": "#0066cc", 
                                   "web_name": "WHITE", "logo_url": "https://web.com/asdfadsf.png"}
                         )
@@ -83,3 +83,8 @@ with app.app_context():
 @app.context_processor
 def inject_sidebar_info():
     return dict(is_admin=current_user.is_authenticated and current_user.role == 'admin')
+
+#@app.before_request
+#def check_show_cookies_modal():
+#    if not current_user.is_authenticated and 'cookies_accepted' not in session:
+#        session['show_cookies_modal'] = True

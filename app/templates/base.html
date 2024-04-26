@@ -19,51 +19,54 @@
   -->
 
 
-<style>
-  /* Custom Styles */
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Establece la altura mínima del cuerpo para ocupar toda la ventana */
-    /* */
-    margin:0;
-    width:100%;
-  }
+  <style>
+    /* Custom Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* Establece la altura mínima del cuerpo para ocupar toda la ventana */
+      /* */
+      margin: 0;
+      width: 100%;
+    }
 
-  .header {
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-  }
+    .header {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
 
-  .navbar-nav .nav-link {
-    color: #000000;
-  }
+    .navbar-nav .nav-link {
+      color: #000000;
+    }
 
-  .main-content {
-    padding: 20px;
-    flex-grow: 1; /* Hace que el contenido principal ocupe el espacio restante */
-  }
+    .main-content {
+      padding: 20px;
+      flex-grow: 1;
+      /* Hace que el contenido principal ocupe el espacio restante */
+    }
 
-  .footer {
-    background-color: #343a40;
-    color: #ffffff;
-    padding: 20px 0;
-    margin-top: auto; /* Empuja el pie de página hacia la parte inferior */
-  }
+    .footer {
+      background-color: #343a40;
+      color: #ffffff;
+      padding: 20px 0;
+      margin-top: auto;
+      /* Empuja el pie de página hacia la parte inferior */
+    }
 
-  .sidebar-dropdown {
-    background-color: #ffffff;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-</style>
+    .sidebar-dropdown {
+      background-color: #ffffff;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
 
 
 </head>
@@ -72,22 +75,21 @@
   <header class="header">
     {% include 'inc/header.html' %}
   </header>
-  
+
   <div class="main-content">
     <div class="container">
       <div class="row">
 
-       
+
         <div class="col-md-2">
           {% include 'inc/sidebar.html' %}
         </div>
 
-        <div class="col-md-10">  
-
+        <div class="col-md-10">
           {% include 'inc/flashmsg.html' %}
-
           <div class="row mb-3">
             <main role="main" class="col-md-auto ml-sm-auto col-lg-10 px-4">
+
               {% block content %}
               {% endblock %}
             </main>
@@ -96,7 +98,7 @@
         </div>
 
       </div>
- </div>
+    </div>
   </div>
 
 
