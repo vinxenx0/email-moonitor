@@ -84,6 +84,15 @@ with app.app_context():
 def inject_sidebar_info():
     return dict(is_admin=current_user.is_authenticated and current_user.role == 'admin')
 
+@app.context_processor
+def inject_breadcrumb():
+    breadcrumbs = [
+        {'url': '/', 'text': 'Inicio'},
+        {'url': '/profile', 'text': 'Opcion 1'},
+        {'url': '/profile/edit', 'text': 'Sub opcion 1'}
+    ]
+    return {'breadcrumbs': breadcrumbs}
+
 #@app.before_request
 #def check_show_cookies_modal():
 #    if not current_user.is_authenticated and 'cookies_accepted' not in session:
