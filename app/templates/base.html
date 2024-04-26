@@ -27,6 +27,9 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Establece la altura mínima del cuerpo para ocupar toda la ventana */
+    /* */
+    margin:0;
+    width:100%;
   }
 
   .header {
@@ -75,24 +78,25 @@
       <div class="row">
 
        
-        <div class="col-md-3">
+        <div class="col-md-2">
           {% include 'inc/sidebar.html' %}
         </div>
 
-        <div class="col-md-9">  
+        <div class="col-md-10">  
 
           {% include 'inc/flashmsg.html' %}
 
           <div class="row mb-3">
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <main role="main" class="col-md-auto ml-sm-auto col-lg-10 px-4">
               {% block content %}
               {% endblock %}
             </main>
           </div>
 
         </div>
+
       </div>
-    </div>
+ </div>
   </div>
 
 
