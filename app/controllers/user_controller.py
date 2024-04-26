@@ -8,9 +8,49 @@ from app.forms import NewUserRegistrationForm, RegistrationForm
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
-from app.forms import RegistrationForm, PasswordResetForm, PasswordChangeForm
+from app.forms import RegistrationForm, PasswordResetForm, PasswordChangeForm, EditProfileForm
 from flask_mail import Message
 
+@app.route('/profile')
+@login_required
+def profile():
+    user = User.query.filter_by(id=current_user.id).first()
+    return render_template('user/profile.html', user=user)
+
+
+@app.route('/profile/edit', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    user = User.query.get(current_user.id)
+    if user.role == 'admin':
+        can_edit = True
+    else:
+        can_edit = False
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        # Obtener los datos del formulario
+        username = form.username.data
+        password = form.password.data
+        role = form.role.data
+        active = form.active.data
+        # Verificar si el usuario es admin y puede editar
+        if can_edit:
+            user.username = username
+            user.set_password(password)
+            user.role = role
+            user.active = active
+            print(user)
+            db.session.commit()
+            flash('Usuario editado correctamente.', 'success')
+            print('Usuario editado correctamente')
+            return redirect(url_for('profile'))
+        else:
+            flash('No tienes permisos para editar el perfil.', 'success')
+            print('No tienes permisos')
+            return redirect(url_for('profile'))
+    elif request.method == 'GET':
+        form.username.data = user.username
+    return render_template('user/edit_profile.html', user=user, form=form, can_edit=can_edit)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

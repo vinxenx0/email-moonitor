@@ -1,6 +1,7 @@
 # app/forms.py
+from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms import BooleanField, StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL, Regexp, Email, EqualTo, ValidationError
 from app.models.user_model import User
 from flask_wtf import FlaskForm
@@ -77,3 +78,15 @@ class PasswordChangeForm(FlaskForm):
     submit = SubmitField('Cambiar Contraseña')
 
 
+class EditProfileForm(FlaskForm):
+    username = StringField('Nombre de usuario', validators=[DataRequired(), Length(min=4, max=20)])
+    password = PasswordField('Contraseña', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirmar contraseña', validators=[DataRequired(), EqualTo('password')])
+    role = SelectField('Rol', choices=[('usuario', 'Usuario'), ('admin', 'Administrador')], validators=[DataRequired()])
+    active = BooleanField('Activo')
+    submit = SubmitField('Guardar cambios')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user and user.id != current_user.id:
+            raise ValidationError('Este nombre de usuario ya está en uso. Por favor, elija otro.')

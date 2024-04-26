@@ -40,10 +40,10 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuProfile">
             {% if current_user.is_authenticated %}
-            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i> Soporte</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('profile') }}">Mi perfil</a></li>
             <li><a class="dropdown-item" href="{{ url_for('configuracion') }}"> Configuración</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('change_password') }}"> Contraseña</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('change_password') }}"> Seguridad</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i> Soporte</a></li>
             <li><a class="dropdown-item" href="{{ url_for('logout') }}"> Cerrar sesión</a></li>
             {% else %}
             <li><a class="dropdown-item" href="{{ url_for('login') }}"><i class="fas fa-user"></i> Login</a></li>
