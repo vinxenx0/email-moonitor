@@ -1,217 +1,236 @@
 {% if current_user.is_authenticated and current_user.role == 'usuario' %}
-<div class="sidebar-dropdown">
-  <ul class="navbar-nav">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSidebar" role="button" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        <i class="fa-solid fa-crown"></i> Mis Sitios
-      </a>
-      
-     <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownSidebar">
+<div class="accordion mb-3" id="accordionAdmin">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero"
+        aria-expanded="false" aria-controls="collapseZero">
+        <i class="fa-solid fa-crown"></i>&nbsp; Mis Sitios
+      </button>
+    </h2>
+
+      <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownSidebar">
         <li><a class="dropdown-item" href="{{ url_for('index') }}">Resumen</a></li>
         <li><a class="dropdown-item" href="{{ url_for('index') }}">Config</a></a></li>
         <li><a class="dropdown-item" href="{{ url_for('index') }}">Sistema</a></a></li>
       </ul>
     -->
-    </li>
-  </ul>
+    <div id="collapseZero" class="accordion-collapse collapse" aria-labelledby="headingZero"
+      data-bs-parent="#accordionAdmin">
+      <div class="accordion-body">
+        <nav class="sb-sidenav-menu-nested nav">
+          <ul>
+            <li><a class="dropdown-item" href="{{ url_for('admin_stats') }}">Estadisticas</a></a></li>
+            <li><a class="dropdown-item" href="{{ url_for('admin_register') }}">Nuevos Usuarios</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('configuracion') }}">Config</a></a></li>
+            <li><a class="dropdown-item" href="{{ url_for('usuarios') }}">Sistema</a></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
 </div>
 {%endif %}
-{% if current_user.is_authenticated and current_user.role == 'admin' %}
-<div class="sidebar-dropdown">
-  <ul class="navbar-nav">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSidebar" role="button" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        <i class="fa-solid fa-gear"></i> admin
-      </a>
-      
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdownSidebar">
-        <li><a class="dropdown-item" href="{{ url_for('admin_register') }}">Añadir usuarios</a></li>
-        <li><a class="dropdown-item" href="{{ url_for('configuracion') }}">Config</a></a></li>
-        <li><a class="dropdown-item" href="{{ url_for('usuarios') }}">Sistema</a></a></li>
-      </ul>
-     
-    </li>
-  </ul>
-</div>
-{% endif %}
-
-<div class="accordion mb-3" id="accordionExample">
+{% if is_admin %}
+<div class="accordion mb-3" id="accordionAdmin">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-        aria-expanded="false" aria-controls="collapseOne">
-        <i class="fa-solid fa-wheelchair fa-fw"></i> Accesibilidad
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero"
+        aria-expanded="false" aria-controls="collapseZero">
+        <i class="fa-solid fa-gear"></i>&nbsp;Administrador
       </button>
     </h2>
-    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-      data-bs-parent="#accordionExample">
+    <div id="collapseZero" class="accordion-collapse collapse" aria-labelledby="headingZero"
+      data-bs-parent="#accordionAdmin">
       <div class="accordion-body">
         <nav class="sb-sidenav-menu-nested nav">
           <ul>
-            <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
-                href=" /accesibilidad/resumen/">Resumen</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
-                href="/analisis-aaa/">WCAG-AA</a></li>
-            <!--
-                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
-                        href="/responsive/">Responsive</a>
--->
-            <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
-                href="/legibilidad/">Legibilidad</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
-                href="/imagenes/">Im&aacute;genes</a></li>
-
-
+            <li><a class="dropdown-item" href="{{ url_for('admin_stats') }}">Estadisticas</a></a></li>
+            <li><a class="dropdown-item" href="{{ url_for('admin_register') }}">Nuevos Usuarios</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('configuracion') }}">Config</a></a></li>
+            <li><a class="dropdown-item" href="{{ url_for('usuarios') }}">Sistema</a></a></li>
           </ul>
-
-        </nav>
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading2">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"
-        aria-expanded="false" aria-controls="collapse2">
-        <i class="fas fa-envelop"></i> EMAIL
-      </button>
-    </h2>
-    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
-      data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <nav class="sb-sidenav-menu-nested nav">
-          <ul>
-            <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
-                href=" /accesibilidad/resumen/">Resumen</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
-                href="/analisis-aaa/">WCAG-AA</a></li>
-            <!--
-                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
-                        href="/responsive/">Responsive</a>
--->
-            <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
-                href="/legibilidad/">Legibilidad</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
-                href="/imagenes/">Im&aacute;genes</a></li>
-
-
-          </ul>
-
-        </nav>
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading3">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3"
-        aria-expanded="false" aria-controls="collapse3">
-        <i class="fa-solid fa-thumbs-up"></i>Usabilidad
-      </button>
-    </h2>
-    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
-      data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <nav class="sb-sidenav-menu-nested nav">
-          <ul>
-            <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
-                href=" /accesibilidad/resumen/">Resumen</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
-                href="/analisis-aaa/">WCAG-AA</a></li>
-            <!--
-                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
-                        href="/responsive/">Responsive</a>
--->
-            <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
-                href="/legibilidad/">Legibilidad</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
-                href="/imagenes/">Im&aacute;genes</a></li>
-
-
-          </ul>
-
-        </nav>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading4">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4"
-        aria-expanded="false" aria-controls="collapse4">
-        <i class="fas fa-chart-area"></i> SEO
-      </button>
-    </h2>
-    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
-      data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <nav class="sb-sidenav-menu-nested nav">
-          <ul>
-            <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
-                href=" /accesibilidad/resumen/">Resumen</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
-                href="/analisis-aaa/">WCAG-AA</a></li>
-            <!--
-                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
-                        href="/responsive/">Responsive</a>
--->
-            <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
-                href="/legibilidad/">Legibilidad</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
-                href="/imagenes/">Im&aacute;genes</a></li>
-
-
-          </ul>
-
-        </nav>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading5">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5"
-        aria-expanded="false" aria-controls="collapse5">
-        <i class="fas fa-chart-area"></i> Ortografia
-      </button>
-    </h2>
-    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
-      data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <nav class="sb-sidenav-menu-nested nav">
-          <ul>
-            <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
-                href=" /accesibilidad/resumen/">Resumen</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
-                href="/analisis-aaa/">WCAG-AA</a></li>
-            <!--
-                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
-                        href="/responsive/">Responsive</a>
--->
-            <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
-                href="/legibilidad/">Legibilidad</a></li>
-
-            <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
-                href="/imagenes/">Im&aacute;genes</a></li>
-
-
-          </ul>
-
         </nav>
       </div>
     </div>
   </div>
 </div>
-<!--
+  {% endif %}
+
+  <div class="accordion mb-3" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+          aria-expanded="false" aria-controls="collapseOne">
+          <i class="fa-solid fa-wheelchair fa-fw"></i> Accesibilidad
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <nav class="sb-sidenav-menu-nested nav">
+            <ul>
+              <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
+                  href=" /accesibilidad/resumen/">Resumen</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
+                  href="/analisis-aaa/">WCAG-AA</a></li>
+              <!--
+                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
+                        href="/responsive/">Responsive</a>
+-->
+              <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
+                  href="/legibilidad/">Legibilidad</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
+                  href="/imagenes/">Im&aacute;genes</a></li>
+
+
+            </ul>
+
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading2">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"
+          aria-expanded="false" aria-controls="collapse2">
+          <i class="fas fa-envelop"></i> EMAIL
+        </button>
+      </h2>
+      <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <nav class="sb-sidenav-menu-nested nav">
+            <ul>
+              <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
+                  href=" /accesibilidad/resumen/">Resumen</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
+                  href="/analisis-aaa/">WCAG-AA</a></li>
+              <!--
+                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
+                        href="/responsive/">Responsive</a>
+-->
+              <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
+                  href="/legibilidad/">Legibilidad</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
+                  href="/imagenes/">Im&aacute;genes</a></li>
+
+
+            </ul>
+
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading3">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3"
+          aria-expanded="false" aria-controls="collapse3">
+          <i class="fa-solid fa-thumbs-up"></i>Usabilidad
+        </button>
+      </h2>
+      <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <nav class="sb-sidenav-menu-nested nav">
+            <ul>
+              <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
+                  href=" /accesibilidad/resumen/">Resumen</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
+                  href="/analisis-aaa/">WCAG-AA</a></li>
+              <!--
+                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
+                        href="/responsive/">Responsive</a>
+-->
+              <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
+                  href="/legibilidad/">Legibilidad</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
+                  href="/imagenes/">Im&aacute;genes</a></li>
+
+
+            </ul>
+
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading4">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4"
+          aria-expanded="false" aria-controls="collapse4">
+          <i class="fas fa-chart-area"></i> SEO
+        </button>
+      </h2>
+      <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <nav class="sb-sidenav-menu-nested nav">
+            <ul>
+              <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
+                  href=" /accesibilidad/resumen/">Resumen</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
+                  href="/analisis-aaa/">WCAG-AA</a></li>
+              <!--
+                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
+                        href="/responsive/">Responsive</a>
+-->
+              <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
+                  href="/legibilidad/">Legibilidad</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
+                  href="/imagenes/">Im&aacute;genes</a></li>
+
+
+            </ul>
+
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading5">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5"
+          aria-expanded="false" aria-controls="collapse5">
+          <i class="fas fa-chart-area"></i> Ortografia
+        </button>
+      </h2>
+      <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <nav class="sb-sidenav-menu-nested nav">
+            <ul>
+              <li><a class="nav-link {% if request.endpoint == 'accesibilidad_resumen_dominio' %} active {% endif %}"
+                  href=" /accesibilidad/resumen/">Resumen</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'analisis_aaa' %} active {% endif %}"
+                  href="/analisis-aaa/">WCAG-AA</a></li>
+              <!--
+                        <a class="nav-link {% if request.endpoint == 'responsive' %} active {% endif %}"
+                        href="/responsive/">Responsive</a>
+-->
+              <li><a class="nav-link {% if request.endpoint == 'legibilidad' %} active {% endif %}"
+                  href="/legibilidad/">Legibilidad</a></li>
+
+              <li><a class="nav-link {% if request.endpoint == 'imagenes' %} active {% endif %}"
+                  href="/imagenes/">Im&aacute;genes</a></li>
+
+
+            </ul>
+
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
 {% if current_user.role == 'admin' %}
 <div class="sidebar-dropdown">
   <ul class="navbar-nav">

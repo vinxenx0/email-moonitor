@@ -45,7 +45,7 @@ login_manager.login_view = 'login'
 
 # Importar modelos y vistas
 
-from app.controllers import main_controller, user_controller, tools_controller
+from app.controllers import main_controller, user_controller, tools_controller, admin_controller
 from app.views import user_views, tools_views
 from app.models.user_model import User
 #from app.forms import LoginForm, ConfigForm
@@ -83,6 +83,15 @@ with app.app_context():
 @app.context_processor
 def inject_sidebar_info():
     return dict(is_admin=current_user.is_authenticated and current_user.role == 'admin')
+
+@app.context_processor
+def inject_breadcrumb():
+    breadcrumbs = [
+        {'url': '/', 'text': 'Inicio'},
+        {'url': '/profile', 'text': 'Opcion 1'},
+        {'url': '/profile/edit', 'text': 'Sub opcion 1'}
+    ]
+    return {'breadcrumbs': breadcrumbs}
 
 #@app.before_request
 #def check_show_cookies_modal():

@@ -12,12 +12,18 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Agrega otros enlaces CSS si es necesario -->
+
   <!-- Agrega otros enlaces CSS si es necesario 
   
    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
   -->
 
+  <!-- SimpleDatatables CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     /* Custom Styles */
@@ -67,7 +73,32 @@
       margin-bottom: 10px;
     }
   </style>
+    <script>
+      // Recuperar el estado del collapse del localStorage para cada elemento colapsable
+      document.addEventListener('DOMContentLoaded', function () {
+          var collapseStates = JSON.parse(localStorage.getItem('collapseStates')) || {};
 
+          // Iterar sobre cada collapse y aplicar el estado correspondiente
+          Object.keys(collapseStates).forEach(function (collapseId) {
+              if (collapseStates[collapseId]) {
+                  $('#' + collapseId).addClass('show');
+              }
+          });
+
+          // Manejar eventos del collapse para actualizar el localStorage
+          $('.collapse').on('show.bs.collapse', function () {
+              var collapseId = $(this).attr('id');
+              collapseStates[collapseId] = true;
+              localStorage.setItem('collapseStates', JSON.stringify(collapseStates));
+          });
+
+          $('.collapse').on('hide.bs.collapse', function () {
+              var collapseId = $(this).attr('id');
+              collapseStates[collapseId] = false;
+              localStorage.setItem('collapseStates', JSON.stringify(collapseStates));
+          });
+      });
+  </script>
 
 </head>
 
@@ -80,6 +111,7 @@
     <div class="container">
       <div class="row">
 
+        {% include 'inc/breadcrumbs.html' %}
 
         <div class="col-md-2">
           {% include 'inc/sidebar.html' %}
@@ -105,6 +137,7 @@
   {% include 'inc/footer.html' %}
 
   {% include 'inc/scripts.html' %}
+
 
 </body>
 

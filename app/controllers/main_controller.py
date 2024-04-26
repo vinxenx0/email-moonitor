@@ -57,7 +57,8 @@ def configuracion():
 
 @app.route('/test')
 def test():
-    return render_template('inc/layout.html')
+    #return render_template('inc/layout.html')
+    return render_template('base.html')
 
 
 
