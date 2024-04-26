@@ -1,6 +1,6 @@
 # __init__py
 import os
-from flask import Flask
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from flask_login import LoginManager, current_user
@@ -83,3 +83,8 @@ with app.app_context():
 @app.context_processor
 def inject_sidebar_info():
     return dict(is_admin=current_user.is_authenticated and current_user.role == 'admin')
+
+#@app.before_request
+#def check_show_cookies_modal():
+#    if not current_user.is_authenticated and 'cookies_accepted' not in session:
+#        session['show_cookies_modal'] = True

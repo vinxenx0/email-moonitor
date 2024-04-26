@@ -1,5 +1,5 @@
 # app/controllers/user_controller.py
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, session, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
 from app import app, db, mail
 from app.models.user_model import User
@@ -10,6 +10,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
 from app.forms import RegistrationForm, PasswordResetForm, PasswordChangeForm
 from flask_mail import Message
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -131,7 +132,7 @@ def reset_password_request():
             return redirect(url_for('login'))
         else:
             flash('No se encontró ninguna cuenta con ese correo electrónico. Por favor, verifica tu dirección de correo electrónico.', 'danger')
-    return render_template('reset_password_request.html', title='Recuperar contraseña', form=form)
+    return render_template('user/reset_password_request.html', title='Recuperar contraseña', form=form)
 
 @app.route('/change_password', methods=['GET', 'POST'])
 @login_required
@@ -145,7 +146,7 @@ def change_password():
             return redirect(url_for('index'))
         else:
             flash('La contraseña antigua no es correcta. Por favor, inténtalo de nuevo.', 'danger')
-    return render_template('change_password.html', title='Cambiar Contraseña', form=form)
+    return render_template('user/change_password.html', title='Cambiar Contraseña', form=form)
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -162,7 +163,7 @@ def reset_password(token):
         db.session.commit()
         flash('Tu contraseña ha sido restablecida. Ahora puedes iniciar sesión con tu nueva contraseña.', 'success')
         return redirect(url_for('login'))
-    return render_template('reset_password.html', title='Restablecer contraseña', form=form)
+    return render_template('user/reset_password.html', title='Restablecer contraseña', form=form)
 
 
 def send_password_reset_email(user, token):
@@ -192,3 +193,9 @@ If clicking the link above doesn't work, please copy and paste the URL in a new 
 El enlace es válido por 1 hora.
 '''
     #mail.send(msg)
+
+#@app.route('/accept_cookies', methods=['POST'])
+#def accept_cookies():
+#    session['cookies_accepted'] = True
+#    session.pop('show_cookies_modal', None)
+#    return redirect(request.referrer)
