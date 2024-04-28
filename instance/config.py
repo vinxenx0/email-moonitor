@@ -1,8 +1,16 @@
+#instance/config.py
+
 SECRET_KEY = 'tu_clave_secreta'
-#SQLALCHEMY_DATABASE_URI = 'mysql://user:password@host/db' # requiere mysqlclient
-SQLALCHEMY_DATABASE_URI = 'sqlite:///../instance/database.db'  
+SQLALCHEMY_DATABASE_URI = 'mysql://vicente:vblp2267@81.19.160.18/email_moonitor' # requiere mysqlclient
+#SQLALCHEMY_DATABASE_URI = 'sqlite:///../instance/database.db'  
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+#app.config['MAIL_SERVER'] = 'localhost'
+#app.config['MAIL_PORT'] = 8025  # Puerto SMTP de Mailhog
+#app.config['MAIL_USE_TLS'] = False
+#app.config['MAIL_USE_SSL'] = False
+#app.config['MAIL_USERNAME'] = None
+#app.config['MAIL_PASSWORD'] = None
 
 #SEND_FILE_MAX_AGE_DEFAULT = 0
 

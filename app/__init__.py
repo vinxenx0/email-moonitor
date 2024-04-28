@@ -22,12 +22,7 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'vicente@ciberpunk.es'
 app.config['MAIL_PASSWORD'] = 'rt6K_22MHj'
 
-#app.config['MAIL_SERVER'] = 'localhost'
-#app.config['MAIL_PORT'] = 8025  # Puerto SMTP de Mailhog
-#app.config['MAIL_USE_TLS'] = False
-#app.config['MAIL_USE_SSL'] = False
-#app.config['MAIL_USERNAME'] = None
-#app.config['MAIL_PASSWORD'] = None
+
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -65,8 +60,7 @@ with app.app_context():
                                   "web_name": "WHITE", "logo_url": "https://web.com/asdfadsf.png"}
                         )
         new_user.set_password('user')
-        db.session.add(new_user)
-        db.session.commit()
+        
 
         new_admin = User(username='admin', email='admin@admin.com', role='admin', active=True,
                         config = {"color_primary": "#ffffff", "color_secondary": "#000000", "color_tertiary": "#0066cc", 
@@ -74,6 +68,7 @@ with app.app_context():
                         )
         new_admin.set_password('admin')
         db.session.add(new_admin)
+        db.session.add(new_user)
         db.session.commit()
 
 #@login_manager.user_loader
@@ -92,6 +87,10 @@ def inject_breadcrumb():
         {'url': '/profile/edit', 'text': 'Sub opcion 1'}
     ]
     return {'breadcrumbs': breadcrumbs}
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 #@app.before_request
 #def check_show_cookies_modal():

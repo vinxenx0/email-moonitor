@@ -6,16 +6,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy_utils import JSONType
 import datetime
 from flask import current_app
-from app import db, login_manager
+from app import db
 from flask_login import UserMixin
 import datetime
-#from jwt import PyJWT
 import jwt
-from jwt import encode
-#import PyJWT
-#from PyJWT import encode
 from flask import current_app
-from app import db, login_manager
+from app import db
 from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
@@ -24,7 +20,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    token = db.Column(db.String(32), index=True, unique=True)
+    token = db.Column(db.String(255), index=True, unique=True)
     active = db.Column(db.Boolean, default=False)
     registered_on = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     config = db.Column(JSONType)   
@@ -50,8 +46,3 @@ class User(UserMixin, db.Model):
         except:
             return None
         return User.query.get(user_id)
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
