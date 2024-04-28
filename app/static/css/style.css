@@ -1,23 +1,84 @@
+@media (max-width: 768px) {
+
+    #main-content,
+    #sidebar {
+        margin-top: 118px;
+        /* Ajusta el valor según sea necesario */
+    }
+
+    .nav-options .btn span {
+        display: none;
+    }
+}
+
+/* Estilos para el modo oscuro */
+.dark-mode {
+    /* Define los colores y estilos para el modo oscuro */
+    background-color: #333;
+    color: #fff;
+}
+
 body {
-    padding-top: 70px; /* Ajusta el espacio para la barra de navegación */
-    margin-bottom: 100px; /* Añade espacio al final de la página para el footer */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-.sidebar {
-    position: fixed;
-    top: 56px; /* Ajusta el espacio para la barra de navegación */
-    bottom: 0;
-    left: 0;
-    z-index: 100; /* Coloca la barra lateral sobre el contenido */
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Añade desplazamiento vertical */
-    border-right: 1px solid #dee2e6; /* Borde derecho */
+
+.container-fluid {
+    flex: 1;
 }
+
 .footer {
+    margin-top: auto;
+    /* Esto empujará el footer hacia abajo */
+}
+
+#sidebar {
+    transition: all 0.3s;
+    margin-top: 60px;
+    /* Ajusta este valor según sea necesario */
+}
+
+#main-content {
+    margin-top: 60px;
+    /* Ajusta este valor según sea necesario */
+}
+
+.navbar {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
     position: fixed;
-    bottom: 0;
     width: 100%;
-    height: 100px; /* Altura del footer */
-    text-align: center;
-    line-height: 100px; /* Alinea el texto verticalmente */
+    top: 0;
+    z-index: 1000;
+}
+
+
+.nav-options {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+
+.nav-options .nav-item a {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 4px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    /* Color del texto */
+    background-color: #007bff !important;
+    /* Color de fondo */
+}
+
+.nav-options .nav-item a:hover {
+    background-color: #0056b3 !important;
+    /* Color de fondo al pasar el ratón */
 }

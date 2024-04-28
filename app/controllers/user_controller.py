@@ -2,7 +2,7 @@
 from flask import render_template, redirect, session, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
 from app import app, db, mail
-from app.models.user_model import User
+from app.models.user_model import Users
 from app.forms import LoginForm, PasswordResetRequestForm
 from app.forms import NewUserRegistrationForm, RegistrationForm
 from flask import render_template, redirect, url_for, flash, request
@@ -15,14 +15,14 @@ from flask_mail import Message
 @app.route('/profile')
 @login_required
 def profile():
-    user = User.query.filter_by(id=current_user.id).first()
+    user = Users.query.filter_by(id=current_user.id).first()
     return render_template('user/profile.html', user=user)
 
 
 @app.route('/profile/edit', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    user = User.query.get(current_user.id)
+    user = Users.query.get(current_user.id)
     if user.role == 'admin':
         can_edit = True
     else:
@@ -71,7 +71,7 @@ def register():
             "web_name": form.username.data,
             "logo_url": "https://web.com/asdfadsf.png"
         }
-        user = User(
+        user = Users(
             username=form.username.data,
             email=form.email.data,
             role='usuario',
@@ -103,7 +103,7 @@ def admin_register():
             "web_name": "FLASKAPP",
             "logo_url": "https://web.com/asdfadsf.png"
         }
-        user = User(
+        user = Users(
             username=form.username.data,
             email=form.email.data,
             role=form.role.data,
@@ -124,7 +124,7 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = Users.query.filter_by(username=form.username.data).first()
         if user and user.check_password(form.password.data):
             if not user.active:
                 send_activation_email(user)
@@ -165,7 +165,7 @@ def logout():
 
 @app.route('/activate/<token>')
 def activate(token):
-    user = User.verify_token(token)
+    user = Users.verify_token(token)
     if user:
         user.active = True
         db.session.commit()
@@ -180,7 +180,7 @@ def activate(token):
 def reset_password_request():
     form = PasswordResetRequestForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = Users.query.filter_by(email=form.email.data).first()
         if user:
             token = user.get_token(
                 expires_sec=600)  # Token válido por 10 minutos (600 segundos)
@@ -221,7 +221,7 @@ def change_password():
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    user = User.verify_token(token)
+    user = Users.verify_token(token)
     if not user:
         flash(
             'El enlace de restablecimiento de contraseña es inválido o ha expirado.',
