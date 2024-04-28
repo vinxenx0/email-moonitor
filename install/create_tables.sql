@@ -3,7 +3,9 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(80) UNIQUE NOT NULL,
     email VARCHAR(120) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
+    token VARCHAR(255) UNIQUE,
+    active BOOLEAN DEFAULT FALSE,
+    registered_on DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     config JSON,
-    rol VARCHAR(20) NOT NULL DEFAULT 'usuario'
+    role VARCHAR(20) NOT NULL DEFAULT 'usuario'
 );
-

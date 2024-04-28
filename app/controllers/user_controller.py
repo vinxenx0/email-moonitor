@@ -29,12 +29,11 @@ def edit_profile():
         can_edit = False
     form = EditProfileForm()
     if form.validate_on_submit():
-        # Obtener los datos del formulario
         username = form.username.data
         password = form.password.data
         role = form.role.data
         active = form.active.data
-        # Verificar si el usuario es admin y puede editar
+
         if can_edit:
             user.username = username
             user.set_password(password)
