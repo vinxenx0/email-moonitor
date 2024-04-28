@@ -2,6 +2,7 @@
 from flask import render_template, redirect, session, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
 from app import app, db, mail
+from app.controllers.logs_controller import log_event
 from app.models.user_model import Users
 from app.forms import LoginForm, PasswordResetRequestForm
 from app.forms import NewUserRegistrationForm, RegistrationForm
@@ -132,8 +133,10 @@ def login():
                     'Tu cuenta aún no está activada. Se ha enviado un nuevo correo electrónico de activación.',
                     'warning')
                 return redirect(url_for('login'))
+            
             login_user(user)
-
+            log_event('LOGIN', 'Inicio correcto.')
+            
             app.config['COLOR_PRIMARY'] = user.config.get(
                 'color_primary', app.config['COLOR_PRIMARY'])
             app.config['COLOR_SECONDARY'] = user.config.get(

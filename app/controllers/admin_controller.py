@@ -2,6 +2,7 @@
 from flask_login import login_required
 from app import app
 from flask import render_template, jsonify
+from app.models.log_model import Log
 from app.models.user_model import Users
 from datetime import datetime, timedelta
 from sqlalchemy import func
@@ -30,3 +31,10 @@ def admin_stats():
     print(active_users)
 
     return render_template('admin/stats.html', users=users, users_last_month=users_last_month, total_users=total_users, active_users=active_users)
+
+
+@app.route('/admin/logs')
+@login_required
+def logs():
+    logs = Log.query.all()
+    return render_template('admin/logs.html', title='Logs', logs=logs)

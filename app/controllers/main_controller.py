@@ -10,7 +10,6 @@ from app.forms import ConfigForm
 
 @app.route('/')
 def index():
-   log_event('Evento', 'Se ha accedido a la página de inicio.')
    return render_template('index.html')
 
 @app.route('/app')

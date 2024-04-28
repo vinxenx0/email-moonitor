@@ -6,9 +6,12 @@
         /* Ajusta el valor según sea necesario */
     }
 
-    .nav-options .btn span {
+    .nav-options .btn span,
+    .accordion-button .item-responsive {
         display: none;
     }
+
+
 }
 
 /* Estilos para el modo oscuro */
@@ -30,6 +33,7 @@ body {
 
 .footer {
     margin-top: auto;
+    clear: both;
     /* Esto empujará el footer hacia abajo */
 }
 
