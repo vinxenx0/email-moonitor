@@ -11,6 +11,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
 from app.forms import RegistrationForm, PasswordResetForm, PasswordChangeForm, EditProfileForm
 from flask_mail import Message
+from flask import Flask, render_template, make_response, redirect, url_for, session
 
 
 @app.route('/profile')
@@ -161,6 +162,10 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
+    session.pop('session', None)
+    resp = make_response(redirect(url_for('index')))
+    resp.delete_cookie('session')  # Eliminar la cookie 'sidebar_state'
+
     app.config.from_pyfile('../instance/config.py')
     flash('Hasta la vista', 'success')
     return render_template('user/logout.html')
