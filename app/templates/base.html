@@ -34,15 +34,16 @@
         sidebarState = 'visible';
       }
 
-      // Set initial collapse states for acordeons
+      // Set initial collapse states for acordeons V
       for (const collapseId in collapseStates) {
         if (Object.prototype.hasOwnProperty.call(collapseStates, collapseId)) {
           const collapse = document.getElementById(collapseId);
-          if (collapseStates[collapseId]) {
+          if (collapse && collapseStates[collapseId]) {
             collapse.classList.add('show');
           }
         }
       }
+
 
       // Toggle sidebar visibility based on stored state
       if (sidebarState === 'hidden') {
