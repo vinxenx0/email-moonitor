@@ -14,8 +14,8 @@ from flask import current_app
 from app import db
 from flask_login import UserMixin
 
-class User(UserMixin, db.Model):
-    __tablename__='users'
+class Users(UserMixin, db.Model):
+    __tablename__='Users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -25,6 +25,10 @@ class User(UserMixin, db.Model):
     registered_on = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     config = db.Column(JSONType)   
     role = db.Column(db.String(20), nullable=False, default='usuario')
+
+    # Definición de la relación con la tabla Log
+    logs = db.relationship('Log', back_populates='user')  # Cambiado de 'logs' a 'Log'
+
     
     def __repr__(self):
         return '<User %r>' % self.username
@@ -45,4 +49,4 @@ class User(UserMixin, db.Model):
             user_id = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])['user_id']
         except:
             return None
-        return User.query.get(user_id)
+        return Users.query.get(user_id)

@@ -3,11 +3,11 @@ from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL, Regexp, Email, EqualTo, ValidationError
-from app.models.user_model import User
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
-from app.models.user_model import User
+
+from app.models.user_model import Users
 
 class NewUserRegistrationForm(FlaskForm):
     username = StringField('Nombre de usuario', validators=[DataRequired(), Length(min=4, max=20)])
@@ -17,12 +17,12 @@ class NewUserRegistrationForm(FlaskForm):
     submit = SubmitField('Registrarse')
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
+        user = Users.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('Este nombre de usuario ya está en uso. Por favor, elija otro.')
 
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
+        user = Users.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Este correo electrónico ya está registrado. Por favor, use otro.')
 
@@ -36,12 +36,12 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Registrarse')
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
+        user = Users.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('Este nombre de usuario ya está en uso. Por favor, elija otro.')
 
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
+        user = Users.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Este correo electrónico ya está registrado. Por favor, use otro.')
 
@@ -87,6 +87,6 @@ class EditProfileForm(FlaskForm):
     submit = SubmitField('Guardar cambios')
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
+        user = Users.query.filter_by(username=username.data).first()
         if user and user.id != current_user.id:
             raise ValidationError('Este nombre de usuario ya está en uso. Por favor, elija otro.')

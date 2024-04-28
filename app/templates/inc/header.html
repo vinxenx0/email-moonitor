@@ -1,48 +1,38 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
-  <div class="container-fluid">
-    <button class="btn btn-primary me-2" id="toggle-sidebar"><i class="fas fa-bars"></i></button>
-    <a class="navbar-brand me-auto" href="#"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"
-        height="30"></a>
-    <div class="nav-options">
-      <a class="nav-item" href="{{ url_for('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a class="nav-item" href="#"><i class="fas fa-newspaper"></i> Novedades</a>
-      {% if current_user.is_authenticated %}
-      <a class="nav-item" href="{{ url_for('index') }}"><i class="fas fa-user-plus"></i><span class="d-lg-inline">
-          Hacerse Pro</span></a>
-      {% else %}
-      <a class="nav-item" href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i><span class="d-lg-inline">
-          Registrarse</span></a>
-      {% endif %}
-    </div>
-  </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+      <button class="btn btn-primary me-2" id="toggle-sidebar"><i class="fas fa-bars"></i></button>
+      <a class="navbar-brand me-auto" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"
+          height="30" width="130"></a>
+      <div class="nav-options">
 
-  {% if not current_user.is_authenticated %}
-  <div class="col-md-3 mt-2">
-    <div class="dropdown">
-      <a class="btn btn-outline-secondary  " href="{{ url_for('login') }}">
-        <i class="fa-solid fa-key"></i> login
-      </a>
-      <!--  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuProfile">
-            <li><a class="dropdown-item" href="#">Recuperar contraseña</a></li>
-          </ul> -->
+        <!-- Estilos para los enlaces -->
+        <a class=" btn btn-outline-primary active" href="{{ url_for('dashboard') }}"><i
+            class="fas fa-tachometer-alt"></i><span class="d-lg-inline"> Dashboard</span></a>
+        <a class=" btn btn-outline-primary ms-1" href="#"><i class="fas fa-newspaper"></i><span
+            class="d-lg-inline">Novedades</span></a>
+
+        {% if current_user.is_authenticated %}
+        <a class=" btn btn-outline-primary ms-1" href="{{ url_for('index') }}"><i class="fas fa-user-plus"></i><span
+            class="d-lg-inline"> Premium</span></a>
+        {% else %}
+        <a class=" btn btn-outline-primary ms-1" href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i><span
+            class="d-lg-inline"> Registrarse</span></a>
+        {% endif %}
+
+        <!-- Botón de logout -->
+        {% if not current_user.is_authenticated %}
+        <a class="btn btn-outline-secondary ms-1" href="{{ url_for('login') }}"><i class="fa-solid fa-key"></i>
+          Login</a>
+        {% else %}
+        <a class="btn btn-outline-secondary ms-1" href="{{ url_for('logout') }}"><i class="fa-solid fa-key"></i>
+          Salir</a>
+        {% endif %}
+
+        <!-- Botón de modo oscuro -->
+        <button class="btn btn-primary ms-1" id="dark-mode-toggle"><i class="fas fa-adjust"></i></button>
+
+      </div>
     </div>
-  </div>
-  {% else %}
-  <div class="dropdown">
-    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuProfile" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="fas fa-user"></i> {{ current_user.username }}
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuProfile">
-      <li><a class="dropdown-item" href="{{ url_for('profile') }}">Mi perfil</a></li>
-      <li><a class="dropdown-item" href="{{ url_for('configuracion') }}"> Configuración</a></li>
-      <li><a class="dropdown-item" href="{{ url_for('change_password') }}"> Seguridad</a></li>
-      <li><hr class="dropdown-divider"></li> <!-- Separador -->
-      <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i> Soporte</a></li>
-      <li><a class="dropdown-item" href="{{ url_for('logout') }}"> Cerrar sesión</a></li>
-    </ul>
-  </div>
-  
-  {%endif%}
-</nav>
-<!-- /Navbar -->
+  </nav>
+  <!-- /Navbar -->

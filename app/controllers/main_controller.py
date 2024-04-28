@@ -3,6 +3,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_required
 from app import app, db
+from app.controllers.logs_controller import log_event
 from app.forms import ConfigForm
 
 
