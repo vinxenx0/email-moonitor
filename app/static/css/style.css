@@ -1,8 +1,8 @@
-@media (max-width: 768px) {
+@media (max-width: 576px) {
 
     #main-content,
     #sidebar {
-        margin-top: 118px;
+        margin-top: 127px;
         /* Ajusta el valor según sea necesario */
     }
 
