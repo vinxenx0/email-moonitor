@@ -55,6 +55,14 @@ ask_and_save_config() {
 
 
     # añadir app.run(debug=True, port='8000', host='0.0.0.0')
+    # añadir SMTP
+
+    #app.config['MAIL_SERVER'] = 'localhost'
+    #app.config['MAIL_PORT'] = 8025  # Puerto SMTP de Mailhog
+    #app.config['MAIL_USE_TLS'] = False
+    #app.config['MAIL_USE_SSL'] = False
+    #app.config['MAIL_USERNAME'] = None
+    #app.config['MAIL_PASSWORD'] = None
 
      if [[ "$db_type" == "1" ]]; then
         echo "SQLALCHEMY_DATABASE_URI = 'mysql://$db_user:$db_pwd@$db_host/$db_name'" >> instance/config.py
