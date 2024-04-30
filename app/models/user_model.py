@@ -26,8 +26,7 @@ class Users(UserMixin, db.Model):
     config = db.Column(JSONType)   
     role = db.Column(db.String(20), nullable=False, default='usuario')
 
-    # Definición de la relación con la tabla Log
-    logs = db.relationship('Log', back_populates='user')  # Cambiado de 'logs' a 'Log'
+    logs = db.relationship('Log', back_populates='user')
 
     
     def __repr__(self):

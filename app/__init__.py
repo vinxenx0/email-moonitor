@@ -8,11 +8,7 @@ from flask_migrate import Migrate
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
 from logging.handlers import RotatingFileHandler
-
-
 #from mailhog import Mailhog
-
-
 
 
 app = Flask(__name__)
@@ -37,7 +33,7 @@ login_manager.login_view = 'login'
 # Configurar el registro
 #logging.basicConfig(filename='instance/error.log', level=logging.ERROR)
 
-# Comprobamos si la base de datos SQLite existe, y si no, la creamos
+# Creamos archivo de log
 log_path = os.path.join(os.path.dirname(__file__), '..', 'instance', 'app.log')
 if not os.path.exists(log_path):
     open(log_path, 'w').close()
