@@ -10,15 +10,23 @@ from app.forms import ConfigForm
 
 @app.route('/')
 def index():
+   log_event('INDEX', 'pagina raíz')
    return render_template('index.html')
 
 @app.route('/app')
 def dashboard():
-   return render_template('dashboard.html')
+   breadcrumbs = [
+        {'url': '/app', 'text': 'Dashboard'}
+    ]
+   log_event('DASHBOARD', 'Portada herramienta.')
+   return render_template('dashboard.html', breadcrumbs=breadcrumbs)
 
 @app.route('/config', methods=['GET', 'POST'])
 @login_required
 def configuracion():
+    breadcrumbs = [
+        {'url': '/config', 'text': 'Config'},
+    ]
     form = ConfigForm()
     if form.validate_on_submit():
         current_user.config = {
@@ -35,11 +43,12 @@ def configuracion():
         app.config['COLOR_TERTIARY'] = form.color_tertiary.data
         app.config['WEB_NAME'] = form.web_name.data
         app.config['LOGO_URL'] = form.logo_url.data
+        
+        log_event('CONFIG', 'Configuración del sistema actualizada.')
 
         flash('Configuración actualizada correctamente.', 'success')
         return redirect(url_for('index'))
     elif request.method == 'GET':
-        # Verificar si current_user tiene configuración antes de acceder a ella
         if current_user.config:
             form.color_primary.data = current_user.config.get('color_primary', '')
             form.color_secondary.data = current_user.config.get('color_secondary', '')
@@ -53,13 +62,15 @@ def configuracion():
             form.color_tertiary.data = ''
             form.web_name.data = ''
             form.logo_url.data = ''
-    return render_template('config.html', title='Configuración', form=form)
+ 
+    log_event('CONFIG', 'Visita Configuración del sistema.')
+    return render_template('config.html', title='Configuración', form=form, breadcrumbs=breadcrumbs)
 
 
 @app.route('/test')
 def test():
+    breadcrumbs = [
+        {'url': '/test', 'text': 'Test'}
+    ]
     #return render_template('inc/layout.html')
     return render_template('base.html')
-
-
-

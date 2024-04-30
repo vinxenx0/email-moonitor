@@ -1,12 +1,21 @@
 
-from flask import Flask, request, jsonify
+from app.controllers.logs_controller import log_event
+from flask import jsonify
 from app import app
 from app.controllers.tools_controller import *
 import time
+import subprocess
+from flask import render_template
+from app import app
+from app.forms import PingForm
 
-@app.route('/check_domain/<string:domain>') #, methods=['POST'])
+@app.route('/tools/check_domain/<string:domain>') #, methods=['POST'])
 def check_domain(domain):
-    start_time = time.time()  # Guardar el tiempo de inicio
+    start_time = time.time() 
+    breadcrumbs = [
+        {'url': '/tools', 'text': 'Tools'},
+        {'url': '/tools/checkdomain', 'text': 'Check Domain'}
+    ]
     
     if domain:
         results = {
@@ -45,24 +54,25 @@ def check_domain(domain):
 
         sorted_results = {key: results[key] for key in sorted(results.keys())}
         
-        end_time = time.time()  # Guardar el tiempo de finalización
-        duration = end_time - start_time  # Calcular la duración total
+        end_time = time.time()
+        duration = end_time - start_time
         
-        sorted_results['duration'] = duration  # Agregar la duración al resultado
-        
+        sorted_results['duration'] = duration 
+        log_event('CHECKDOMAIN', 'Herramienta lanzada.')        
         return jsonify(sorted_results)
  
     else:
+        log_event('CHECKDOMAIN', 'Error.')
         return jsonify({'error': 'Domain not provided'}), 400
 
 
-import subprocess
-from flask import render_template, request
-from app import app
-from app.forms import PingForm
 
-@app.route('/ping', methods=['GET', 'POST'])
+@app.route('/tools/ping', methods=['GET', 'POST'])
 def ping():
+    breadcrumbs = [
+        {'url': '/tools', 'text': 'Tools'},
+        {'url': '/tools/ping', 'text': 'Ping'}
+    ]
     form = PingForm()
     ping_result = None
     if form.validate_on_submit():
@@ -70,9 +80,12 @@ def ping():
         try:
             result = subprocess.run(['ping', '-c', '4', domain], capture_output=True, text=True, timeout=10)
             if result.returncode == 0:
+                log_event('PING', 'Correcto.')
                 ping_result = result.stdout
             else:
                 ping_result = "No se pudo hacer ping al dominio."
+                log_event('PING', 'Fail.')
         except subprocess.TimeoutExpired:
+            log_event('PING', 'Timeout.')
             ping_result = "El ping ha superado el tiempo de espera."
-    return render_template('tools/ping.html', title='PING', form=form, ping_result=ping_result)
+    return render_template('tools/ping.html', title='PING', form=form, ping_result=ping_result, breadcrumbs=breadcrumbs)
