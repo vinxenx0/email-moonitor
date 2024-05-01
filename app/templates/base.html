@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
@@ -17,8 +18,76 @@
   <!-- SimpleDatatables CSS -->
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
+  <style>
+    @media(max-width:767px){
+      #navbarNav, #navbarNav .dropdown {
+        z-index: 1000;
+      }
+      .navbar .navbar-collapse.collapsing{ 
+        height:auto !important;
+      }
+      .navbar .lateral-left{
+        left:-100%; 
+        animation: slide-out-left 200ms forwards;
+      }
+      .navbar .lateral-left.open{ 
+        animation: slide-in-left 200ms forwards;
+      }
+      .navbar .lateral-right{
+        right:-100%;
+        animation: slide-out-right 200ms forwards;
+      }
+      .navbar .lateral-right.open{ 
+        animation: slide-in-right 200ms forwards;
+      }
+      .navbar .navbar-collapse{ 
+        top:0px; bottom:0px; 
+        position:fixed; 
+        width:80%; width:calc(100% - 60px); 
+        max-width:320px; 
+        height:auto !important;
+    
+        /* Optional styling */
+        background:#f8f8f8;
+        padding:30px;
+        top: 56px;
+      }
+      .navbar .lateral-left.open,
+      .navbar .lateral-right.open{
+        display:block !important;
+        overflow-y:auto;
+      }
+    }
+    
+    @keyframes slide-in-left{ 
+      0%		{ left:-100%; }
+      100%	{ left:0px; }
+    }
+    @keyframes slide-out-left{
+      0%		{ left:0px; }
+      100%	{ left:-100%; }
+    }
+    @keyframes slide-in-right{ 
+      0%		{ right:-100%; }
+      100%	{ right:0px; }
+    }
+    @keyframes slide-out-right{
+      0%		{ right:0px; }
+      100%	{ right:-100%; }
+    }
+  </style>
+  <script>
+    // Menu side toggle
+    document.addEventListener('DOMContentLoaded', function () {
+      var toggler = document.querySelector('.navbar-toggler');
+      var navbarCollapse = document.querySelector('.navbar-collapse');
+  
+      toggler.addEventListener('click', function () {
+        navbarCollapse.classList.toggle('open');
+      });
+    });
+  </script>
+  <!--
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const sidebar = document.getElementById('sidebar');
@@ -97,15 +166,7 @@
     });
 
   </script>
-<script>
-  // Menu side toggle
-$('document').ready(function(){
-  $('button.navbar-toggle').click(function(){
-    var navbar_obj = $($(this).data("target"));
-    navbar_obj.toggleClass("open");
-  });
-});
-</script>
+-->
   <!--
     <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -170,7 +231,7 @@ $('document').ready(function(){
 });
 
   </script>
-  -->
+-->
 </head>
 
 <body>
@@ -182,13 +243,7 @@ $('document').ready(function(){
   <div class="container-fluid">
     <div class="row">
 
-      <!-- Sidebar
-      <div class="col-2 bg-light" id="sidebar">
-        {% include 'inc/sidebar.html' %}
-      </div>
-       -->
-      <!-- /Sidebar -->
-
+  
 
       <!-- Main Content -->
       <div class="col" id="main-content">

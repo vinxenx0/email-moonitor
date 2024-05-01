@@ -6,13 +6,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy_utils import JSONType
 import datetime
 from flask import current_app
-from app import db
+from app import db, login_manager
 from flask_login import UserMixin
-import datetime
-import jwt
+import jwt 
 from flask import current_app
-from app import db
+from app import db, login_manager
 from flask_login import UserMixin
+
+
 
 class Users(UserMixin, db.Model):
     __tablename__='Users'
@@ -40,7 +41,7 @@ class Users(UserMixin, db.Model):
     
     def get_token(self, expires_sec=3600):
         return jwt.encode({'user_id': self.id, 'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=expires_sec)},
-                          current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+                          current_app.config['SECRET_KEY'], algorithm='HS256') #.decode('utf-8')
 
     @staticmethod
     def verify_token(token):

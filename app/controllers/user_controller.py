@@ -1,7 +1,7 @@
 # app/controllers/user_controller.py
 from flask import render_template, redirect, session, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
-from app import app, db
+from app import app, db, mail
 from app.controllers.logs_controller import log_event
 from app.models.user_model import Users
 from app.forms import LoginForm, PasswordResetRequestForm
@@ -311,7 +311,7 @@ El enlace es válido por 10 minutos.
 '''
     #msg.html = render_template('email/reset_password.html', user=user, token=token)
     log_event('PASSWORD', 'Email recuperar contraseña enviado.')
-    #mail.send(msg)
+    mail.send(msg)
 
 
 def send_activation_email(user):
@@ -327,8 +327,8 @@ If clicking the link above doesn't work, please copy and paste the URL in a new 
 
 El enlace es válido por 1 hora.
 '''
-    #mail.send(msg)
-    log_event('CONFIG', 'Configuración global sistema.')
+    mail.send(msg)
+    log_event('ACTIVATION', 'Email de activacion enviado')
 
 #@app.route('/accept_cookies', methods=['POST'])
 #def accept_cookies():

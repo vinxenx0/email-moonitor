@@ -7,10 +7,10 @@ class Log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id')) 
     user_name = db.Column(db.String(50))   
-    page = db.Column(db.String(100), nullable=False)
+    page = db.Column(db.String(255), nullable=False)
     event = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow())
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     user = db.relationship('Users', back_populates='logs')
 
