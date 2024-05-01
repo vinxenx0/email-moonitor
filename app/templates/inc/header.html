@@ -1,4 +1,56 @@
-  <!-- Navbar -->
+
+    <!-- Default bootstrap navbar example -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse lateral-left" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- /Default bootstrap navbar example -->
+
+  
+  <!-- Navbar 
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container-fluid">
       <button class="btn btn-primary me-2" id="toggle-sidebar"><i class="fas fa-bars"></i></button>
@@ -6,7 +58,6 @@
           height="30" width="130"></a>
       <div class="nav-options">
 
-        <!-- Estilos para los enlaces -->
         <a class=" btn btn-outline-primary active" href="{{ url_for('dashboard') }}"><i
             class="fas fa-tachometer-alt"></i><span class="d-lg-inline"> Dashboard</span></a>
         <a class=" btn btn-outline-primary ms-1" href="#"><i class="fas fa-newspaper"></i><span
@@ -20,7 +71,6 @@
             class="d-lg-inline"> Registrarse</span></a>
         {% endif %}
 
-        <!-- Botón de logout -->
         {% if not current_user.is_authenticated %}
         <a class="btn btn-outline-secondary ms-1" href="{{ url_for('login') }}"><i class="fa-solid fa-key"></i>
           Login</a>
@@ -29,10 +79,11 @@
           Salir</a>
         {% endif %}
 
-        <!-- Botón de modo oscuro -->
         <button class="btn btn-primary ms-1" id="dark-mode-toggle"><i class="fas fa-adjust"></i></button>
 
       </div>
     </div>
   </nav>
-  <!-- /Navbar -->
+  
+  
+-->

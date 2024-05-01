@@ -97,7 +97,15 @@
     });
 
   </script>
-
+<script>
+  // Menu side toggle
+$('document').ready(function(){
+  $('button.navbar-toggle').click(function(){
+    var navbar_obj = $($(this).data("target"));
+    navbar_obj.toggleClass("open");
+  });
+});
+</script>
   <!--
     <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -174,10 +182,11 @@
   <div class="container-fluid">
     <div class="row">
 
-      <!-- Sidebar -->
+      <!-- Sidebar
       <div class="col-2 bg-light" id="sidebar">
         {% include 'inc/sidebar.html' %}
       </div>
+       -->
       <!-- /Sidebar -->
 
 
