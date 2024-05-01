@@ -96,7 +96,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         # flash('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success')
-        log_event('REGISTRATION', 'Nuevo usuario registrado')
+        #log_event('REGISTRATION', 'Nuevo usuario registrado')
         send_activation_email(user)
         flash(
             'Se ha enviado un correo electrónico de confirmación. Por favor, verifica tu cuenta.',
@@ -154,7 +154,7 @@ def login():
                 flash(
                     'Tu cuenta aún no está activada. Se ha enviado un nuevo correo electrónico de activación.',
                     'warning')
-                log_event('LOGIN', 'Cuenta inactiva, enviado nuevo link.')
+                #log_event('LOGIN', 'Cuenta inactiva, enviado nuevo link.')
                 return redirect(url_for('login'))
             
             login_user(user)
@@ -176,10 +176,10 @@ def login():
             return redirect(next_page or url_for('index'))
         else:
             flash('Usuario o contraseña incorrectos.', 'danger')
-            log_event('LOGIN', 'Configuración global sistema.')
+            #log_event('LOGIN', 'Configuración global sistema.')
             return redirect(url_for('login'))
         
-    log_event('LOGIN', 'Pagina de login.')
+    #log_event('LOGIN', 'Pagina de login.')
     return render_template('user/login.html', title='Login', form=form, breadcrumbs=breadcrumbs)
 
 
@@ -194,7 +194,7 @@ def logout():
     resp.delete_cookie('session') 
 
     app.config.from_pyfile('../instance/config.py')
-    log_event('LOGOUT', 'Usuario desconectado.')
+    #log_event('LOGOUT', 'Usuario desconectado.')
     flash('Hasta la vista', 'success')
     return render_template('user/logout.html', breadcrumbs=breadcrumbs)
 
@@ -210,7 +210,7 @@ def activate(token):
         log_event('ACTIVATION', 'Cuenta activada con token.')
         return redirect(url_for('login'))
     
-    log_event('CONFIG', 'Token de activación incorrecto')
+    #log_event('CONFIG', 'Token de activación incorrecto')
     flash('El enlace de activación es inválido o ha expirado.', 'danger')
     return redirect(url_for('login'))
 
@@ -230,7 +230,7 @@ def reset_password_request():
             flash(
                 'Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.',
                 'success')
-            log_event('PASSWORD', 'Configuración global sistema.')
+            #log_event('PASSWORD', 'Configuración global sistema.')
             return redirect(url_for('login'))
         else:
             flash(
@@ -278,7 +278,7 @@ def reset_password(token):
         flash(
             'El enlace de restablecimiento de contraseña es inválido o ha expirado.',
             'danger')
-        log_event('PASSWORD', 'Enlace restablecer contraseña inválido')
+        #log_event('PASSWORD', 'Enlace restablecer contraseña inválido')
         return redirect(url_for('login'))
     form = PasswordResetForm()
     if form.validate_on_submit():
@@ -287,7 +287,7 @@ def reset_password(token):
         flash(
             'Tu contraseña ha sido restablecida. Ahora puedes iniciar sesión con tu nueva contraseña.',
             'success')
-        log_event('PASSWORD', 'Contraseña restablecida.')
+        #log_event('PASSWORD', 'Contraseña restablecida.')
         return redirect(url_for('login'))
     return render_template('user/reset_password.html',
                            title='Restablecer contraseña',
@@ -310,7 +310,7 @@ El enlace es válido por 10 minutos.
 
 '''
     #msg.html = render_template('email/reset_password.html', user=user, token=token)
-    log_event('PASSWORD', 'Email recuperar contraseña enviado.')
+    #log_event('PASSWORD', 'Email recuperar contraseña enviado.')
     mail.send(msg)
 
 
@@ -328,7 +328,7 @@ If clicking the link above doesn't work, please copy and paste the URL in a new 
 El enlace es válido por 1 hora.
 '''
     mail.send(msg)
-    log_event('ACTIVATION', 'Email de activacion enviado')
+    #log_event('ACTIVATION', 'Email de activacion enviado')
 
 #@app.route('/accept_cookies', methods=['POST'])
 #def accept_cookies():
