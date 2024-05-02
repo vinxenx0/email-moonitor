@@ -300,16 +300,16 @@ def send_password_reset_email(user, token):
                   sender='vicente@ciberpunk.es',
                   recipients=[user.email])
     print(url_for('reset_password', token=token, _external=True))
-    #msg.html = render_template('email/reset_password.html', user=user, token=token)
-    msg.body = f'''Para restablecer tu contraseña, visita el siguiente enlace:
-{url_for('reset_password', token=token, _external=True)}
-
-If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.
-
-El enlace es válido por 10 minutos.
-
-
-'''
+    msg.html = render_template('email/reset_password.html', user=user, token=token)
+    #msg.body = f'''Para restablecer tu contraseña, visita el siguiente enlace:
+#{url_for('reset_password', token=token, _external=True)}
+#
+#If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.
+#
+#El enlace es válido por 10 minutos.
+#
+#
+#'''
     #msg.html = render_template('email/reset_password.html', user=user, token=token)
     #log_event('PASSWORD', 'Email recuperar contraseña enviado.')
     mail.send(msg)
@@ -321,13 +321,14 @@ def send_activation_email(user):
                   sender='vicente@ciberpunk.es',
                   recipients=[user.email])
     print(url_for('activate', token=token, _external=True))
-    msg.body = f'''Para activar tu cuenta, visita el siguiente enlace:
-{url_for('activate', token=token, _external=True)}
-
-If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.
-
-El enlace es válido por 1 hora.
-'''
+    #msg.body = f'''Para activar tu cuenta, visita el siguiente enlace:
+#{url_for('activate', token=token, _external=True)}
+#
+#If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.
+#
+#El enlace es válido por 1 hora.
+#'''
+    msg.html = render_template('email/send_activation.html', user=user, token=token)
     mail.send(msg)
     #log_event('ACTIVATION', 'Email de activacion enviado')
 
