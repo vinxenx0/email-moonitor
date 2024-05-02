@@ -29,7 +29,7 @@ class Users(UserMixin, db.Model):
 
     #logs = db.relationship('Log', back_populates='user')
     #logs = db.relationship('Log', back_populates='user', cascade="all, delete-orphan")
-
+ 
     
     def __repr__(self):
         return '<User %r>' % self.username

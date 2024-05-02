@@ -105,6 +105,7 @@ def register():
     return render_template('user/new_user.html', title='Registro', form=form, breadcrumbs=breadcrumbs)
 
 
+
 @app.route('/admin/register', methods=['GET', 'POST'])
 @login_required
 def admin_register():
