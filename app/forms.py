@@ -61,6 +61,11 @@ class PingForm(FlaskForm):
     domain = StringField('Dominio a pingear', validators=[DataRequired()])
     submit = SubmitField('Enviar')
 
+    
+class PageInfoForm(FlaskForm):
+    url = StringField('URL', validators=[DataRequired(), URL()])
+    submit = SubmitField('Comprobar url')
+
 
 class PasswordResetRequestForm(FlaskForm):
     email = StringField('Correo electrónico', validators=[DataRequired(), Email()])

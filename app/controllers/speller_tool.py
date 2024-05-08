@@ -1,7 +1,7 @@
 import hashlib
 import re
 import textstat
-from gingerit.gingerit import GingerIt
+#from gingerit.gingerit import GingerIt
 from bs4 import BeautifulSoup
 
 def analyze_content(url, html_content, language='en'):
