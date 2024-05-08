@@ -1,17 +1,29 @@
 # app/controllers/main_controller.py
 
+import json
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_required
 from app import app, db
 from app.controllers.logs_controller import log_event
-from app.forms import ConfigForm
+from app.controllers.spider_tools import get_page_info
+from app.forms import ConfigForm, PageInfoForm
 
 
 
-@app.route('/')
+#@app.route('/')
+#def index():
+#   log_event('INDEX', 'pagina raíz')
+#   return render_template('index.html')
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
-   log_event('INDEX', 'pagina raíz')
-   return render_template('index.html')
+    data = None
+    form = PageInfoForm()
+    if form.validate_on_submit():
+        url = form.url.data
+        data = get_page_info(url)
+        print(json.dumps(data))
+    return render_template('start.html', data=data, form=form)
 
 @app.route('/app')
 def dashboard():

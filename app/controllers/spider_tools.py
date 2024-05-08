@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 import requests
 import json
 from bs4 import BeautifulSoup
-import mobile_tools
+import app.controllers.mobile_tools
 
 def get_soup(url):
     try:
@@ -541,7 +541,7 @@ def get_page_info(url):
                 'Schema ORG Issues' : get_structured_data_issues(soup),
                 'Header info' : get_header_info(url),
                 'Validation Issues': validate_html(response.content),
-                'Mobile audit Results' : mobile_tools.audit_mobile_usability(url, soup),
+                'Mobile audit Results' : app.controllers.mobile_tools.audit_mobile_usability(url, soup),
                 
                 # probar velocidad con buscar en diccionario # temporal
                 'Internal Details' : #get_url_details(url_info),  # Corregido aquí 
@@ -604,10 +604,3 @@ def get_page_info(url):
             return {'error': str(e)}
     else:
         return {'error': 'Unable to parse HTML'}
-
-
-
-# Ejemplo de uso
-#url = "https://CINEBLOG.NET"
-#page_info = get_page_info(url)
-#print(json.dumps(page_info, indent=4))

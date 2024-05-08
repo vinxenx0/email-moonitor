@@ -1,13 +1,24 @@
 
 from app.controllers.logs_controller import log_event
-from flask import jsonify
+from flask import jsonify, request
 from app import app
+from app.controllers.spider_tools import get_page_info
 from app.controllers.tools_controller import *
 import time
 import subprocess
 from flask import render_template
 from app import app
-from app.forms import PingForm
+from app.forms import PageInfoForm, PingForm
+
+@app.route('/start', methods=['GET', 'POST'])
+def tool():
+    data = None
+    form = PageInfoForm()
+    if form.validate_on_submit():
+        url = form.url.data
+        data = get_page_info(url)
+    return render_template('start.html', data=data, form=form)
+
 
 @app.route('/tools/check_domain/<string:domain>') #, methods=['POST'])
 def check_domain(domain):

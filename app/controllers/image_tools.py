@@ -1,3 +1,6 @@
+import requests
+
+
 def get_image_info(soup):
     image_issues = {
         'Over 100kb': [],
