@@ -121,11 +121,16 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
+              <li><a class="dropdown-item" href="{{ url_for('admin_register') }}">Añadir Usuario</a></li>
               <li><a class="dropdown-item" href="{{ url_for('admin_stats') }}">Estadisticas</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('admin_register') }}">Nuevos Usuarios</a></li>
               <li><a class="dropdown-item" href="{{ url_for('configuracion') }}">Config</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('logs') }}">Logs</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('usuarios') }}">Sistema</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{ url_for('activity') }}">Actividad</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('logs') }}">Accesos</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('usuarios') }}">Usuarios</a></li>
+
             {% endif %}
             <li>
               <hr class="dropdown-divider">

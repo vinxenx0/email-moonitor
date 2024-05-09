@@ -1,23 +1,28 @@
 
 from app.controllers.logs_controller import log_event
-from flask import jsonify, request
+from flask import jsonify
 from app import app
-from app.controllers.spider_tools import get_page_info
 from app.controllers.tools_controller import *
 import time
 import subprocess
 from flask import render_template
 from app import app
-from app.forms import PageInfoForm, PingForm
+from app.forms import PingForm
 
-@app.route('/start', methods=['GET', 'POST'])
-def tool():
-    data = None
-    form = PageInfoForm()
-    if form.validate_on_submit():
-        url = form.url.data
-        data = get_page_info(url)
-    return render_template('start.html', data=data, form=form)
+# Cargar la base de datos de GeoIP
+# geoip_reader = geoip2.database.Reader('GeoLite2-Country.mmdb')
+
+#def get_country_from_ip(ip_address):
+#    try:
+#        response = geoip_reader.country(ip_address)
+#        country = response.country.name
+#        return country
+#    except Exception as e:
+#        print(f"Error getting country from IP: {e}")
+#        return None
+
+
+
 
 
 @app.route('/tools/check_domain/<string:domain>') #, methods=['POST'])

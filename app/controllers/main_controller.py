@@ -1,5 +1,6 @@
 # app/controllers/main_controller.py
 
+from datetime import datetime
 import json
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_required
@@ -7,31 +8,64 @@ from app import app, db
 from app.controllers.logs_controller import log_event
 from app.controllers.spider_tools import get_page_info
 from app.forms import ConfigForm, PageInfoForm
+from app.models.usage_model import Activity
 
 
-
-#@app.route('/')
-#def index():
-#   log_event('INDEX', 'pagina raíz')
-#   return render_template('index.html')
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
+   if current_user.is_authenticated:
+        return redirect(url_for('dashboard')) # dashboard
+   return redirect(url_for('start'))
+
+@app.route('/start', methods=['GET', 'POST'])
+def start():
     data = None
+    breadcrumbs = [
+        {'url': '/start', 'text': 'Bienvenido'}
+    ]
+     
     form = PageInfoForm()
     if form.validate_on_submit():
+        # Obtener información del usuario
+        username = 'Anonymous'
+        email = ''
+        if current_user.is_authenticated:
+            username = current_user.username
+            email = current_user.email  # Ajustar según tu formulario
+            
         url = form.url.data
-        data = get_page_info(url)
-        print(json.dumps(data))
-    return render_template('start.html', data=data, form=form)
+        ip_address = request.remote_addr
+        user_agent = request.user_agent.string
+        country = 'Spain' #get_country_from_ip(ip_address)
+        language = request.accept_languages.best
 
-@app.route('/app')
+        # Obtener fecha y hora actual
+        timestamp = datetime.utcnow()
+
+        # Obtener URL de la página actual
+        page_url = request.url
+
+        # Guardar la información del usuario en la base de datos
+        user_usage = Activity(username=username,  email = email, target = url, ip_address=ip_address, 
+                               user_agent=user_agent, country=country, language=language,
+                               timestamp=timestamp, page_url=page_url)
+        db.session.add(user_usage)
+        db.session.commit()
+        
+        data = get_page_info(url)
+    return render_template('start.html', data=data, form=form, breadcrumbs=breadcrumbs)
+
+
+
+@app.route('/dashboard')
+@login_required
 def dashboard():
    breadcrumbs = [
-        {'url': '/app', 'text': 'Dashboard'}
+        {'url': '/dashboard', 'text': 'Dashboard'}
     ]
    log_event('DASHBOARD', 'Portada herramienta.')
    return render_template('dashboard.html', breadcrumbs=breadcrumbs)
+
 
 @app.route('/config', methods=['GET', 'POST'])
 @login_required
