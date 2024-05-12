@@ -106,6 +106,55 @@
       <h1 class="text-center">Resultados</h1>
 
       <div class="accordion mt-4" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingZeroI">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZeroI" aria-expanded="true" aria-controls="collapseZeroI">
+                    <span class="badge bg-primary">Images</span>
+                    <span class="ms-auto">Images</span>
+                </button>
+            </h2>
+            <div id="collapseZero" class="accordion-collapse collapse show" aria-labelledby="headingZero" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                     <div class="tab-content mt-4" id="jsonTabsContent">
+                <div class="col">
+            <ul class="nav nav-tabs" id="jsonTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="Images-tab" data-bs-toggle="tab" data-bs-target="#Images" type="button" role="tab" aria-controls="Images" aria-selected="true">Resultados Images</button>
+                </li>
+
+                <!-- Add more tabs for each section -->
+               </ul>
+                  <div class="tab-content mt-4" id="jsonTabsContent">
+                      <div class="tab-pane fade show active" id="Images" role="tabpanel" aria-labelledby="Images-tab">
+                         
+                          <h2 class="section-title">IMAGES</h2>
+                          
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul>
+                                        {% for image in image_details %}
+                                        <li>
+                                            <strong>Image Source:</strong> {{ image['Image Source'] }}<br>
+                                            <strong>Alt Text:</strong> {{ image['Alt Text'] }}<br>
+                                            <strong>Width:</strong> {{ image['Width'] }}<br>
+                                            <strong>Height:</strong> {{ image['Height'] }}<br>
+                                            <strong>Missing Alt Text:</strong> {{ image['Missing Alt Text'] }}<br>
+                                            <strong>Missing Alt Attribute:</strong> {{ image['Missing Alt Attribute'] }}<br>
+                                            <strong>Alt Text Over 100 Characters:</strong> {{ image['Alt Text Over 100 Characters'] }}<br>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                      </div>
+
+                      <!-- Add more tab content for each section -->
+                  </div>
+              </div>
+                      </div>
+                  </div>
+              </div>
+<!-- -->
 
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingZero">

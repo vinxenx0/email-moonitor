@@ -47,7 +47,7 @@ def ejecutar_pa11y(url):
                               stdout=subprocess.PIPE,
                               stderr=subprocess.PIPE,
                               text=True)
-    print(process.stdout)
+    #print(process.stdout)
     return process.stdout
 
 
@@ -71,6 +71,49 @@ def analizar_ortografia(content, language='es'):
                 grammar_errors.append((word, suggestions))
     
     return spelling_errors, grammar_errors
+
+def audit_image_details(url, soup):
+    images = soup.find_all('img')
+    image_details = []
+
+    for img in images:
+        image_src = img.get('src', '')
+        alt_text = img.get('alt', '')
+        width = img.get('width', '')
+        height = img.get('height', '')
+
+        # Check if alt text is missing
+        if not alt_text:
+            missing_alt_text = True
+        else:
+            missing_alt_text = False
+
+        # Check if alt attribute is missing
+        if 'alt' not in img.attrs:
+            missing_alt_attribute = True
+        else:
+            missing_alt_attribute = False
+
+        # Check if alt text exceeds 100 characters
+        if len(alt_text) > 100:
+            alt_text_over_100_characters = True
+        else:
+            alt_text_over_100_characters = False
+
+        image_details.append({
+            'Image Source': image_src,
+            'Alt Text': alt_text,
+            'Width': width,
+            'Height': height,
+            'Missing Alt Text': missing_alt_text,
+            'Missing Alt Attribute': missing_alt_attribute,
+            'Alt Text Over 100 Characters': alt_text_over_100_characters
+        })
+
+    return {
+        'URL': url,
+        'Images': image_details
+    }
 
 def get_canonical_info(soup, url, response):
     canonical_link = soup.find('link', attrs={'rel': 'canonical'})
@@ -632,7 +675,7 @@ def get_page_info(url):
                     },
                     
                 # modulos con pestaña en menu
-                'Images Issues' : {}
+                'Images Issues' : audit_image_details(url,soup)
             }
 
             spelling_errors, grammar_errors = analizar_ortografia(response.text)
