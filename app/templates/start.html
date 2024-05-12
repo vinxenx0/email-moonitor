@@ -104,7 +104,155 @@
   {% if data %}
   <div class="container mt-5">
       <h1 class="text-center">Resultados</h1>
+
       <div class="accordion mt-4" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingZeroI">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZeroI" aria-expanded="true" aria-controls="collapseZeroI">
+                    <span class="badge bg-primary">Images</span>
+                    <span class="ms-auto">Images</span>
+                </button>
+            </h2>
+            <div id="collapseZero" class="accordion-collapse collapse show" aria-labelledby="headingZero" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                     <div class="tab-content mt-4" id="jsonTabsContent">
+                <div class="col">
+            <ul class="nav nav-tabs" id="jsonTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="Images-tab" data-bs-toggle="tab" data-bs-target="#Images" type="button" role="tab" aria-controls="Images" aria-selected="true">Resultados Images</button>
+                </li>
+
+                <!-- Add more tabs for each section -->
+               </ul>
+                  <div class="tab-content mt-4" id="jsonTabsContent">
+                      <div class="tab-pane fade show active" id="Images" role="tabpanel" aria-labelledby="Images-tab">
+                         
+                          <h2 class="section-title">IMAGES</h2>
+                          
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul>
+                                        {% for image in image_details %}
+                                        <li>
+                                            <strong>Image Source:</strong> {{ image['Image Source'] }}<br>
+                                            <strong>Alt Text:</strong> {{ image['Alt Text'] }}<br>
+                                            <strong>Width:</strong> {{ image['Width'] }}<br>
+                                            <strong>Height:</strong> {{ image['Height'] }}<br>
+                                            <strong>Missing Alt Text:</strong> {{ image['Missing Alt Text'] }}<br>
+                                            <strong>Missing Alt Attribute:</strong> {{ image['Missing Alt Attribute'] }}<br>
+                                            <strong>Alt Text Over 100 Characters:</strong> {{ image['Alt Text Over 100 Characters'] }}<br>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                      </div>
+
+                      <!-- Add more tab content for each section -->
+                  </div>
+              </div>
+                      </div>
+                  </div>
+              </div>
+<!-- -->
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingZero">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
+                    <span class="badge bg-primary">WACG*</span>
+                    <span class="ms-auto">WACG</span>
+                </button>
+            </h2>
+            <div id="collapseZero" class="accordion-collapse collapse show" aria-labelledby="headingZero" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                     <div class="tab-content mt-4" id="jsonTabsContent">
+                <div class="col">
+            <ul class="nav nav-tabs" id="jsonTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="WCAG-tab" data-bs-toggle="tab" data-bs-target="#WCAG" type="button" role="tab" aria-controls="WCAG" aria-selected="true">Resultados WACG</button>
+                </li>
+
+                <!-- Add more tabs for each section -->
+               </ul>
+                  <div class="tab-content mt-4" id="jsonTabsContent">
+                      <div class="tab-pane fade show active" id="WCAG" role="tabpanel" aria-labelledby="WCAG-tab">
+                         
+                          <h2 class="section-title">WCAG</h2>
+                          <div class="row">
+                            {% for consejo in validator %}
+                            {% set is_fail = 'Fail' in consejo.code %}
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-header  {% if is_fail %}bg-danger text-white{% else %}bg-warning text-dark{% endif %}">{{ consejo.code }}</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ consejo.type }}</h5>
+                                        <p class="card-text">{{ consejo.message }}</p>
+                                        <p class="card-text"><strong>Contexto:</strong><blockquote>{{ consejo.context }}</blockquote></p>
+                                        <p class="card-text"><strong>Selector:</strong><blockquote>{{ consejo.selector }}</blockquote></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                      </div>
+
+                      <!-- Add more tab content for each section -->
+                  </div>
+              </div>
+                      </div>
+                  </div>
+              </div>
+<!-- -->
+<div class="accordion-item">
+    <h2 class="accordion-header" id="headingZero1">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero1" aria-expanded="true" aria-controls="collapseZero1">
+            <span class="badge bg-primary">Ortografia</span>
+            <span class="ms-auto">Ortografia</span>
+        </button>
+    </h2>
+    <div id="collapseZero1" class="accordion-collapse collapse show" aria-labelledby="headingZero1" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+             <div class="tab-content mt-4" id="jsonTabsContent">
+        <div class="col">
+    <ul class="nav nav-tabs" id="jsonTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="Ortografia" data-bs-toggle="tab" data-bs-target="#Ortografia" type="button" role="tab" aria-controls="Ortografia" aria-selected="true">Resultados Ortografia</button>
+        </li>
+
+        <!-- Add more tabs for each section -->
+       </ul>
+          <div class="tab-content mt-4" id="jsonTabsContent">
+              <div class="tab-pane fade show active" id="Ortografia" role="tabpanel" aria-labelledby="Ortografia">
+                
+                <div class="row">
+                    {% set batch_size = grammar_errors|length // 4 %}
+                    {% set batches = grammar_errors|batch(batch_size) %}
+                    {% for batch in batches %}
+                    <div class="col-md-3">
+                        {% for word, suggestions in batch %}
+                        <p class="list-item list-item-border" 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="right" 
+                            title="{{ suggestions|join('·') }}" 
+                            data-bs-html="true">{{ word }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+                </div>
+              </div>
+
+              <!-- Add more tab content for each section -->
+          </div>
+      </div>
+              
+      
+
+      <!-- -->
+
           <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -120,105 +268,105 @@
                   <li class="nav-item" role="presentation">
                       <button class="nav-link active" id="canonical-tab" data-bs-toggle="tab" data-bs-target="#canonical" type="button" role="tab" aria-controls="canonical" aria-selected="true">Canonical Info</button>
                   </li>
-      <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false">Security Info</button>
-                  </li>
-      <li class="nav-item" role="presentation">
-          <button class="nav-link" id="common-url-issues-tab" data-bs-toggle="tab" data-bs-target="#common-url-issues" type="button" role="tab" aria-controls="common-url-issues" aria-selected="false">Common URL Issues</button>
-      </li>
-      <li class="nav-item" role="presentation">
-          <button class="nav-link" id="page-title-issues-tab" data-bs-toggle="tab" data-bs-target="#page-title-issues" type="button" role="tab" aria-controls="page-title-issues" aria-selected="false">Page Title Issues</button>
-      </li>
+                    <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false">Security Info</button>
+                                </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="common-url-issues-tab" data-bs-toggle="tab" data-bs-target="#common-url-issues" type="button" role="tab" aria-controls="common-url-issues" aria-selected="false">Common URL Issues</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="page-title-issues-tab" data-bs-toggle="tab" data-bs-target="#page-title-issues" type="button" role="tab" aria-controls="page-title-issues" aria-selected="false">Page Title Issues</button>
+                    </li>
                   <!-- Add more tabs for each section -->
-              </ul>
-              <div class="tab-content mt-4" id="jsonTabsContent">
-                  <div class="tab-pane fade show active" id="canonical" role="tabpanel" aria-labelledby="canonical-tab">
-                      <!-- Render Canonical Info section here -->
-                      <h2 class="section-title">Canonical Info</h2>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Contains Canonical" data-bs-html="true"><strong>Contains Canonical:</strong> {% if data['Canonical Info']['Contains Canonical'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Self Referencing" data-bs-html="true"><strong>Self Referencing:</strong> {% if data['Canonical Info']['Self Referencing'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonicalised" data-bs-html="true"><strong>Canonicalised:</strong> {% if data['Canonical Info']['Canonicalised'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical Absolute" data-bs-html="true"><strong>Canonical Absolute:</strong> {% if data['Canonical Info']['Canonical Absolute'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical Relative" data-bs-html="true"><strong>Canonical Relative:</strong> {% if data['Canonical Info']['Canonical Relative'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                          </div>
-                          <div class="col-md-6">
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical HTTP Present" data-bs-html="true"><strong>Canonical HTTP Present:</strong> {% if data['Canonical Info']['Canonical HTTP Present'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical HTTP Absolute" data-bs-html="true"><strong>Canonical HTTP Absolute:</strong> {% if data['Canonical Info']['Canonical HTTP Absolute'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical HTTP Relative" data-bs-html="true"><strong>Canonical HTTP Relative:</strong> {% if data['Canonical Info']['Canonical HTTP Relative'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical Multiple" data-bs-html="true"><strong>Canonical Multiple:</strong> {% if data['Canonical Info']['Canonical Multiple'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical Multiple Conflicting" data-bs-html="true"><strong>Canonical Multiple Conflicting:</strong> {% if data['Canonical Info']['Canonical Multiple Conflicting'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                      <!-- Render Security Info section here -->
-                      <h2 class="section-title">Security Info</h2>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="HTTP URLs" data-bs-html="true"><strong>HTTP URLs:</strong> {% if data['Security Info']['HTTP URLs'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="HTTPS URLs" data-bs-html="true"><strong>HTTPS URLs:</strong> {% if data['Security Info']['HTTPS URLs'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Mixed Content" data-bs-html="true"><strong>Mixed Content:</strong> {% if data['Security Info']['Mixed Content'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Form URL Insecure" data-bs-html="true"><strong>Form URL Insecure:</strong> {% if data['Security Info']['Form URL Insecure'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Form on HTTP URL" data-bs-html="true"><strong>Form on HTTP URL:</strong> {% if data['Security Info']['Form on HTTP URL'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                          </div>
-                          <div class="col-md-6">
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Unsafe Cross-Origin Links" data-bs-html="true"><strong>Unsafe Cross-Origin Links:</strong> {% if data['Security Info']['Unsafe Cross-Origin Links'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Protocol-Relative Resource Links" data-bs-html="true"><strong>Protocol-Relative Resource Links:</strong> {% if data['Security Info']['Protocol-Relative Resource Links'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing HSTS Header" data-bs-html="true"><strong>Missing HSTS Header:</strong> {% if data['Security Info']['Missing HSTS Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing Content-Security-Policy Header" data-bs-html="true"><strong>Missing Content-Security-Policy Header:</strong> {% if data['Security Info']['Missing Content-Security-Policy Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing X-Content-Type-Options Header" data-bs-html="true"><strong>Missing X-Content-Type-Options Header:</strong> {% if data['Security Info']['Missing X-Content-Type-Options Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing X-Frame-Options Header" data-bs-html="true"><strong>Missing X-Frame-Options Header:</strong> {% if data['Security Info']['Missing X-Frame-Options Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing Secure Referrer-Policy Header" data-bs-html="true"><strong>Missing Secure Referrer-Policy Header:</strong> {% if data['Security Info']['Missing Secure Referrer-Policy Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                              <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Bad Content Type" data-bs-html="true"><strong>Bad Content Type:</strong> {% if data['Security Info']['Bad Content Type'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-                          </div>
-                      </div>
-                  </div>
-      <div class="tab-pane fade" id="common-url-issues" role="tabpanel" aria-labelledby="common-url-issues-tab">
-          <!-- Render Common URL Issues section here -->
-          <h2 class="section-title">Common URL Issues</h2>
-          <div class="row">
-        <div class="col-md-6">
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Non ASCII Characters" data-bs-html="true"><strong>Non ASCII Characters:</strong> {% if data['Common URL Issues']['Non ASCII Characters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Underscores" data-bs-html="true"><strong>Underscores:</strong> {% if data['Common URL Issues']['Underscores'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Uppercase" data-bs-html="true"><strong>Uppercase:</strong> {% if data['Common URL Issues']['Uppercase'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Multiple Slashes" data-bs-html="true"><strong>Multiple Slashes:</strong> {% if data['Common URL Issues']['Multiple Slashes'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Repetitive Path" data-bs-html="true"><strong>Repetitive Path:</strong> {% if data['Common URL Issues']['Repetitive Path'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-        </div>
-        <div class="col-md-6">
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Contains A Space" data-bs-html="true"><strong>Contains A Space:</strong> {% if data['Common URL Issues']['Contains A Space'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Internal Search" data-bs-html="true"><strong>Internal Search:</strong> {% if data['Common URL Issues']['Internal Search'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Parameters" data-bs-html="true"><strong>Parameters:</strong> {% if data['Common URL Issues']['Parameters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Broken Bookmark" data-bs-html="true"><strong>Broken Bookmark:</strong> {% if data['Common URL Issues']['Broken Bookmark'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="GA Tracking Parameters" data-bs-html="true"><strong>GA Tracking Parameters:</strong> {% if data['Common URL Issues']['GA Tracking Parameters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Over 115 characters" data-bs-html="true"><strong>Over 115 characters:</strong> {% if data['Common URL Issues']['Over 115 characters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-        </div>
-          </div>
-      </div>
-      <div class="tab-pane fade" id="page-title-issues" role="tabpanel" aria-labelledby="page-title-issues-tab">
-          <!-- Render Page Title Issues section here -->
-          <h2 class="section-title">Page Title Issues</h2>
-          <div class="row">
-        <div class="col-md-6">
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing" data-bs-html="true"><strong>Missing:</strong> {% if data['Page Title Issues']['Missing'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Duplicate" data-bs-html="true"><strong>Duplicate:</strong> {% if data['Page Title Issues']['Duplicate'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Over 60 characters" data-bs-html="true"><strong>Over 60 characters:</strong> {% if data['Page Title Issues']['Over 60 characters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Below 30 characters" data-bs-html="true"><strong>Below 30 characters:</strong> {% if data['Page Title Issues']['Below 30 characters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-        </div>
-        <div class="col-md-6">
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Same as h1" data-bs-html="true"><strong>Same as h1:</strong> {% if data['Page Title Issues']['Same as h1'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Multiple" data-bs-html="true"><strong>Multiple:</strong> {% if data['Page Title Issues']['Multiple'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-            <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Outside &lt;head&gt;" data-bs-html="true"><strong>Outside &lt;head&gt;:</strong> {% if data['Page Title Issues']['Outside <head>'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
-        </div>
-          </div>
-      </div>
-                  <!-- Add more tab content for each section -->
-              </div>
-          </div>
-                  </div>
-              </div>
-          </div>
+                 </ul>
+                    <div class="tab-content mt-4" id="jsonTabsContent">
+                        <div class="tab-pane fade show active" id="canonical" role="tabpanel" aria-labelledby="canonical-tab">
+                            <!-- Render Canonical Info section here -->
+                            <h2 class="section-title">Canonical Info</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Contains Canonical" data-bs-html="true"><strong>Contains Canonical:</strong> {% if data['Canonical Info']['Contains Canonical'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Self Referencing" data-bs-html="true"><strong>Self Referencing:</strong> {% if data['Canonical Info']['Self Referencing'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonicalised" data-bs-html="true"><strong>Canonicalised:</strong> {% if data['Canonical Info']['Canonicalised'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical Absolute" data-bs-html="true"><strong>Canonical Absolute:</strong> {% if data['Canonical Info']['Canonical Absolute'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical Relative" data-bs-html="true"><strong>Canonical Relative:</strong> {% if data['Canonical Info']['Canonical Relative'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical HTTP Present" data-bs-html="true"><strong>Canonical HTTP Present:</strong> {% if data['Canonical Info']['Canonical HTTP Present'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical HTTP Absolute" data-bs-html="true"><strong>Canonical HTTP Absolute:</strong> {% if data['Canonical Info']['Canonical HTTP Absolute'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical HTTP Relative" data-bs-html="true"><strong>Canonical HTTP Relative:</strong> {% if data['Canonical Info']['Canonical HTTP Relative'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical Multiple" data-bs-html="true"><strong>Canonical Multiple:</strong> {% if data['Canonical Info']['Canonical Multiple'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Canonical Multiple Conflicting" data-bs-html="true"><strong>Canonical Multiple Conflicting:</strong> {% if data['Canonical Info']['Canonical Multiple Conflicting'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                            <!-- Render Security Info section here -->
+                            <h2 class="section-title">Security Info</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="HTTP URLs" data-bs-html="true"><strong>HTTP URLs:</strong> {% if data['Security Info']['HTTP URLs'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="HTTPS URLs" data-bs-html="true"><strong>HTTPS URLs:</strong> {% if data['Security Info']['HTTPS URLs'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Mixed Content" data-bs-html="true"><strong>Mixed Content:</strong> {% if data['Security Info']['Mixed Content'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Form URL Insecure" data-bs-html="true"><strong>Form URL Insecure:</strong> {% if data['Security Info']['Form URL Insecure'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Form on HTTP URL" data-bs-html="true"><strong>Form on HTTP URL:</strong> {% if data['Security Info']['Form on HTTP URL'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Unsafe Cross-Origin Links" data-bs-html="true"><strong>Unsafe Cross-Origin Links:</strong> {% if data['Security Info']['Unsafe Cross-Origin Links'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Protocol-Relative Resource Links" data-bs-html="true"><strong>Protocol-Relative Resource Links:</strong> {% if data['Security Info']['Protocol-Relative Resource Links'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing HSTS Header" data-bs-html="true"><strong>Missing HSTS Header:</strong> {% if data['Security Info']['Missing HSTS Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing Content-Security-Policy Header" data-bs-html="true"><strong>Missing Content-Security-Policy Header:</strong> {% if data['Security Info']['Missing Content-Security-Policy Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing X-Content-Type-Options Header" data-bs-html="true"><strong>Missing X-Content-Type-Options Header:</strong> {% if data['Security Info']['Missing X-Content-Type-Options Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing X-Frame-Options Header" data-bs-html="true"><strong>Missing X-Frame-Options Header:</strong> {% if data['Security Info']['Missing X-Frame-Options Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing Secure Referrer-Policy Header" data-bs-html="true"><strong>Missing Secure Referrer-Policy Header:</strong> {% if data['Security Info']['Missing Secure Referrer-Policy Header'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Bad Content Type" data-bs-html="true"><strong>Bad Content Type:</strong> {% if data['Security Info']['Bad Content Type'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                </div>
+                            </div>
+                        </div>
+                <div class="tab-pane fade" id="common-url-issues" role="tabpanel" aria-labelledby="common-url-issues-tab">
+                    <!-- Render Common URL Issues section here -->
+                    <h2 class="section-title">Common URL Issues</h2>
+                        <div class="row">
+                                <div class="col-md-6">
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Non ASCII Characters" data-bs-html="true"><strong>Non ASCII Characters:</strong> {% if data['Common URL Issues']['Non ASCII Characters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Underscores" data-bs-html="true"><strong>Underscores:</strong> {% if data['Common URL Issues']['Underscores'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Uppercase" data-bs-html="true"><strong>Uppercase:</strong> {% if data['Common URL Issues']['Uppercase'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Multiple Slashes" data-bs-html="true"><strong>Multiple Slashes:</strong> {% if data['Common URL Issues']['Multiple Slashes'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Repetitive Path" data-bs-html="true"><strong>Repetitive Path:</strong> {% if data['Common URL Issues']['Repetitive Path'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Contains A Space" data-bs-html="true"><strong>Contains A Space:</strong> {% if data['Common URL Issues']['Contains A Space'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Internal Search" data-bs-html="true"><strong>Internal Search:</strong> {% if data['Common URL Issues']['Internal Search'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Parameters" data-bs-html="true"><strong>Parameters:</strong> {% if data['Common URL Issues']['Parameters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Broken Bookmark" data-bs-html="true"><strong>Broken Bookmark:</strong> {% if data['Common URL Issues']['Broken Bookmark'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="GA Tracking Parameters" data-bs-html="true"><strong>GA Tracking Parameters:</strong> {% if data['Common URL Issues']['GA Tracking Parameters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Over 115 characters" data-bs-html="true"><strong>Over 115 characters:</strong> {% if data['Common URL Issues']['Over 115 characters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                                </div>
+                        </div>
+                </div>
+            <div class="tab-pane fade" id="page-title-issues" role="tabpanel" aria-labelledby="page-title-issues-tab">
+                <!-- Render Page Title Issues section here -->
+                <h2 class="section-title">Page Title Issues</h2>
+                <div class="row">
+                <div class="col-md-6">
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Missing" data-bs-html="true"><strong>Missing:</strong> {% if data['Page Title Issues']['Missing'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Duplicate" data-bs-html="true"><strong>Duplicate:</strong> {% if data['Page Title Issues']['Duplicate'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Over 60 characters" data-bs-html="true"><strong>Over 60 characters:</strong> {% if data['Page Title Issues']['Over 60 characters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Below 30 characters" data-bs-html="true"><strong>Below 30 characters:</strong> {% if data['Page Title Issues']['Below 30 characters'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Same as h1" data-bs-html="true"><strong>Same as h1:</strong> {% if data['Page Title Issues']['Same as h1'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Multiple" data-bs-html="true"><strong>Multiple:</strong> {% if data['Page Title Issues']['Multiple'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip" data-bs-placement="right" title="Outside &lt;head&gt;" data-bs-html="true"><strong>Outside &lt;head&gt;:</strong> {% if data['Page Title Issues']['Outside <head>'] %}<span class="badge bg-success"><i class="fas fa-check"></i> True</span>{% else %}<span class="badge bg-danger"><i class="fas fa-times"></i> False</span>{% endif %}</p>
+                </div>
+                </div>
+            </div>
+                        <!-- Add more tab content for each section -->
+                    </div>
+                </div>
+                        </div>
+                    </div>
+                </div>
           <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">

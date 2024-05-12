@@ -1,4 +1,5 @@
 # __init__py
+import json
 import os
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
@@ -109,5 +110,4 @@ def load_user(user_id):
 #def check_show_cookies_modal():
 #    if not current_user.is_authenticated and 'cookies_accepted' not in session:
 #        session['show_cookies_modal'] = True
-
 

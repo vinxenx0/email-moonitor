@@ -1,9 +1,13 @@
 import re
+import subprocess
 from urllib.parse import urlparse
 import requests
 import json
 from bs4 import BeautifulSoup
 import app.controllers.mobile_tools
+
+import aspell
+import langid
 
 def get_soup(url):
     try:
@@ -35,6 +39,81 @@ def get_header_info(url):
         print(f"Error fetching headers for URL {url}: {e}")
         return None
 
+def ejecutar_pa11y(url):
+    command = f"pa11y -T 1 --ignore issue-code-2 --ignore issue-code-1 -r json {url} 2>/dev/null"
+    process = subprocess.run(command,
+                              shell=True,
+                              check=False,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE,
+                              text=True)
+    #print(process.stdout)
+    return process.stdout
+
+
+def analizar_ortografia(content, language='es'):
+    # Configurar el corrector ortográfico
+    speller = aspell.Speller('lang', language)
+    
+    # Tokenizar el contenido para analizar palabra por palabra
+    words = content.split()
+    
+    # Buscar errores ortográficos y gramaticales
+    spelling_errors = []
+    grammar_errors = []
+    for word in words:
+        if not speller.check(word):
+            # Si la palabra no está en el diccionario, es un error ortográfico
+            spelling_errors.append(word)
+            suggestions = speller.suggest(word)
+            # Si hay sugerencias disponibles, consideramos que es un error gramatical
+            if suggestions:
+                grammar_errors.append((word, suggestions))
+    
+    return spelling_errors, grammar_errors
+
+def audit_image_details(url, soup):
+    images = soup.find_all('img')
+    image_details = []
+
+    for img in images:
+        image_src = img.get('src', '')
+        alt_text = img.get('alt', '')
+        width = img.get('width', '')
+        height = img.get('height', '')
+
+        # Check if alt text is missing
+        if not alt_text:
+            missing_alt_text = True
+        else:
+            missing_alt_text = False
+
+        # Check if alt attribute is missing
+        if 'alt' not in img.attrs:
+            missing_alt_attribute = True
+        else:
+            missing_alt_attribute = False
+
+        # Check if alt text exceeds 100 characters
+        if len(alt_text) > 100:
+            alt_text_over_100_characters = True
+        else:
+            alt_text_over_100_characters = False
+
+        image_details.append({
+            'Image Source': image_src,
+            'Alt Text': alt_text,
+            'Width': width,
+            'Height': height,
+            'Missing Alt Text': missing_alt_text,
+            'Missing Alt Attribute': missing_alt_attribute,
+            'Alt Text Over 100 Characters': alt_text_over_100_characters
+        })
+
+    return {
+        'URL': url,
+        'Images': image_details
+    }
 
 def get_canonical_info(soup, url, response):
     canonical_link = soup.find('link', attrs={'rel': 'canonical'})
@@ -525,9 +604,9 @@ def get_page_info(url):
     soup = get_soup(url)
     if soup:
         try:
-            response = requests.get(url)
-            
+            response = requests.get(url) 
             page_info = {
+                
                 'Canonical Info': get_canonical_info(soup, url, response),
                 'Security Info': get_security_info(url, response, soup),
                 'Common URL Issues': get_common_url_issues(url),
@@ -596,11 +675,20 @@ def get_page_info(url):
                     },
                     
                 # modulos con pestaña en menu
-                'Images Issues' : {}
+                'Images Issues' : audit_image_details(url,soup)
             }
-            return page_info
+
+            spelling_errors, grammar_errors = analizar_ortografia(response.text)
+            validator = json.loads(ejecutar_pa11y(url))
+                      
+            return page_info, validator, spelling_errors, grammar_errors
+        
         except Exception as e:
             print(f"Error processing page info: {e}")
             return {'error': str(e)}
     else:
         return {'error': 'Unable to parse HTML'}
+
+
+
+
