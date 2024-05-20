@@ -107,13 +107,13 @@
 
       <div class="accordion mt-4" id="accordionExample">
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingZeroI">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZeroI" aria-expanded="true" aria-controls="collapseZeroI">
+            <h2 class="accordion-header" id="headingZeroII">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZeroII" aria-expanded="true" aria-controls="collapseZeroII">
                     <span class="badge bg-primary">Images</span>
                     <span class="ms-auto">Images</span>
                 </button>
             </h2>
-            <div id="collapseZero" class="accordion-collapse collapse show" aria-labelledby="headingZero" data-bs-parent="#accordionExample">
+            <div id="collapseZeroII" class="accordion-collapse collapse" aria-labelledby="headingZeroII" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                      <div class="tab-content mt-4" id="jsonTabsContent">
                 <div class="col">
@@ -130,20 +130,39 @@
                           <h2 class="section-title">IMAGES</h2>
                           
                             <div class="row">
-                                <div class="col-md-6">
-                                    <ul>
-                                        {% for image in image_details %}
-                                        <li>
-                                            <strong>Image Source:</strong> {{ image['Image Source'] }}<br>
-                                            <strong>Alt Text:</strong> {{ image['Alt Text'] }}<br>
-                                            <strong>Width:</strong> {{ image['Width'] }}<br>
-                                            <strong>Height:</strong> {{ image['Height'] }}<br>
-                                            <strong>Missing Alt Text:</strong> {{ image['Missing Alt Text'] }}<br>
-                                            <strong>Missing Alt Attribute:</strong> {{ image['Missing Alt Attribute'] }}<br>
-                                            <strong>Alt Text Over 100 Characters:</strong> {{ image['Alt Text Over 100 Characters'] }}<br>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
+                                <div class="col-md-12">
+                                    <h1>Scan Results for {{ data['Images Issues']['URL'] }}</h1>
+
+                                    <h2>Images Issues</h2>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>thumbnail</th>
+                                                <th>Image Source</th>
+                                                <th>Alt Text</th>
+                                                <th>Width</th>
+                                                <th>Height</th>
+                                                <th>Missing Alt Text</th>
+                                                <th>Missing Alt Attribute</th>
+                                                <th>Alt Text Over 100 Characters</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for image in data['Images Issues']['Images'] %}
+                                                <tr>
+                                                    <td><img src="{{ data['Images Issues']['URL'] }}/{{ image['Image Source'] }}" width="90px" height="90px" /></td>
+                                                    <td>{{ image['Image Source'] }}</td>
+                                                    <td>{{ image['Alt Text'] }}</td>
+                                                    <td>{{ image['Width'] }}</td>
+                                                    <td>{{ image['Height'] }}</td>
+                                                    <td>{{ 'Yes' if image['Missing Alt Text'] else 'No' }}</td>
+                                                    <td>{{ 'Yes' if image['Missing Alt Attribute'] else 'No' }}</td>
+                                                    <td>{{ 'Yes' if image['Alt Text Over 100 Characters'] else 'No' }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    
                                 </div>
                             </div>
                       </div>
@@ -163,7 +182,7 @@
                     <span class="ms-auto">WACG</span>
                 </button>
             </h2>
-            <div id="collapseZero" class="accordion-collapse collapse show" aria-labelledby="headingZero" data-bs-parent="#accordionExample">
+            <div id="collapseZero" class="accordion-collapse collapse" aria-labelledby="headingZero" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                      <div class="tab-content mt-4" id="jsonTabsContent">
                 <div class="col">
@@ -210,7 +229,7 @@
             <span class="ms-auto">Ortografia</span>
         </button>
     </h2>
-    <div id="collapseZero1" class="accordion-collapse collapse show" aria-labelledby="headingZero1" data-bs-parent="#accordionExample">
+    <div id="collapseZero1" class="accordion-collapse collapse" aria-labelledby="headingZero1" data-bs-parent="#accordionExample">
         <div class="accordion-body">
              <div class="tab-content mt-4" id="jsonTabsContent">
         <div class="col">
@@ -260,7 +279,7 @@
                       <span class="ms-auto">Canonical URL and more details</span>
                   </button>
               </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                        <div class="tab-content mt-4" id="jsonTabsContent">
                   <div class="col">

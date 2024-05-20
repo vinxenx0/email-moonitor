@@ -115,6 +115,7 @@ def audit_image_details(url, soup):
         'Images': image_details
     }
 
+
 def get_canonical_info(soup, url, response):
     canonical_link = soup.find('link', attrs={'rel': 'canonical'})
     canonical_url = canonical_link.get('href') if canonical_link else ''
