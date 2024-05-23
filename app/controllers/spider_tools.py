@@ -101,13 +101,13 @@ def audit_image_details(url, soup):
             alt_text_over_100_characters = False
 
         image_details.append({
-            'Image Source': image_src,
-            'Alt Text': alt_text,
+            'Image_Source': image_src,
+            'Alt_Text': alt_text,
             'Width': width,
             'Height': height,
-            'Missing Alt Text': missing_alt_text,
-            'Missing Alt Attribute': missing_alt_attribute,
-            'Alt Text Over 100 Characters': alt_text_over_100_characters
+            'Missing_Alt_Text': missing_alt_text,
+            'Missing_Alt_Attribute': missing_alt_attribute,
+            'Alt_Text_Over_100_Characters': alt_text_over_100_characters
         })
 
     return {
@@ -136,20 +136,20 @@ def get_canonical_info(soup, url, response):
     canonical_outside_head = False  # Aquí necesitarías implementar la lógica para verificar si el canonical link está fuera del elemento head.
 
     return {
-        'Contains Canonical': canonical_link is not None,
-        'Self Referencing': canonical_self_referencing,
+        'Contains_Canonical': canonical_link is not None,
+        'Self_Referencing': canonical_self_referencing,
         'Canonicalised': canonicalised,
-        'Canonical Absolute': canonical_absolute,
-        'Canonical Relative': canonical_relative,
-        'Canonical HTTP Present': canonical_http_present,
-        'Canonical HTTP Absolute': canonical_http_absolute,
-        'Canonical HTTP Relative': canonical_http_relative,
-        'Canonical Multiple': canonical_multiple,
-        'Canonical Multiple Conflicting': canonical_multiple_conflicting,
-        'Canonical Non-Indexable': canonical_non_indexable,
-        'Canonical Is Relative': canonical_is_relative,
-        'Canonical Unlinked': canonical_unlinked,
-        'Canonical Outside Head': canonical_outside_head
+        'Canonical_Absolute': canonical_absolute,
+        'Canonical_Relative': canonical_relative,
+        'Canonical_HTTP Present': canonical_http_present,
+        'Canonical_HTTP Absolute': canonical_http_absolute,
+        'Canonical_HTTP Relative': canonical_http_relative,
+        'Canonical_Multiple': canonical_multiple,
+        'Canonical_Multiple Conflicting': canonical_multiple_conflicting,
+        'Canonical_Non-Indexable': canonical_non_indexable,
+        'Canonical_Is Relative': canonical_is_relative,
+        'Canonical_Unlinked': canonical_unlinked,
+        'Canonical_Outside Head': canonical_outside_head
     }
 
 def get_security_info(url, response, soup):
@@ -168,19 +168,19 @@ def get_security_info(url, response, soup):
     bad_content_type = response.headers.get('content-type', '').split(';')[0] != 'text/html' if response else False
     
     return {
-        'HTTP URLs': http_url,
-        'HTTPS URLs': https_url,
-        'Mixed Content': mixed_content,
-        'Form URL Insecure': form_url_insecure,
-        'Form on HTTP URL': form_on_http_url,
-        'Unsafe Cross-Origin Links': unsafe_cross_origin_links,
-        'Protocol-Relative Resource Links': protocol_relative_resource_links,
-        'Missing HSTS Header': missing_hsts_header,
-        'Missing Content-Security-Policy Header': missing_content_security_policy_header,
-        'Missing X-Content-Type-Options Header': missing_x_content_type_options_header,
-        'Missing X-Frame-Options Header': missing_x_frame_options_header,
-        'Missing Secure Referrer-Policy Header': missing_secure_referrer_policy_header,
-        'Bad Content Type': bad_content_type
+        'HTTP_URLs': http_url,
+        'HTTPS_URLs': https_url,
+        'Mixed_Content': mixed_content,
+        'Form_URL_Insecure': form_url_insecure,
+        'Form_on_HTTP_URL': form_on_http_url,
+        'Unsafe_Cross-Origin_Links': unsafe_cross_origin_links,
+        'Protocol-Relative_Resource_Links': protocol_relative_resource_links,
+        'Missing_HSTS Header': missing_hsts_header,
+        'Missing_Content-Security-Policy_Header': missing_content_security_policy_header,
+        'Missing_X-Content-Type-Options_Header': missing_x_content_type_options_header,
+        'Missing_X-Frame-Options_Header': missing_x_frame_options_header,
+        'Missing_Secure_Referrer-Policy_Header': missing_secure_referrer_policy_header,
+        'Bad_Content_Type': bad_content_type
     }
 
 def get_common_url_issues(url):
@@ -197,17 +197,17 @@ def get_common_url_issues(url):
     over_115_characters = len(url) > 115 if url else False
     
     return {
-        'Non ASCII Characters': non_ascii_characters,
+        'Non_ASCII_Characters': non_ascii_characters,
         'Underscores': underscores,
         'Uppercase': uppercase,
-        'Multiple Slashes': multiple_slashes,
-        'Repetitive Path': repetitive_path,
-        'Contains A Space': contains_space,
-        'Internal Search': internal_search,
+        'Multiple_Slashes': multiple_slashes,
+        'Repetitive_Path': repetitive_path,
+        'Contains_A_Space': contains_space,
+        'Internal_Search': internal_search,
         'Parameters': parameters,
-        'Broken Bookmark': broken_bookmark,
-        'GA Tracking Parameters': ga_tracking_parameters,
-        'Over 115 characters': over_115_characters
+        'Broken_Bookmark': broken_bookmark,
+        'GA_Tracking_Parameters': ga_tracking_parameters,
+        'Over_115_characters': over_115_characters
     }
 
 def get_page_title_issues(soup):
@@ -228,11 +228,11 @@ def get_page_title_issues(soup):
     return {
                 'Missing': title_missing,
                 'Duplicate': title_duplicate,
-                'Over 60 characters': title_over_60_characters,
-                'Below 30 characters': title_below_30_characters,
-                'Same as h1': title_same_as_h1,
+                'Over_60_characters': title_over_60_characters,
+                'Below_30_characters': title_below_30_characters,
+                'Same_as_h1': title_same_as_h1,
                 'Multiple': title_multiple,
-                'Outside <head>': title_outside_head
+                'Outside_<head>': title_outside_head
             }
 
 def get_meta_description_issues(soup):
@@ -252,10 +252,10 @@ def get_meta_description_issues(soup):
     return {
                 'Missing': meta_description_missing,
                 'Duplicate': meta_description_duplicate,
-                'Over 155 characters': meta_description_over_155_characters,
-                'Below 70 characters': meta_description_below_70_characters,
+                'Over_155_characters': meta_description_over_155_characters,
+                'Below_70_characters': meta_description_below_70_characters,
                 'Multiple': meta_description_multiple,
-                'Outside <head>': meta_description_outside_head
+                'Outside_<head>': meta_description_outside_head
              }
 
 def get_meta_keywords_issues(soup):
@@ -283,9 +283,9 @@ def get_h1_issues(soup):
     return {
         'Missing': h1_missing,
         'Duplicate': h1_duplicate,
-        'Over 70 characters': h1_over_70_characters,
+        'Over_70_characters': h1_over_70_characters,
         'Multiple': h1_multiple,
-        'Alt Text in h1': alt_text_in_h1,
+        'Alt_Text_in_h1': alt_text_in_h1,
         'Non-sequential': non_sequential_h1
     }
 
@@ -305,7 +305,7 @@ def get_h2_issues(soup):
     return {
         'Missing': h2_missing,
         'Duplicate': h2_duplicate,
-        'Over 70 characters': h2_over_70_characters,
+        'Over_70_characters': h2_over_70_characters,
         'Multiple': h2_multiple,
         'Non-sequential': non_sequential_h2
     }
@@ -336,7 +336,7 @@ def get_directive_issues(soup, response):
         'NoTranslate': 'notranslate' in meta_robots_content.lower() or 'notranslate' in x_robots_tag.lower(),
         'Unavailable_After': 'unavailable_after' in meta_robots_content.lower() or 'unavailable_after' in x_robots_tag.lower(),
         'Refresh': soup.find('meta', attrs={'http-equiv': 'refresh'}) is not None,
-        'Outside <head>': meta_robots_tag and not meta_robots_tag.find_parent('head')
+        'Outside_<head>': meta_robots_tag and not meta_robots_tag.find_parent('head')
     }
 
     return directives
@@ -401,20 +401,20 @@ def get_hreflang_issues(soup):
             outside_head.append(hreflang_url)
     
     return {
-        'Contains Hreflang': contains_hreflang,
-        'Non-200 Hreflang URLs': non_200_hreflang_urls,
-        'Unlinked Hreflang URLs': unlinked_hreflang_urls,
-        'Missing Return Links': missing_return_links,
-        'Inconsistent Language & Region Return Links': inconsistent_language_region_return_links,
-        'Non-Canonical Return Links': non_canonical_return_links,
-        'Noindex Return Links': noindex_return_links,
-        'Incorrect Language & Region Codes': incorrect_language_region_codes,
-        'Multiple Entries': multiple_entries,
-        'Missing Self Reference': missing_self_reference,
-        'Not Using Canonical': not_using_canonical,
-        'Missing X-Default': missing_x_default,
+        'Contains_Hreflang': contains_hreflang,
+        'Non-200_Hreflang_URLs': non_200_hreflang_urls,
+        'Unlinked_Hreflang_URLs': unlinked_hreflang_urls,
+        'Missing_Return_Links': missing_return_links,
+        'Inconsistent_Language_&_Region_Return_Links': inconsistent_language_region_return_links,
+        'Non-Canonical_Return_Links': non_canonical_return_links,
+        'Noindex_Return_Links': noindex_return_links,
+        'Incorrect_Language_&_Region_Codes': incorrect_language_region_codes,
+        'Multiple_Entries': multiple_entries,
+        'Missing_Self_Reference': missing_self_reference,
+        'Not_Using_Canonical': not_using_canonical,
+        'Missing_X-Default': missing_x_default,
         'Missing': missing,
-        'Outside <head>': outside_head
+        'Outside_<head>': outside_head
     }
 
 def get_structured_data_issues(soup):
@@ -458,14 +458,14 @@ def get_structured_data_issues(soup):
             rdfa_urls.append(data)  # Almacenamos el contenido del script
     
     return {
-        'Contains Structured Data': contains_structured_data,
-        'Missing Structured Data': missing_structured_data,
-        'Validation Errors': validation_errors,
-        'Validation Warnings': validation_warnings,
-        'Parse Errors': parse_errors,
-        'Microdata URLs': microdata_urls,
-        'JSON-LD URLs': json_ld_urls,
-        'RDFa URLs': rdfa_urls
+        'Contains_Structured_Data': contains_structured_data,
+        'Missing_Structured_Data': missing_structured_data,
+        'Validation_Errors': validation_errors,
+        'Validation_Warnings': validation_warnings,
+        'Parse_Errors': parse_errors,
+        'Microdata_URLs': microdata_urls,
+        'JSON-LD_URLs': json_ld_urls,
+        'RDFa_URLs': rdfa_urls
     }
 
 def get_url_details(url, soup):
@@ -488,7 +488,7 @@ def get_url_details(url, soup):
     
     return {
         'URL': url,
-        'Status Code': status_code,
+        'Status_Code': status_code,
         'Status': status,
         'Content': content_type,
         'Size': size,
@@ -516,18 +516,18 @@ def validate_html(html_content):
     html_over_15mb = 1 if html_size_mb > 15 else 0
 
     return {
-        'Invalid HTML Elements In <head>': invalid_head_elements,
-        'Body Element Preceding <html>': body_preceding_html,
-        'Head Not First In <html> Element': head_not_first,
-        'Missing <head> Tag': missing_head_tag,
-        'Multiple <head> Tags': multiple_head_tags,
-        'Missing <body> Tag': missing_body_tag,
-        'Multiple <body> Tags': multiple_body_tags,
-        'HTML Document Over 15MB': html_over_15mb
+        'Invalid_HTML_Elements_In_<head>': invalid_head_elements,
+        'Body_Element_Preceding_<html>': body_preceding_html,
+        'Head_Not_First_In_<html>_Element': head_not_first,
+        'Missing_<head>_Tag': missing_head_tag,
+        'Multiple_<head>_Tags': multiple_head_tags,
+        'Missing_<body>_Tag': missing_body_tag,
+        'Multiple_<body>_Tags': multiple_body_tags,
+        'HTML_Document_Over_15MB': html_over_15mb
     }
 
 ## no se usa
-def get_url_details(url_info):
+def __get_url_details(url_info):
 
     url_info = {
                 #'Address': url,
@@ -539,61 +539,61 @@ def get_url_details(url_info):
     url_details = {
         'Address': url_info.get('url'),
         'Content': url_info.get('Content', ''),
-        'Status Code': url_info.get('Status Code', ''),
+        'Status_Code': url_info.get('Status Code', ''),
         'Status': url_info.get('Status', ''),
         'Indexability': url_info.get('Indexability', ''),
-        'Indexability Status': url_info.get('Indexability Status', ''),
-        'Title 1': url_info.get('Title 1', ''),
-        'Title 1 Length': url_info.get('Title 1 Length', 0),
-        'Title 1 Pixel Width': url_info.get('Title 1 Pixel Width', 0),
-        'Meta Description 1': url_info.get('Meta Description 1', ''),
-        'Meta Description Length 1': url_info.get('Meta Description Length 1', 0),
-        'Meta Description Pixel Width': url_info.get('Meta Description Pixel Width', 0),
-        'Meta Keyword 1': url_info.get('Meta Keyword 1', ''),
-        'Meta Keywords Length': url_info.get('Meta Keywords Length', 0),
-        'h1 - 1': url_info.get('h1 - 1', ''),
-        'h1 - Len-1': url_info.get('h1 - Len-1', 0),
-        'h2 - 1': url_info.get('h2 - 1', ''),
-        'h2 - Len-1': url_info.get('h2 - Len-1', 0),
-        'Meta Robots 1': url_info.get('Meta Robots 1', ''),
-        'X-Robots-Tag 1': url_info.get('X-Robots-Tag 1', ''),
-        'Meta Refresh 1': url_info.get('Meta Refresh 1', ''),
-        'Canonical Link Element': url_info.get('Canonical Link Element', ''),
-        'rel="next" 1': url_info.get('rel="next" 1', ''),
-        'rel="prev" 1': url_info.get('rel="prev" 1', ''),
-        'HTTP rel="next" 1': url_info.get('HTTP rel="next" 1', ''),
-        'HTTP rel="prev" 1': url_info.get('HTTP rel="prev" 1', ''),
+        'Indexability_Status': url_info.get('Indexability Status', ''),
+        'Title_1': url_info.get('Title 1', ''),
+        'Title_1_Length': url_info.get('Title 1 Length', 0),
+        'Title_1_Pixel_Width': url_info.get('Title 1 Pixel Width', 0),
+        'Meta Description_1': url_info.get('Meta Description 1', ''),
+        'Meta Description_Length_1': url_info.get('Meta Description Length 1', 0),
+        'Meta Description_Pixel_Width': url_info.get('Meta Description Pixel Width', 0),
+        'Meta Keyword_1': url_info.get('Meta Keyword 1', ''),
+        'Meta Keywords_Length': url_info.get('Meta Keywords Length', 0),
+        'h1_-_1': url_info.get('h1 - 1', ''),
+        'h1_-_Len-1': url_info.get('h1 - Len-1', 0),
+        'h2_-_1': url_info.get('h2 - 1', ''),
+        'h2_-_Len-1': url_info.get('h2 - Len-1', 0),
+        'Meta_Robots_1': url_info.get('Meta Robots 1', ''),
+        'X-Robots-Tag_1': url_info.get('X-Robots-Tag 1', ''),
+        'Meta_Refresh_1': url_info.get('Meta Refresh 1', ''),
+        'Canonical_Link_Element': url_info.get('Canonical Link Element', ''),
+        'rel="next"_1': url_info.get('rel="next" 1', ''),
+        'rel="prev"_1': url_info.get('rel="prev" 1', ''),
+        'HTTP_rel="next"_1': url_info.get('HTTP rel="next" 1', ''),
+        'HTTP_rel="prev"_1': url_info.get('HTTP rel="prev" 1', ''),
         'Size': url_info.get('Size', 0),
         'Transferred': url_info.get('Transferred', 0),
-        'Word Count': url_info.get('Word Count', 0),
-        'Text Ratio': url_info.get('Text Ratio', 0),
-        'Crawl Depth': url_info.get('Crawl Depth', 0),
-        'Folder Depth': url_info.get('Folder Depth', 0),
-        'Link Score': url_info.get('Link Score', 0),
+        'Word_Count': url_info.get('Word Count', 0),
+        'Text_Ratio': url_info.get('Text Ratio', 0),
+        'Crawl_Depth': url_info.get('Crawl Depth', 0),
+        'Folder_Depth': url_info.get('Folder Depth', 0),
+        'Link_Score': url_info.get('Link Score', 0),
         'Inlinks': url_info.get('Inlinks', 0),
-        'Unique Inlinks': url_info.get('Unique Inlinks', 0),
-        'Unique JS Inlinks': url_info.get('Unique JS Inlinks', 0),
-        '% of Total': url_info.get('% of Total', 0),
+        'Unique_Inlinks': url_info.get('Unique Inlinks', 0),
+        'Unique_JS_Inlinks': url_info.get('Unique JS Inlinks', 0),
+        '%_of_Total': url_info.get('% of Total', 0),
         'Outlinks': url_info.get('Outlinks', 0),
-        'Unique Outlinks': url_info.get('Unique Outlinks', 0),
-        'Unique JS Outlinks': url_info.get('Unique JS Outlinks', 0),
-        'External Outlinks': url_info.get('External Outlinks', 0),
-        'Unique External Outlinks': url_info.get('Unique External Outlinks', 0),
-        'Unique External JS Outlinks': url_info.get('Unique External JS Outlinks', 0),
-        'Closest Similarity Match': url_info.get('Closest Similarity Match', ''),
-        'No. Near Duplicates': url_info.get('No. Near Duplicates', 0),
-        'Spelling Errors': url_info.get('Spelling Errors', 0),
-        'Grammar Errors': url_info.get('Grammar Errors', 0),
+        'Unique_Outlinks': url_info.get('Unique Outlinks', 0),
+        'Unique_JS_Outlinks': url_info.get('Unique JS Outlinks', 0),
+        'External_Outlinks': url_info.get('External Outlinks', 0),
+        'Unique_External_Outlinks': url_info.get('Unique External Outlinks', 0),
+        'Unique_External_JS_Outlinks': url_info.get('Unique External JS Outlinks', 0),
+        'Closest_Similarity_Match': url_info.get('Closest Similarity Match', ''),
+        'No._Near_Duplicates': url_info.get('No. Near Duplicates', 0),
+        'Spelling_Errors': url_info.get('Spelling Errors', 0),
+        'Grammar_Errors': url_info.get('Grammar Errors', 0),
         'Language': url_info.get('Language', ''),
         'Hash': url_info.get('Hash', ''),
         'Response Time': url_info.get('Response Time', ''),
         'Last-Modified': url_info.get('Last-Modified', ''),
-        'Redirect URI': url_info.get('Redirect URI', ''),
-        'Redirect Type': url_info.get('Redirect Type', ''),
-        'HTTP Version': url_info.get('HTTP Version', ''),
-        'URL Encoded Address': url_info.get('URL Encoded Address', ''),
-        'Title 2': url_info.get('Title 2', ''),
-        'Meta Description 2': url_info.get('Meta Description 2', ''),
+        'Redirect_URI': url_info.get('Redirect URI', ''),
+        'Redirect_Type': url_info.get('Redirect Type', ''),
+        'HTTP_Version': url_info.get('HTTP Version', ''),
+        'URL_Encoded Address': url_info.get('URL Encoded Address', ''),
+        'Title_2': url_info.get('Title 2', ''),
+        'Meta_Description 2': url_info.get('Meta Description 2', ''),
         'h1-2': url_info.get('h1-2', ''),
         'h2-2': url_info.get('h2-2', '')
     }
@@ -608,75 +608,75 @@ def get_page_info(url):
             response = requests.get(url) 
             page_info = {
                 
-                'Canonical Info': get_canonical_info(soup, url, response),
-                'Security Info': get_security_info(url, response, soup),
-                'Common URL Issues': get_common_url_issues(url),
-                'Page Title Issues': get_page_title_issues(soup),
-                'Meta Description Issues': get_meta_description_issues(soup),
-                'Meta Keywords Issues': get_meta_keywords_issues(soup),
-                'H1 Issues': get_h1_issues(soup),
-                'H2 Issues': get_h2_issues(soup),
-                'Directives Issues': get_directive_issues(soup,response),
-                'HFLang Ref Issues' : get_hreflang_issues(soup),
-                'Schema ORG Issues' : get_structured_data_issues(soup),
-                'Header info' : get_header_info(url),
-                'Validation Issues': validate_html(response.content),
-                'Mobile audit Results' : app.controllers.mobile_tools.audit_mobile_usability(url, soup),
+                'Canonical_Info': get_canonical_info(soup, url, response),
+                'Security_Info': get_security_info(url, response, soup),
+                'Common_URL_Issues': get_common_url_issues(url),
+                'Page_Title_Issues': get_page_title_issues(soup),
+                'Meta_Description_Issues': get_meta_description_issues(soup),
+                'Meta_Keywords_Issues': get_meta_keywords_issues(soup),
+                'H1_Issues': get_h1_issues(soup),
+                'H2_Issues': get_h2_issues(soup),
+                'Directives_Issues': get_directive_issues(soup,response),
+                'HFLang_Ref_Issues' : get_hreflang_issues(soup),
+                'Schema_ORG_Issues' : get_structured_data_issues(soup),
+                'Header_info' : get_header_info(url),
+                'Validation_Issues': validate_html(response.content),
+                'Mobile_audit_Results' : app.controllers.mobile_tools.audit_mobile_usability(url, soup),
                 
                 # probar velocidad con buscar en diccionario # temporal
-                'Internal Details' : #get_url_details(url_info),  # Corregido aquí 
+                'Internal_Details' : #get_url_details(url_info),  # Corregido aquí 
                     {
-                        'Header Name': response.headers.get('Name', ''),
-                        'Header Value': response.headers.get('Value', ''),
+                        'Header_Name': response.headers.get('Name', ''),
+                        'Header_Value': response.headers.get('Value', ''),
                         'URL': url,
-                        'Status Code': response.status_code,
+                        'Status_Code': response.status_code,
                         'Status': response.reason,
                         'Content': response.headers.get('Content-Type', ''),
                         'Size': len(response.content),
                         'Transferred': response.headers.get('Content-Length', ''),
-                        'Title 1': soup.find('title').text if soup.find('title') else '',
-                        'Title 1 Length': len(soup.find('title').text) if soup.find('title') else 0,
-                        'h1 - 1': soup.find('h1').text if soup.find('h1') else '',
-                        'h1 - Len-1': len(soup.find('h1').text) if soup.find('h1') else 0,
-                        'h2 - 1': soup.find('h2').text if soup.find('h2') else '',
-                        'h2 - Len-1': len(soup.find('h2').text) if soup.find('h2') else 0,
-                        'Meta Description 1': soup.find('meta', attrs={'name': 'description'}).get('content', '') if soup.find('meta', attrs={'name': 'description'}) else '',
-                        'Meta Description Length 1': len(soup.find('meta', attrs={'name': 'description'}).get('content', '')) if soup.find('meta', attrs={'name': 'description'}) else 0,
-                        'Meta Description Pixel Width': 0,  # Aquí necesitarías calcular la anchura en píxeles
-                        'Meta Keyword 1': soup.find('meta', attrs={'name': 'keywords'}).get('content', '') if soup.find('meta', attrs={'name': 'keywords'}) else '',
-                        'Meta Keywords Length': len(soup.find('meta', attrs={'name': 'keywords'}).get('content', '')) if soup.find('meta', attrs={'name': 'keywords'}) else 0,
-                        'Meta Robots 1': soup.find('meta', attrs={'name': 'robots'}).get('content', '') if soup.find('meta', attrs={'name': 'robots'}) else '',
-                        'X-Robots-Tag 1': response.headers.get('X-Robots-Tag', ''),
-                        'Meta Refresh 1': soup.find('meta', attrs={'http-equiv': 'refresh'}).get('content', '') if soup.find('meta', attrs={'http-equiv': 'refresh'}) else '',
-                        'Canonical Link Element': soup.find('link', attrs={'rel': 'canonical'}).get('href', '') if soup.find('link', attrs={'rel': 'canonical'}) else '',
-                        'rel="next" 1': soup.find('link', attrs={'rel': 'next'}).get('href', '') if soup.find('link', attrs={'rel': 'next'}) else '',
-                        'rel="prev" 1': soup.find('link', attrs={'rel': 'prev'}).get('href', '') if soup.find('link', attrs={'rel': 'prev'}) else '',
-                        'HTTP rel="next" 1': response.headers.get('Link', '').split(';')[0].strip('<>') if response.headers.get('Link') else '',
-                        'HTTP rel="prev" 1': response.headers.get('Link', '').split(';')[0].strip('<>') if response.headers.get('Link') else '',
-                        'Word Count': len(soup.text.split()),
-                        'Response Time': response.elapsed.total_seconds() if response.elapsed else 0,
-                        'h2 Occurrences': len(soup.find_all('h2')),
+                        'Title_1': soup.find('title').text if soup.find('title') else '',
+                        'Title_1_Length': len(soup.find('title').text) if soup.find('title') else 0,
+                        'h1_-_1': soup.find('h1').text if soup.find('h1') else '',
+                        'h1_-_Len-1': len(soup.find('h1').text) if soup.find('h1') else 0,
+                        'h2_-_1': soup.find('h2').text if soup.find('h2') else '',
+                        'h2_-_Len-1': len(soup.find('h2').text) if soup.find('h2') else 0,
+                        'Meta_Description_1': soup.find('meta', attrs={'name': 'description'}).get('content', '') if soup.find('meta', attrs={'name': 'description'}) else '',
+                        'Meta_Description_Length_1': len(soup.find('meta', attrs={'name': 'description'}).get('content', '')) if soup.find('meta', attrs={'name': 'description'}) else 0,
+                        'Meta_Description_Pixel_Width': 0,  # Aquí necesitarías calcular la anchura en píxeles
+                        'Meta_Keyword_1': soup.find('meta', attrs={'name': 'keywords'}).get('content', '') if soup.find('meta', attrs={'name': 'keywords'}) else '',
+                        'Meta_Keywords_Length': len(soup.find('meta', attrs={'name': 'keywords'}).get('content', '')) if soup.find('meta', attrs={'name': 'keywords'}) else 0,
+                        'Meta_Robots_1': soup.find('meta', attrs={'name': 'robots'}).get('content', '') if soup.find('meta', attrs={'name': 'robots'}) else '',
+                        'X-Robots-Tag_1': response.headers.get('X-Robots-Tag', ''),
+                        'Meta_Refresh_1': soup.find('meta', attrs={'http-equiv': 'refresh'}).get('content', '') if soup.find('meta', attrs={'http-equiv': 'refresh'}) else '',
+                        'Canonical_Link_Element': soup.find('link', attrs={'rel': 'canonical'}).get('href', '') if soup.find('link', attrs={'rel': 'canonical'}) else '',
+                        'rel="next"_1': soup.find('link', attrs={'rel': 'next'}).get('href', '') if soup.find('link', attrs={'rel': 'next'}) else '',
+                        'rel="prev"_1': soup.find('link', attrs={'rel': 'prev'}).get('href', '') if soup.find('link', attrs={'rel': 'prev'}) else '',
+                        'HTTP_rel="next"_1': response.headers.get('Link', '').split(';')[0].strip('<>') if response.headers.get('Link') else '',
+                        'HTTP_rel="prev"_1': response.headers.get('Link', '').split(';')[0].strip('<>') if response.headers.get('Link') else '',
+                        'Word_Count': len(soup.text.split()),
+                        'Response_Time': response.elapsed.total_seconds() if response.elapsed else 0,
+                        'h2_Occurrences': len(soup.find_all('h2')),
                         'h2-1': soup.find('h2').text if soup.find('h2') else '',
-                        'h2-1 length': len(soup.find('h2').text) if soup.find('h2') else 0,
-                        'h1 Occurrences': len(soup.find_all('h1')),
+                        'h2-1_length': len(soup.find('h2').text) if soup.find('h2') else 0,
+                        'h1_Occurrences': len(soup.find_all('h1')),
                         'h1-1': soup.find('h1').text if soup.find('h1') else '',
-                        'h1-1 length': len(soup.find('h1').text) if soup.find('h1') else 0,
-                        'meat keywords Occurrences': len(soup.find_all('meta', attrs={'name': 'keywords'})),
-                        'Meta Keyword 2': soup.find_all('meta', attrs={'name': 'keywords'})[1].get('content', '') if len(soup.find_all('meta', attrs={'name': 'keywords'})) > 1 else '',
-                        'Meta Keyword 2 length': len(soup.find_all('meta', attrs={'name': 'keywords'})) > 1 and len(soup.find_all('meta', attrs={'name': 'keywords'}))[1].get('content', '') or 0,
-                        'Description Occurrences': len(soup.find_all('meta', attrs={'name': 'description'})),
-                        'Meta Description 2': soup.find_all('meta', attrs={'name': 'description'})[1].get('content', '') if len(soup.find_all('meta', attrs={'name': 'description'})) > 1 else '',
-                        'Meta Description 2 length': len(soup.find_all('meta', attrs={'name': 'description'}))[1].get('content', '') if len(soup.find_all('meta', attrs={'name': 'description'})) > 1 else 0,
-                        'title Occurrences': len(soup.find_all('title')),
-                        'Title 2': soup.find_all('title')[1].text if len(soup.find_all('title')) > 1 else '',
-                        'Title 2 length': len(soup.find_all('title')[1].text) if len(soup.find_all('title')) > 1 else 0,
-                        'URL Length': len(url),
+                        'h1-1_length': len(soup.find('h1').text) if soup.find('h1') else 0,
+                        'meat_keywords_Occurrences': len(soup.find_all('meta', attrs={'name': 'keywords'})),
+                        'Meta_Keyword_2': soup.find_all('meta', attrs={'name': 'keywords'})[1].get('content', '') if len(soup.find_all('meta', attrs={'name': 'keywords'})) > 1 else '',
+                        'Meta_Keyword_2_length': len(soup.find_all('meta', attrs={'name': 'keywords'})) > 1 and len(soup.find_all('meta', attrs={'name': 'keywords'}))[1].get('content', '') or 0,
+                        'Description_Occurrences': len(soup.find_all('meta', attrs={'name': 'description'})),
+                        'Meta_Description_2': soup.find_all('meta', attrs={'name': 'description'})[1].get('content', '') if len(soup.find_all('meta', attrs={'name': 'description'})) > 1 else '',
+                        'Meta_Description_2_length': len(soup.find_all('meta', attrs={'name': 'description'}))[1].get('content', '') if len(soup.find_all('meta', attrs={'name': 'description'})) > 1 else 0,
+                        'title_Occurrences': len(soup.find_all('title')),
+                        'Title_2': soup.find_all('title')[1].text if len(soup.find_all('title')) > 1 else '',
+                        'Title_2_length': len(soup.find_all('title')[1].text) if len(soup.find_all('title')) > 1 else 0,
+                        'URL_Length': len(url),
                         'Last-Modified': response.headers.get('Last-Modified', ''),
                         'Address': url,
                     },
                     
                 # modulos con pestaña en menu
-                'Images Issues' : audit_image_details(url,soup)
+                'Images_Issues' : audit_image_details(url,soup)
             }
 
             spelling_errors, grammar_errors = analizar_ortografia(response.text)
