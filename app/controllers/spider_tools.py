@@ -1,13 +1,18 @@
 import re
+import socket
 import subprocess
 from urllib.parse import urlparse
 import requests
 import json
 from bs4 import BeautifulSoup
 import app.controllers.mobile_tools
-
+import xml.etree.ElementTree as ET
 import aspell
-import langid
+
+import ssl
+import datetime
+
+
 
 def get_soup(url):
     try:
@@ -526,6 +531,517 @@ def validate_html(html_content):
         'HTML_Document_Over_15MB': html_over_15mb
     }
 
+# Checks TAD
+
+def check_redirects(url):
+    try:
+        response = requests.get(url)
+        redirects = response.history
+        redirect_chain = [resp.url for resp in redirects]
+        redirect_chain.append(response.url)
+        return redirect_chain
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_gzip(url):
+    try:
+        response = requests.get(url)
+        return 'Content-Encoding' in response.headers and ('gzip' in response.headers['Content-Encoding'] or 'br' in response.headers['Content-Encoding'])
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_page_size(url):
+    try:
+        response = requests.get(url)
+        return len(response.content)
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_deprecated_tags(soup):
+    deprecated_tags = ['acronym', 'applet', 'basefont', 'big', 'blink', 'center', 'dir', 'font', 'frame', 'frameset', 'isindex', 'keygen', 'listing', 'marquee', 'menuitem', 'multicol', 'nextid', 'nobr', 'noembed', 'noframes', 'plaintext', 'rb', 'rtc', 'spacer', 'strike', 'tt', 'xmp']
+    found_tags = []
+    for tag in deprecated_tags:
+        if soup.find(tag):
+            found_tags.append(tag)
+    return found_tags
+
+def check_friendly_url(url):
+    return ' ' not in url and url.islower() and '-' in url and '=' not in url
+
+def check_favicon(soup):
+    icon_link = soup.find("link", rel="icon")
+    if icon_link and icon_link.get('href'):
+        return True
+    return False
+
+def check_www_redirect(url):
+    try:
+        response = requests.get(url, allow_redirects=False)
+        www_url = url.replace('://', '://www.')
+        if response.status_code == 301 or response.status_code == 302:
+            return response.headers['Location'] == www_url
+        else:
+            response_www = requests.get(www_url, allow_redirects=False)
+            return response.status_code == 200 and response_www.status_code == 200
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+
+
+def check_lazy_loading(soup):
+    lazy_images = soup.find_all('img', loading='lazy')
+    return len(lazy_images) > 0
+
+def check_google_search_display(soup):
+    title = soup.title.string if soup.title else ''
+    meta_desc = soup.find('meta', attrs={'name': 'description'})
+    description = meta_desc['content'] if meta_desc else ''
+    return {
+        'Title': title,
+        'Title Length': len(title),
+        'Description': description,
+        'Description Length': len(description)
+    }
+
+def check_responsive_images(soup):
+    images = soup.find_all('img')
+    large_images = [img['src'] for img in images if 'width' in img.attrs and int(img['width']) > 1000]
+    return large_images
+
+def check_http_to_https_redirect(url):
+    if url.startswith('http://'):
+        https_url = url.replace('http://', 'https://')
+        try:
+            response = requests.get(url, allow_redirects=True)
+            return response.url.startswith(https_url)
+        except requests.RequestException as e:
+            return f"Error: {e}"
+    return False
+
+##########
+############# SECURITY RANK ##############
+##########
+
+def check_ssl_expiry(url):
+    try:
+        hostname = url.split("//")[-1].split("/")[0]
+        context = ssl.create_default_context()
+        conn = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname=hostname)
+        conn.connect((hostname, 443))
+        ssl_info = conn.getpeercert()
+        expiry_date = datetime.datetime.strptime(ssl_info['notAfter'], '%b %d %H:%M:%S %Y %Z')
+        days_to_expire = (expiry_date - datetime.datetime.utcnow()).days
+        return days_to_expire
+    except Exception as e:
+        return f"Error: {e}"
+
+def check_outdated_ssl_tls(response):
+    try:
+        if response.raw.version == 10:  # HTTP/1.0
+            return True
+        return False
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_certificate_name(url):
+    try:
+        hostname = url.split("//")[-1].split("/")[0]
+        context = ssl.create_default_context()
+        conn = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname=hostname)
+        conn.connect((hostname, 443))
+        ssl_info = conn.getpeercert()
+        common_name = dict(x[0] for x in ssl_info['subject'])['commonName']
+        return common_name == hostname
+    except Exception as e:
+        return f"Error: {e}"
+
+def check_deprecated_encryption(url):
+    try:
+        context = ssl.create_default_context()
+        context.set_ciphers('DEFAULT@SECLEVEL=1')
+        conn = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname=url)
+        conn.connect((url, 443))
+        ssl_info = conn.cipher()
+        return 'SHA1' in ssl_info or 'MD5' in ssl_info
+    except Exception as e:
+        return f"Error: {e}"
+
+def check_http_in_sitemap(sitemap_url,soup):
+    try:
+        urls = soup.find_all('loc')
+        http_urls = [url.text for url in urls if url.text.startswith('http://')]
+        return http_urls
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_canonical_https_to_http(url, soup):
+    try:
+        canonical = soup.find('link', rel='canonical')
+        if canonical and canonical['href'].startswith('http://'):
+            return True
+        return False
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_https_to_http_redirect(url):
+    if url.startswith('https://'):
+        http_url = url.replace('https://', 'http://')
+        try:
+            response = requests.get(url, allow_redirects=False)
+            return response.headers.get('Location') == http_url
+        except requests.RequestException as e:
+            return f"Error: {e}"
+    return False
+
+def check_mixed_content(response):
+    try:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        mixed_content_elements = [tag['src'] for tag in soup.find_all(['img', 'script', 'link']) if 'src' in tag.attrs and tag['src'].startswith('http://')]
+        return mixed_content_elements
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+
+##########
+####### CRAWLING AUDIT
+##########
+
+def check_large_xml_sitemap(sitemap_url_response):
+    try:
+        response = sitemap_url_response
+        if response.headers.get('Content-Length') and int(response.headers['Content-Length']) > 52428800:
+            return True
+        tree = ET.ElementTree(ET.fromstring(response.content))
+        url_count = len(tree.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}url'))
+        return url_count > 50000
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_non_canonical_pages_in_sitemap(sitemap_url_response):
+    try:
+        response = sitemap_url_response
+        tree = ET.ElementTree(ET.fromstring(response.content))
+        urls = [elem.text for elem in tree.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
+        non_canonical = []
+        for url in urls:
+            page_response = requests.get(url)
+            soup = BeautifulSoup(page_response.content, 'html.parser')
+            canonical = soup.find('link', rel='canonical')
+            if canonical and canonical['href'] != url:
+                non_canonical.append(url)
+        return non_canonical
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_noindex_pages_in_sitemap(sitemap_url):
+    try:
+        response = requests.get(sitemap_url)
+        tree = ET.ElementTree(ET.fromstring(response.content))
+        urls = [elem.text for elem in tree.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
+        noindex_pages = []
+        for url in urls:
+            page_response = requests.get(url)
+            soup = BeautifulSoup(page_response.content, 'html.parser')
+            meta_robots = soup.find('meta', attrs={'name': 'robots'})
+            if meta_robots and 'noindex' in meta_robots['content']:
+                noindex_pages.append(url)
+        return noindex_pages
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_missing_xml_sitemap(sitemap_url):
+    try:
+        response = requests.head(sitemap_url)
+        return response.status_code != 200
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_sitemap_in_robots_txt(robots_url, sitemap_url):
+    try:
+        response = requests.get(robots_url)
+        return f'Sitemap: {sitemap_url}' in response.text
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_robots_txt_exists(robots_url):
+    try:
+        response = requests.head(robots_url)
+        return response.status_code == 200
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_frame_tag(response):
+    try:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        return bool(soup.find('frame'))
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_long_url(url):
+    return len(url) > 75
+
+def check_noindex_in_html_and_http(response):
+    try:
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        meta_robots = soup.find('meta', attrs={'name': 'robots'})
+        header_robots = response.headers.get('X-Robots-Tag')
+        if meta_robots and 'noindex' in meta_robots['content'] and header_robots and 'noindex' in header_robots:
+            return True
+        return False
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_nofollow_in_html_and_http(response):
+    try:
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        meta_robots = soup.find('meta', attrs={'name': 'robots'})
+        header_robots = response.headers.get('X-Robots-Tag')
+        if meta_robots and 'nofollow' in meta_robots['content'] and header_robots and 'nofollow' in header_robots:
+            return True
+        return False
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_canonical_chain(url, response):
+    try:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        canonical = soup.find('link', rel='canonical')
+        if canonical and canonical['href'] != url:
+            next_url = canonical['href']
+            next_response = requests.get(next_url)
+            next_soup = BeautifulSoup(next_response.content, 'html.parser')
+            next_canonical = next_soup.find('link', rel='canonical')
+            if next_canonical and next_canonical['href'] != next_url:
+                return True
+        return False
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_blocked_by_robots_txt(url):
+    try:
+        #response = requests.get(url)
+        robots_url = f"{url.split('//')[0]}//{url.split('//')[1].split('/')[0]}/robots.txt"
+        robots_response = requests.get(robots_url)
+        if 'Disallow' in robots_response.text:
+            disallow_paths = [line.split(' ')[1] for line in robots_response.text.split('\n') if line.startswith('Disallow')]
+            for path in disallow_paths:
+                if path in url:
+                    return True
+        return False
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_blocked_by_noindex(response):
+    try:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        meta_robots = soup.find('meta', attrs={'name': 'robots'})
+        return meta_robots and 'noindex' in meta_robots['content']
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_blocked_by_nofollow(response):
+    try:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        meta_robots = soup.find('meta', attrs={'name': 'robots'})
+        return meta_robots and 'nofollow' in meta_robots['content']
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_blocked_by_x_robots_tag(response):
+    try:
+
+        header_robots = response.headers.get('X-Robots-Tag')
+        return header_robots and ('noindex' in header_robots or 'nofollow' in header_robots)
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_canonical_http_to_https(url, response):
+    try:
+       
+        soup = BeautifulSoup(response.content, 'html.parser')
+        canonical = soup.find('link', rel='canonical')
+        return canonical and canonical['href'].startswith('https://') and url.startswith('http://')
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_timed_out(url):
+    try:
+        response = requests.get(url, timeout=15)
+        return False
+    except requests.Timeout:
+        return True
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+
+
+#########
+###### DUPLICATE CONTENT
+############
+
+def check_no_www_redirect(url):
+    try:
+        response_with_www = requests.get(url.replace('://', '://www.'))
+        response_without_www = requests.get(url.replace('://www.', '://'))
+        return response_with_www.url == response_without_www.url
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_multiple_canonical(response):
+    try:
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        canonicals = soup.find_all('link', rel='canonical')
+        return len(canonicals) > 1 and len(set([canonical['href'] for canonical in canonicals])) > 1
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_duplicate_content(response):
+    try:
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        page_content = soup.get_text()
+        # Placeholder for checking duplicate content against other pages
+        return False
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_double_slash(response):
+    try:
+
+        return '//' in response.url.replace('://', '').replace('www.', '')
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_trailing_slash(url):
+    try:
+        response_with_slash = requests.get(url if url.endswith('/') else url + '/')
+        response_without_slash = requests.get(url.rstrip('/'))
+        return response_with_slash.url != response_without_slash.url
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+
+#########
+## HTTP STATUS CODE
+#######
+
+def check_status_code(url):
+    try:
+        response = requests.get(url)
+        return response.status_code
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_xml_sitemap_status(sitemap_url_response):
+    try:
+        response = sitemap_url_response
+        soup = BeautifulSoup(response.content, 'xml')
+        urls = [loc.text for loc in soup.find_all('loc')]
+        status_codes = {url: check_status_code(url) for url in urls}
+        issues = {
+            '4XX': [url for url, code in status_codes.items() if str(code).startswith('4')],
+            '3XX': [url for url, code in status_codes.items() if str(code).startswith('3')],
+            '5XX': [url for url, code in status_codes.items() if str(code).startswith('5')]
+        }
+        return issues
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_internal_links_status(response):
+    try:
+        #response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        links = [a['href'] for a in soup.find_all('a', href=True)]
+        status_codes = {link: check_status_code(link) for link in links}
+        issues = {
+            '3XX': [link for link, code in status_codes.items() if str(code).startswith('3')],
+            '4XX': [link for link, code in status_codes.items() if str(code).startswith('4')],
+            '5XX': [link for link, code in status_codes.items() if str(code).startswith('5')]
+        }
+        return issues
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_external_links_status(url, response):
+    try:
+        #response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        links = [a['href'] for a in soup.find_all('a', href=True) if url not in a['href']]
+        status_codes = {link: check_status_code(link) for link in links}
+        issues = {
+            '3XX': [link for link, code in status_codes.items() if str(code).startswith('3')],
+            '4XX': [link for link, code in status_codes.items() if str(code).startswith('4')],
+            '5XX': [link for link, code in status_codes.items() if str(code).startswith('5')]
+        }
+        return issues
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_hreflang_status(response):
+    try:
+        #response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        hreflangs = [link['href'] for link in soup.find_all('link', rel='alternate')]
+        status_codes = {hreflang: check_status_code(hreflang) for hreflang in hreflangs}
+        issues = {
+            '3XX': [hreflang for hreflang, code in status_codes.items() if str(code).startswith('3')],
+            '4XX': [hreflang for hreflang, code in status_codes.items() if str(code).startswith('4')],
+            '5XX': [hreflang for hreflang, code in status_codes.items() if str(code).startswith('5')]
+        }
+        return issues
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_images_status(response):
+    try:
+        #response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        images = [img['src'] for img in soup.find_all('img', src=True)]
+        status_codes = {img: check_status_code(img) for img in images}
+        issues = {
+            '3XX': [img for img, code in status_codes.items() if str(code).startswith('3')],
+            '4XX': [img for img, code in status_codes.items() if str(code).startswith('4')],
+            '5XX': [img for img, code in status_codes.items() if str(code).startswith('5')]
+        }
+        return issues
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_javascript_status(response):
+    try:
+        #response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        scripts = [script['src'] for script in soup.find_all('script', src=True)]
+        status_codes = {script: check_status_code(script) for script in scripts}
+        issues = {
+            '3XX': [script for script, code in status_codes.items() if str(code).startswith('3')],
+            '4XX': [script for script, code in status_codes.items() if str(code).startswith('4')],
+            '5XX': [script for script, code in status_codes.items() if str(code).startswith('5')]
+        }
+        return issues
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+def check_css_status(response):
+    try:
+        #response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        stylesheets = [link['href'] for link in soup.find_all('link', rel='stylesheet')]
+        status_codes = {stylesheet: check_status_code(stylesheet) for stylesheet in stylesheets}
+        issues = {
+            '3XX': [stylesheet for stylesheet, code in status_codes.items() if str(code).startswith('3')],
+            '4XX': [stylesheet for stylesheet, code in status_codes.items() if str(code).startswith('4')],
+            '5XX': [stylesheet for stylesheet, code in status_codes.items() if str(code).startswith('5')]
+        }
+        return issues
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+
+
 ## no se usa
 def __get_url_details(url_info):
 
@@ -599,6 +1115,7 @@ def __get_url_details(url_info):
     }
 
     return url_details
+
 
 def get_page_info(url):
     
@@ -676,12 +1193,77 @@ def get_page_info(url):
                     },
                     
                 # modulos con pestaña en menu
-                'Images_Issues' : audit_image_details(url,soup)
+                'Images_Issues' : audit_image_details(url,soup),
+
+                # ultimos checks añadidos
+                'Redirect Chain': check_redirects(url),
+                'Gzip Compression': check_gzip(url),
+                'Page Size': check_page_size(url),
+                'Deprecated HTML Tags': check_deprecated_tags(soup),
+                'Friendly URL': check_friendly_url(url),
+                'Favicon Implemented':  check_favicon(soup),
+                'WWW Redirect': check_www_redirect(url),
+                'Lazy Loading Images': check_lazy_loading(soup),
+                'Google Search Display': check_google_search_display(soup),
+                #'Responsive Images': check_responsive_images(soup),
+                'HTTP to HTTPS Redirect': check_http_to_https_redirect(url),
+            
+
+                # security rank
+                'Days to SSL Expiry': check_ssl_expiry(url),
+                'Outdated SSL/TLS': check_outdated_ssl_tls(response),
+                'Certificate Name Match':  check_certificate_name(url),
+                'Deprecated Encryption Algorithm': check_deprecated_encryption(url),
+                #'HTTP URLs in Sitemap': check_http_in_sitemap(sitemap_url,soup) if sitemap_url else None,
+                'Canonical HTTPS to HTTP': check_canonical_https_to_http(url,soup),
+                'HTTPS to HTTP Redirect': check_https_to_http_redirect(url),
+                'Mixed Content': check_mixed_content(response),
+
+                # crawling
+                #'Large Sitemap': check_large_xml_sitemap(sitemap_url_response) if sitemap_url else None,
+                #'Non-Canonical Pages in Sitemap': check_non_canonical_pages_in_sitemap(sitemap_url) if sitemap_url else None,
+                #'Noindex Pages in Sitemap': check_noindex_pages_in_sitemap(sitemap_url) if sitemap_url else None,
+                #'Missing Sitemap': check_missing_xml_sitemap(sitemap_url) if sitemap_url else None,
+                #'Sitemap in Robots.txt': check_sitemap_in_robots_txt(robots_url, sitemap_url) if robots_url and sitemap_url else None,
+                #'Robots.txt Exists': check_robots_txt_exists(robots_url) if robots_url else None,
+                'Frame Tag': check_frame_tag(response),
+                'Long URL': check_long_url(url),
+                'Noindex in HTML and HTTP': check_noindex_in_html_and_http(response),
+                'Nofollow in HTML and HTTP': check_nofollow_in_html_and_http(response),
+                'Canonical Chain': check_canonical_chain(url,response),
+                'Blocked by Robots.txt': check_blocked_by_robots_txt(url),
+                'Blocked by Noindex': check_blocked_by_noindex(response),
+                'Blocked by Nofollow': check_blocked_by_nofollow(response),
+                'Blocked by X-Robots-Tag': check_blocked_by_x_robots_tag(response),
+                'Canonical HTTP to HTTPS': check_canonical_http_to_https(url, response),
+                'Timed Out': check_timed_out(url),
+
+
+                #### DUPLICATE CONTENT
+                'No WWW Redirect': check_no_www_redirect(url),
+                'Multiple Canonical Tags': check_multiple_canonical(response),
+                'Duplicate Content':check_duplicate_content(response),
+                'URLs with Double Slash':  check_double_slash(response),
+                'No Trailing Slash':check_trailing_slash(url),
+        
+                #### HTTP STATUS ISSUES
+      
+                #'Sitemap Issues':  check_xml_sitemap_status(sitemap_url_response),
+                #'Internal Links Issues': check_internal_links_status(response),
+                #'External Links Issues': check_external_links_status(url, response),
+                #'Hreflang Issues': check_hreflang_status(response),
+                #'Images Issues': check_images_status(response),
+                #'JavaScript Issues': check_javascript_status(response),
+                'CSS Issues': check_css_status(response)
+
             }
+
+            print(json.dumps(page_info))
 
             spelling_errors, grammar_errors = analizar_ortografia(response.text)
             validator = json.loads(ejecutar_pa11y(url))
-                      
+
+            print(json.dumps(page_info))
             return page_info, validator, spelling_errors, grammar_errors
         
         except Exception as e:
