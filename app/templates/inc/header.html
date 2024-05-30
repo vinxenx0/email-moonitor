@@ -1,6 +1,6 @@
+<!-- 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,16 +9,48 @@
         alt="Logo" height="30" width="130"></a>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
-        <!--
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Announces</a>
-        </li> -->
+        </li> 
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Dominios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>Information</li>
+            <li><a class="dropdown-item" href="#">WHOIS</a></li>
+            <li><a class="dropdown-item" href="#">HTTP/SSL Check</a></li>
+            <li><a class="dropdown-item" href="#">CName</a></li>
+            <li><a class="dropdown-item" href="#">Reverse domain</a></li>
+            <li><a class="dropdown-item" href="#">IP Lookup</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>DNS</li>
+            <li><a class="dropdown-item" href="#">DNS Lookup</a></li>
+            <li><a class="dropdown-item" href="#">AAAA Lookup</a></li>
+            <li><a class="dropdown-item" href="#">SOA Lookup</a></li>
+            <li><a class="dropdown-item" href="#">ASN Lookup</a></li>
+            <li><a class="dropdown-item" href="#">Arin Lookup</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>Discover</li>
+            <li><a class="dropdown-item" href="#">Traceroute</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i>Nmap</a></li>
+            
+          </ul>
+        </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             Email
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>Mail server</li>
             <li><a class="dropdown-item" href="#">MX Discover</a></li>
             <li><a class="dropdown-item" href="#">DMARC</a></li>
             <li><a class="dropdown-item" href="#">SPF Lookup</a></li>
@@ -27,6 +59,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
+            <li>Security</li>
             <li><a class="dropdown-item" href="#">DNS Key</a></li>
             <li><a class="dropdown-item" href="#">LOC entry</a></li>
             <li><a class="dropdown-item" href="#">IP Sec Key</a></li>
@@ -38,34 +71,8 @@
             <li>
               <hr class="dropdown-divider">
             </li>
+            <li>Reputation</li>
             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i>Blacklist</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Dominios
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">WHOIS</a></li>
-            <li><a class="dropdown-item" href="#">HTTP/SSL Check</a></li>
-            <li><a class="dropdown-item" href="#">CName</a></li>
-            <li><a class="dropdown-item" href="#">Reverse domain</a></li>
-            <li><a class="dropdown-item" href="#">IP Lookup</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">DNS Lookup</a></li>
-            <li><a class="dropdown-item" href="#">AAAA Lookup</a></li>
-            <li><a class="dropdown-item" href="#">SOA Lookup</a></li>
-            <li><a class="dropdown-item" href="#">ASN Lookup</a></li>
-            <li><a class="dropdown-item" href="#">Arin Lookup</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Traceroute</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i>Nmap</a></li>
-            
           </ul>
         </li>
 
@@ -75,20 +82,24 @@
             Accesibilidad
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>Accessibility</li>
             <li><a class="dropdown-item" href="#">WCAG-AA/AAA</a></li> 
             <li><a class="dropdown-item" href="#">Navegación</a></li>
             <li><a class="dropdown-item" href="#">Legibilidad</a></li>
             <li><a class="dropdown-item" href="#">Compatibilidad</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
             <li><a class="dropdown-item" href="#">Velocidad</a></li>
             <li><a class="dropdown-item" href="#">Core Web Vitals</a></li>
             <li><a class="dropdown-item" href="#">Responsive</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i>Ortografia</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i>Ortografia</a></li>
+            <li>Image Optimization</li>
+            <li><a class="dropdown-item" href="#">Images</a></li> 
+            <li><a class="dropdown-item" href="#">Lazy Loading Images</a></li>
+            <li>Mobile Optimization</li>
+            <li><a class="dropdown-item" href="#">AMP Valid Page</a></li>
+            <li><a class="dropdown-item" href="#">Mobile Audit</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -103,17 +114,23 @@
             <li><a class="dropdown-item" href="#">Meta Keywords</a></li>
             <li><a class="dropdown-item" href="#">Encabezados</a></li>
             <li><a class="dropdown-item" href="#">Imagenes</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
             <li><a class="dropdown-item" href="#">Canonicals</a></li>
             <li><a class="dropdown-item" href="#">Directives</a></li>
             <li><a class="dropdown-item" href="#">Shemaorg</a></li>
             <li><a class="dropdown-item" href="#">OpenGraph</a></li>
             <li><a class="dropdown-item" href="#">HrefLang</a></li>
+            <li><a class="dropdown-item" href="#">URLs</a></li>
+            <li><a class="dropdown-item" href="#">Duplicate Content</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
+            <li>Crawling</li>
+            <li><a class="dropdown-item" href="#">OpenGraph</a></li>
+            <li><a class="dropdown-item" href="#">HrefLang</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>Link building</li>
             <li><a class="dropdown-item" href="#">Enlaces Rotos</a></li>
             <li><a class="dropdown-item" href="#">Enlaces Salientes</a></li>
             <li><a class="dropdown-item" href="#">Backlinks</a></li>
@@ -138,23 +155,48 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <i class="fa-solid fa-crown"></i> Informes
+             Usabilidad
           </a>
-          <!--
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">X-Tags</a></li>
             <li><a class="dropdown-item" href="#">Header Info</a></li>
             <li><a class="dropdown-item" href="#">HTTPS/SSL</a></li>
             <li><a class="dropdown-item" href="#">Server Response</a></li>
             <li><a class="dropdown-item" href="#">CMS Audit</a></li>
-          </ul> -->
-        </li>
+          </ul>  </li>
 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            i18
+          </a>
+          
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">X-Tags</a></li>
+            <li><a class="dropdown-item" href="#">Header Info</a></li>
+            <li><a class="dropdown-item" href="#">HTTPS/SSL</a></li>
+            <li><a class="dropdown-item" href="#">Server Response</a></li>
+            <li><a class="dropdown-item" href="#">CMS Audit</a></li>
+          </ul> 
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fa-solid fa-crown"></i> Informes
+          </a>
+          
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">X-Tags</a></li>
+            <li><a class="dropdown-item" href="#">Header Info</a></li>
+            <li><a class="dropdown-item" href="#">HTTPS/SSL</a></li>
+            <li><a class="dropdown-item" href="#">Server Response</a></li>
+            <li><a class="dropdown-item" href="#">CMS Audit</a></li>
+          </ul>         </li>
       </ul>
       <ul class="navbar-nav">
-        <!-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="#">Ayuda</a>
-        </li> -->
+        </li> 
         {% if current_user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link btn btn-outline-secondary ms-1" href="{{ url_for('register') }}"><i class="fa-solid fa-key"></i>
@@ -167,13 +209,11 @@
 
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <!-- es usuario -->
-
+            
             <li><a class="dropdown-item" href="{{ url_for('profile') }}">Mi perfil</a></li>
             <li><a class="dropdown-item" href="{{ url_for('configuracion') }}"> Configuración</a></li>
             <li><a class="dropdown-item" href="{{ url_for('change_password') }}"> Seguridad</a></li>
 
-            <!-- es admin -->
             {% if is_admin %}
               <li>
                 <hr class="dropdown-divider">
@@ -205,10 +245,323 @@
                 Registrarse</a></li>
           {%endif%}
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
-<!-- /Default Bootstrap navbar example -->
+ -->
+
+<!-- Info Bar -->
+<div class="info-bar text-center">
+  Richer Backlink and Competitor Data, AI Insights, & More
+</div>
+
+<!-- Top Bar -->
+<div class="top-bar d-flex justify-content-between px-3 bg-light">
+  <div class="d-flex">
+    <a href="#" class="text-white me-3">Help Center</a>
+    <a href="#" class="text-white me-3">Schedule a Demo</a>
+  </div>
+  <div class="d-flex">
+    <a href="#" class="text-white me-3">Cambiar al Español</a>
+    <a href="#" class="text-white">EN | ENGLISH</a>
+  </div>
+</div>
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand me-auto" href="{{ url_for('index') }}"><img
+        src="{{ url_for('static', filename='logo.png') }}" alt="Logo" height="30" width="130"></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <!-- Domain and DNS -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="domainDnsDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Domain & email
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="domainDnsDropdown">
+            <div class="dropdown-menu-columns">
+              <div class="column">
+                <h6 class="dropdown-header">Domain Information</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-info-circle"></i> WHOIS</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-globe"></i> Reverse Domain</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> CNAME</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-search"></i> IP Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-link"></i> AAAA Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-route"></i> Traceroute</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-network-wired"></i> Nmap</a>
+                <h6 class="dropdown-header">SpamLists Check</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-ban"></i> Blacklist</a>
+
+
+              </div>
+              <div class="column">
+                <h6 class="dropdown-header">Mail Server</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-server"></i> MX Discover</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-envelope-open"></i> DMARC</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-shield-alt"></i> SPF Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-signature"></i> DKIM Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-file-alt"></i> TXT Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-key"></i> DNS Key</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-map-marker-alt"></i> LOC Entry</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-shield-alt"></i> IP Sec Key</a>
+
+              </div>
+              <div class="column">
+                <h6 class="dropdown-header">DNS Lookup</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-info"></i> SOA Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-sitemap"></i> ASN Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-database"></i> ARIN Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> RRSIG Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> NSEC Lookup</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-envelope"></i> MTA STS</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-key"></i> NSEC3PARAM</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-network-wired"></i> SRV Lookup</a>
+              </div>
+              <div class="column full-width">
+                <a class="dropdown-item" href="#"><i class="fas fa-book"></i> Guias y tutoriales </a>
+              </div>
+
+            </div>
+          </ul>
+        </li>
+
+        <!-- Email
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="emailDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Email <i class="fas fa-chevron-down"></i>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="emailDropdown">
+                          <div class="dropdown-menu-columns">
+                              <div class="column">
+                                  
+                              </div>
+                              <div class="column">
+                                  
+                              </div>
+                              <div class="column featured">
+                              
+                              </div>
+                          </div>
+                      </ul>
+                  </li> -->
+
+        <!-- Accessibility -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="accessibilityDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Accessibility & Usability
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="accessibilityDropdown">
+            <div class="dropdown-menu-columns">
+              <div class="column">
+                <h6 class="dropdown-header">Accessibility</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-universal-access"></i> WCAG-AA/AAA</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-spell-check"></i> Ortografia</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-tachometer-alt"></i> Velocidad (Speed)</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-vials"></i> Core Web Vitals</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-mobile-alt"></i> Responsive</a>
+              </div>
+              <div class="column">
+                <h6 class="dropdown-header">Image Optimization</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-image"></i> Images</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-clock"></i> Lazy Loading Images</a>
+                <h6 class="dropdown-header">Mobile Optimization</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-mobile"></i> AMP Valid Page</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-mobile-alt"></i> Mobile Audit</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-mobile"></i> Mobile_audit_Results</a>
+              </div>
+              <div class="column">
+                <h6 class="dropdown-header">Usability</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-star"></i> Favicon Missing</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-bolt"></i> Flash Used</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-times"></i> X Card Tag Missing</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-search"></i> Google Search Display</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-tasks"></i> Content Optimization</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-random"></i> Redirection Management</a>
+
+              </div>
+            </div>
+          </ul>
+        </li>
+
+        <!-- SEO / Optimization -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="seoOptimizationDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            SEO / Optimization
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="seoOptimizationDropdown">
+            <div class="dropdown-menu-columns">
+              <div class="column">
+                <h6 class="dropdown-header">On-Page SEO</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-heading"></i> Títulos (Titles)</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-clipboard"></i> Meta Description</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-key"></i> Meta Keywords</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-heading"></i> Encabezados (Headings)</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-image"></i> Imágenes (Images)</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-link"></i> Canonicals</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-exclamation-circle"></i> Directives</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-code"></i> Schema.org</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-share-alt"></i> OpenGraph</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-language"></i> Hreflang</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-link"></i> URLs</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-clone"></i> Duplicate Content</a>
+
+              </div>
+              <div class="column">
+                <h6 class="dropdown-header">Crawling & Link</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-robot"></i> robots.txt</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-sitemap"></i> Sitemap</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-unlink"></i> Enlaces Rotos (Broken Links)</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-external-link-alt"></i> Enlaces Salientes (Outgoing
+                  Links)</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-link"></i> Backlinks</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-external-link-alt"></i> External Links</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-link"></i> Internal Links</a>
+                <h6 class="dropdown-header">HTML/CSS Compliance</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-code"></i>CSS Issues</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-exclamation-triangle"></i> Deprecated HTML Tags</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-compress"></i> Gzip Compression</a>
+              </div>
+              <div class="column">
+                <h6 class="dropdown-header">Website Security</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-tags"></i> X-Tags</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-info-circle"></i> Header Info</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> HTTPS/SSL</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-server"></i> Server Response</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-shield-alt"></i> Security_Info</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-exchange-alt"></i> Canonical HTTPS to HTTP</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-exchange-alt"></i> HTTP to HTTPS Redirect</a>
+                <h6 class="dropdown-header">Localization</h6>
+                <a class="dropdown-item" href="#"><i class="fas fa-code"></i> Invalid hreflang attribute</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-language"></i> Multiple language codes</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-code"></i> Invalid HTML lang attribute</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-clone"></i> Language duplicate</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-code"></i> HTML lang missing</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-exclamation-triangle"></i> x-default attribute
+                  missing</a>
+              </div>
+            </div>
+          </ul>
+        </li>
+
+        <!-- Security and Compliance 
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="securityComplianceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Security
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="securityComplianceDropdown">
+                          <div class="dropdown-menu-columns">
+                              <div class="column">
+                                  
+                              </div>
+                             
+                              
+                          </div>
+                      </ul>
+                  </li> -->
+
+        <!-- Usability 
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="usabilityDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Usability <i class="fas fa-chevron-down"></i>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="usabilityDropdown">
+                          <div class="dropdown-menu-columns">
+                              <div class="column">
+
+                              </div>
+                              <div class="column">
+                                  
+                              </div>
+                              <div class="column featured">
+                               
+                              </div>
+                          </div>
+                      </ul>
+                  </li> -->
+
+        <!-- Localization / Internationalization (i18)
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="localizationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Localization / Internationalization (i18) <i class="fas fa-chevron-down"></i>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="localizationDropdown">
+                          <div class="dropdown-menu-columns">
+                              <div class="column">
+                                  
+                              </div>
+                              <div class="column featured">
+                               
+                              </div>
+                          </div>
+                      </ul>
+                  </li>  -->
+      </ul>
+      <div class="d-flex">
+
+        {% if current_user.is_authenticated %}
+       
+          <a class="btn btn-outline-primary me-2 ms-1" href="{{ url_for('register') }}"><i class="fa-solid fa-key"></i>
+            Hazte PRO</a>
+     
+        <span class="nav-item dropdown">
+          <a class="btn btn-outline-primary me-2 ms-1 dropdown-toggle" href="#" id="domainDnsDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fa-solid fa-crown"></i>&nbsp;<span class="item-responsive">Hi {{ current_user.username }} <i class="fa-solid fa-chevron"></i></span>
+
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+            <li><a class="dropdown-item" href="{{ url_for('profile') }}">Mi perfil</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('configuracion') }}"> Configuración</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('change_password') }}"> Seguridad</a></li>
+
+            {% if is_admin %}
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{ url_for('admin_register') }}">Añadir Usuario</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('admin_stats') }}">Estadisticas</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('configuracion') }}">Config</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{ url_for('activity') }}">Actividad</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('logs') }}">Accesos</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('usuarios') }}">Usuarios</a></li>
+
+            {% endif %}
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i> Soporte</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('logout') }}"> Cerrar sesión</a></li>
+          </ul>
+        </span>
+        {% else %}
+    
+            <a class="btn btn-outline-primary me-2 ms-1" href="{{ url_for('login') }}"><i class="fa-solid fa-key"></i>
+              Login</a>
+        
+              <a class="btn btn-outline-primary me-2 ms-1" href="{{ url_for('register') }}"><i class="fa-solid fa-key"></i>
+                Registrarse</a></li>
+          {%endif%}
+<!--
+        <a href="#" class="btn btn-outline-primary me-2">Sign in</a>
+        <a href="#" class="btn btn-primary">Start Free Trial</a> -->
+      </div>
+    </div>
+  </div>
+</nav>
 
 
 <!-- Navbar  

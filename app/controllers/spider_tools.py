@@ -1258,12 +1258,12 @@ def get_page_info(url):
 
             }
 
-            print(json.dumps(page_info))
+            #print(json.dumps(page_info))
 
             spelling_errors, grammar_errors = analizar_ortografia(response.text)
             validator = json.loads(ejecutar_pa11y(url))
 
-            print(json.dumps(page_info))
+            #print(json.dumps(page_info))
             return page_info, validator, spelling_errors, grammar_errors
         
         except Exception as e:

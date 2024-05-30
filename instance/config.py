@@ -1,8 +1,8 @@
 #instance/config.py
 
 SECRET_KEY = 'tu_clave_secreta'
-SQLALCHEMY_DATABASE_URI = 'mysql://vicente:vblp2267@81.19.160.18/email_moonitor' # requiere mysqlclient
-#SQLALCHEMY_DATABASE_URI = 'sqlite:///../instance/database.db'  
+#SQLALCHEMY_DATABASE_URI = 'mysql://vicente:vblp2267@81.19.160.18/email_moonitor' # requiere mysqlclient
+SQLALCHEMY_DATABASE_URI = 'sqlite:///../instance/database.db'  
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 #app.config['MAIL_SERVER'] = 'localhost'

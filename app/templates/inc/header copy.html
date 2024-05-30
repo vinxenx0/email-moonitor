@@ -1,0 +1,295 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='logo.png') }}"
+        alt="Logo" height="30" width="130"></a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <!--
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Announces</a>
+        </li> -->
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Dominios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>Information</li>
+            <li><a class="dropdown-item" href="#">WHOIS</a></li>
+            <li><a class="dropdown-item" href="#">HTTP/SSL Check</a></li>
+            <li><a class="dropdown-item" href="#">CName</a></li>
+            <li><a class="dropdown-item" href="#">Reverse domain</a></li>
+            <li><a class="dropdown-item" href="#">IP Lookup</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>DNS</li>
+            <li><a class="dropdown-item" href="#">DNS Lookup</a></li>
+            <li><a class="dropdown-item" href="#">AAAA Lookup</a></li>
+            <li><a class="dropdown-item" href="#">SOA Lookup</a></li>
+            <li><a class="dropdown-item" href="#">ASN Lookup</a></li>
+            <li><a class="dropdown-item" href="#">Arin Lookup</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>Discover</li>
+            <li><a class="dropdown-item" href="#">Traceroute</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i>Nmap</a></li>
+            
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Email
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>Mail server</li>
+            <li><a class="dropdown-item" href="#">MX Discover</a></li>
+            <li><a class="dropdown-item" href="#">DMARC</a></li>
+            <li><a class="dropdown-item" href="#">SPF Lookup</a></li>
+            <li><a class="dropdown-item" href="#">DKIM Lookup</a></li>
+            <li><a class="dropdown-item" href="#">TXT Lookup</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>Security</li>
+            <li><a class="dropdown-item" href="#">DNS Key</a></li>
+            <li><a class="dropdown-item" href="#">LOC entry</a></li>
+            <li><a class="dropdown-item" href="#">IP Sec Key</a></li>
+            <li><a class="dropdown-item" href="#">RRSIG Lookup</a></li>
+            <li><a class="dropdown-item" href="#">NSECLookup</a></li>
+            <li><a class="dropdown-item" href="#">MTA STS</a></li>
+            <li><a class="dropdown-item" href="#">NSEC3PARAM</a></li>
+            <li><a class="dropdown-item" href="#">SRV Lookup</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>Reputation</li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i>Blacklist</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Accesibilidad
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>Accessibility</li>
+            <li><a class="dropdown-item" href="#">WCAG-AA/AAA</a></li> 
+            <li><a class="dropdown-item" href="#">Navegación</a></li>
+            <li><a class="dropdown-item" href="#">Legibilidad</a></li>
+            <li><a class="dropdown-item" href="#">Compatibilidad</a></li>
+            <li><a class="dropdown-item" href="#">Velocidad</a></li>
+            <li><a class="dropdown-item" href="#">Core Web Vitals</a></li>
+            <li><a class="dropdown-item" href="#">Responsive</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i>Ortografia</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>Image Optimization</li>
+            <li><a class="dropdown-item" href="#">Images</a></li> 
+            <li><a class="dropdown-item" href="#">Lazy Loading Images</a></li>
+            <li>Mobile Optimization</li>
+            <li><a class="dropdown-item" href="#">AMP Valid Page</a></li>
+            <li><a class="dropdown-item" href="#">Mobile Audit</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            SEO
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+            <li><a class="dropdown-item" href="#">Titulos</a></li>
+            <li><a class="dropdown-item" href="#">Meta Description</a></li>
+            <li><a class="dropdown-item" href="#">Meta Keywords</a></li>
+            <li><a class="dropdown-item" href="#">Encabezados</a></li>
+            <li><a class="dropdown-item" href="#">Imagenes</a></li>
+            <li><a class="dropdown-item" href="#">Canonicals</a></li>
+            <li><a class="dropdown-item" href="#">Directives</a></li>
+            <li><a class="dropdown-item" href="#">Shemaorg</a></li>
+            <li><a class="dropdown-item" href="#">OpenGraph</a></li>
+            <li><a class="dropdown-item" href="#">HrefLang</a></li>
+            <li><a class="dropdown-item" href="#">URLs</a></li>
+            <li><a class="dropdown-item" href="#">Duplicate Content</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>Crawling</li>
+            <li><a class="dropdown-item" href="#">OpenGraph</a></li>
+            <li><a class="dropdown-item" href="#">HrefLang</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>Link building</li>
+            <li><a class="dropdown-item" href="#">Enlaces Rotos</a></li>
+            <li><a class="dropdown-item" href="#">Enlaces Salientes</a></li>
+            <li><a class="dropdown-item" href="#">Backlinks</a></li>
+            <li><a class="dropdown-item" href="#">robots.txt</a></li>
+            <li><a class="dropdown-item" href="#">Sitemap</a></li>
+            <li><a class="dropdown-item" href="#">URLs</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Seguridad
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">X-Tags</a></li>
+            <li><a class="dropdown-item" href="#">Header Info</a></li>
+            <li><a class="dropdown-item" href="#">HTTPS/SSL</a></li>
+            <li><a class="dropdown-item" href="#">Server Response</a></li>
+            <li><a class="dropdown-item" href="#">CMS Audit</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+             Usabilidad
+          </a>
+          <!--
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">X-Tags</a></li>
+            <li><a class="dropdown-item" href="#">Header Info</a></li>
+            <li><a class="dropdown-item" href="#">HTTPS/SSL</a></li>
+            <li><a class="dropdown-item" href="#">Server Response</a></li>
+            <li><a class="dropdown-item" href="#">CMS Audit</a></li>
+          </ul> -->
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            i18
+          </a>
+          <!--
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">X-Tags</a></li>
+            <li><a class="dropdown-item" href="#">Header Info</a></li>
+            <li><a class="dropdown-item" href="#">HTTPS/SSL</a></li>
+            <li><a class="dropdown-item" href="#">Server Response</a></li>
+            <li><a class="dropdown-item" href="#">CMS Audit</a></li>
+          </ul> -->
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fa-solid fa-crown"></i> Informes
+          </a>
+          <!--
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">X-Tags</a></li>
+            <li><a class="dropdown-item" href="#">Header Info</a></li>
+            <li><a class="dropdown-item" href="#">HTTPS/SSL</a></li>
+            <li><a class="dropdown-item" href="#">Server Response</a></li>
+            <li><a class="dropdown-item" href="#">CMS Audit</a></li>
+          </ul> -->
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">Ayuda</a>
+        </li> -->
+        {% if current_user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link btn btn-outline-secondary ms-1" href="{{ url_for('register') }}"><i class="fa-solid fa-key"></i>
+            Hazte PRO</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle btn btn-outline-secondary ms-1" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fa-solid fa-crown"></i>&nbsp;<span class="item-responsive">Hi {{ current_user.username }}</span>
+
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <!-- es usuario -->
+
+            <li><a class="dropdown-item" href="{{ url_for('profile') }}">Mi perfil</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('configuracion') }}"> Configuración</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('change_password') }}"> Seguridad</a></li>
+
+            <!-- es admin -->
+            {% if is_admin %}
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{ url_for('admin_register') }}">Añadir Usuario</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('admin_stats') }}">Estadisticas</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('configuracion') }}">Config</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{ url_for('activity') }}">Actividad</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('logs') }}">Accesos</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('usuarios') }}">Usuarios</a></li>
+
+            {% endif %}
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-crown"></i> Soporte</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('logout') }}"> Cerrar sesión</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li>
+            <a class="nav-link btn btn-outline-secondary ms-1" href="{{ url_for('login') }}"><i class="fa-solid fa-key"></i>
+              Login</a>
+            </li><li>
+              <a class="nav-link btn btn-outline-secondary ms-1" href="{{ url_for('register') }}"><i class="fa-solid fa-key"></i>
+                Registrarse</a></li>
+          {%endif%}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- /Default Bootstrap navbar example -->
+
+
+<!-- Navbar  
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+      <button class="btn btn-primary me-2" id="toggle-sidebar"><i class="fas fa-bars"></i></button>
+      <a class="navbar-brand me-auto" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"
+          height="30" width="130"></a>
+      <div class="nav-options">
+
+        <a class=" btn btn-outline-primary active" href="{{ url_for('dashboard') }}"><i
+            class="fas fa-tachometer-alt"></i><span class="d-lg-inline"> Dashboard</span></a>
+        <a class=" btn btn-outline-primary ms-1" href="#"><i class="fas fa-newspaper"></i><span
+            class="d-lg-inline">Novedades</span></a>
+
+        {% if current_user.is_authenticated %}
+        <a class=" btn btn-outline-primary ms-1" href="{{ url_for('index') }}"><i class="fas fa-user-plus"></i><span
+            class="d-lg-inline"> Premium</span></a>
+        {% else %}
+        <a class=" btn btn-outline-primary ms-1" href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i><span
+            class="d-lg-inline"> Registrarse</span></a>
+        {% endif %}
+
+        {% if not current_user.is_authenticated %}
+        <a class="btn btn-outline-secondary ms-1" href="{{ url_for('login') }}"><i class="fa-solid fa-key"></i>
+          Login</a>
+        {% else %}
+        <a class="btn btn-outline-secondary ms-1" href="{{ url_for('logout') }}"><i class="fa-solid fa-key"></i>
+          Salir</a>
+        {% endif %}
+
+        <button class="btn btn-primary ms-1" id="dark-mode-toggle"><i class="fas fa-adjust"></i></button>
+
+      </div>
+    </div>
+  </nav>
+-->
