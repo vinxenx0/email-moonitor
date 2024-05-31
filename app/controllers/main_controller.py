@@ -24,7 +24,7 @@ def start():
     validator = None
     spelling_errors = None
     grammar_errors = None
-    breadcrumbs = [{'url': '/start', 'text': 'Bienvenido'}]
+    breadcrumbs = [] #[{'url': '/start', 'text': 'Bienvenido'}]
 
     form = PageInfoForm()
     if form.validate_on_submit():
@@ -75,7 +75,7 @@ def start():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    breadcrumbs = [{'url': '/dashboard', 'text': 'Dashboard'}]
+    breadcrumbs = [] #[{'url': '/dashboard', 'text': 'Dashboard'}]
     log_event('DASHBOARD', 'Portada herramienta.')
     return render_template('dashboard.html', breadcrumbs=breadcrumbs)
 
