@@ -1,6 +1,6 @@
 <!-- Info Bar -->
 <div class="info-bar text-center">
-  ¿Has encontrado un bug? <a href="#">Reportar error</a>
+  🐞 ¿Has encontrado un bug? <a href="#">Reportar error</a>
 </div>
 
 <!-- Top Bar -->
@@ -35,12 +35,12 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="aboutUsDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            ❓Ayuda
+            🤖 Información
           </a>
           <ul class="dropdown-menu" aria-labelledby="aboutUsDropdown">
             <div class="dropdown-menu-columns">
                 <div class="column">
-                    <h6 class="dropdown-header">Moonitor</h6>
+                    <h6 class="dropdown-header">Conoce Monitor</h6>
                     <a class="dropdown-item" href="#"><i class="fas fa-bullhorn"></i> Anuncios</a>
                     <a class="dropdown-item" href="#"><i class="fas fa-history"></i> Historia</a>
                     <a class="dropdown-item" href="#"><i class="fas fa-briefcase"></i> Casos Reales</a>
@@ -48,7 +48,7 @@
                     <a class="dropdown-item" href="#"><i class="fas fa-life-ring"></i> Soporte</a>
                 </div>
                 <div class="column">
-                    <h6 class="dropdown-header">Planes y Precios 💰</h6>
+                    <h6 class="dropdown-header">Planes y Precios 💵</h6>
                     <a class="dropdown-item" href="#"><i class="fas fa-user-graduate"></i> Plan Estudiante</a>
                     <a class="dropdown-item" href="#"><i class="fas fa-briefcase"></i> Plan Profesional</a>
                     <a class="dropdown-item" href="#"><i class="fas fa-building"></i> Plan Agencia</a>
@@ -62,7 +62,7 @@
                     <a class="dropdown-item" href="#"><i class="fas fa-university"></i> Admon. Pública</a>
                 </div>
                 <div class="column">
-                    <h6 class="dropdown-header">Recursos 🛠️</h6>
+                    <h6 class="dropdown-header">Recursos 📚</h6>
                     <a class="dropdown-item" href="#"><i class="fas fa-blog"></i> Blog</a>
                     <a class="dropdown-item" href="#"><i class="fas fa-book-open"></i> Guías</a>
                     <a class="dropdown-item" href="#"><i class="fas fa-book"></i> Nomenclatura</a>
@@ -292,12 +292,12 @@
              <span class="nav-item dropdown">
               <a class="btn btn-outline-primary me-2 ms-1 dropdown-toggle" href="#" id="domainDnsDropdown" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                <i class="fa-solid fa-folder"></i>&nbsp;<span class="item-responsive">🌐 Mis Sitios<i class="fa-solid fa-chevron"></i></span>
+                <span class="item-responsive">🌐 Mis Sitios<i class="fa-solid fa-chevron"></i></span>
     
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 
-                <li><a class="dropdown-item" href="{{ url_for('profile') }}">👤 Mi perfil</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('profile') }}">Mi perfil</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('configuracion') }}"> Configuración</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('change_password') }}"> Seguridad</a></li>
     
@@ -327,7 +327,7 @@
         <span class="nav-item dropdown">
           <a class="btn btn-outline-primary me-2 ms-1 dropdown-toggle" href="#" id="domainDnsDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <i class="fa-solid fa-user"></i>&nbsp;<span class="item-responsive">Hi {{ current_user.username }} <i class="fa-solid fa-chevron"></i></span>
+            👤 <span class="item-responsive">Hi {{ current_user.username }} <i class="fa-solid fa-chevron"></i></span>
 
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
