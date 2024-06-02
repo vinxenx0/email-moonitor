@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-  
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
@@ -20,130 +20,164 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
-        --primary-color: #007bff; /* Color primario */
-        --secondary-color: #6c757d; /* Color secundario */
-        --background-color: #f8f9fa; /* Color de fondo */
-        --text-color: #212529; /* Color de texto */
-        --info-color: #7c71c5; /* Color de la barra de información */
-        --navbar-background: white; /* Fondo de la barra de navegación */
-        --navbar-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1); /* Sombra de la barra de navegación */
-        --navbar-link: #333;
-        --white: #fff;
-        --featured-column:  #f9f9f9;
-        --menu-header: #000;
-        --menu-separator: #ccc;
+      --primary-color: #007bff;
+      /* Color primario */
+      --secondary-color: #6c757d;
+      /* Color secundario */
+      --background-color: #f8f9fa;
+      /* Color de fondo */
+      --text-color: #212529;
+      /* Color de texto */
+      --info-color: #7c71c5;
+      /* Color de la barra de información */
+      --navbar-background: white;
+      /* Fondo de la barra de navegación */
+      --navbar-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
+      /* Sombra de la barra de navegación */
+      --navbar-link: #333;
+      --white: #fff;
+      --featured-column: #f9f9f9;
+      --menu-header: #000;
+      --menu-separator: #ccc;
     }
 
-    .info-bar, .top-bar {
-        font-size: 14px;
-        padding: 5px 0;
+    .info-bar,
+    .top-bar {
+      font-size: 14px;
+      padding: 5px 0;
     }
 
     .top-bar a {
-        color:var(--text-color)!important;
-        text-decoration: none;
+      color: var(--text-color) !important;
+      text-decoration: none;
     }
 
     .info-bar {
-        background-color:var(--secondary-color);
-        color:var(--white);
+      background-color: var(--secondary-color);
+      color: var(--white);
     }
+
     .navbar {
-        background-color: var(--navbar-background);
-        box-shadow:var(--navbar-shadow)
+      background-color: var(--navbar-background);
+      box-shadow: var(--navbar-shadow)
     }
+
     .navbar-nav .nav-link {
-        color:var( --navbar-link);
+      color: var(--navbar-link);
     }
+
     .navbar-nav .dropdown-menu {
-        width: 740px;
-        box-shadow: var(--navbar-shadow);
+      width: 740px;
+      box-shadow: var(--navbar-shadow);
     }
+
     .dropdown-menu .dropdown-item {
-        /* display: flex; */
-        align-items: center;
+      /* display: flex; */
+      align-items: center;
     }
+
     .dropdown-menu .dropdown-item i {
-        margin-right: 8px;
-        color: var(--primary-color);
+      margin-right: 8px;
+      color: var(--primary-color);
     }
+
     .dropdown-menu .dropdown-item span.new,
     .dropdown-menu .dropdown-item span.update {
-        background-color: var(--primary-color);
-        color:var(--white);
-        font-size: 12px;
-        padding: 2px 4px;
-        border-radius: 4px;
-        margin-left: 8px;
+      background-color: var(--primary-color);
+      color: var(--white);
+      font-size: 12px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin-left: 8px;
     }
+
     .btn-primary {
-        background-color: var(--primary-color);
-        border-color:var(--primary-color);
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
     }
+
     .btn-outline-primary {
-        border-color: var(--primary-color);
-        color:var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
     }
+
     .dropdown-menu-columns {
-        display: flex;
-        flex-wrap: wrap;
+      display: flex;
+      flex-wrap: wrap;
     }
+
     .dropdown-menu-columns .column {
-        flex: 1;
-        min-width: 180px; 
-        padding: 0 16px;
-       /* */ 
+      flex: 1;
+      min-width: 180px;
+      padding: 0 16px;
+      /* */
     }
 
     .column.featured {
-        background-color:var(--featured-column); /* Agregamos un fondo de color */
+      background-color: var(--featured-column);
+      /* Agregamos un fondo de color */
     }
 
     .dropdown-menu-columns .dropdown-header {
-        font-weight: bold;
-        color: var(--menu-header)
+      font-weight: bold;
+      color: var(--menu-header)
     }
 
     /* Media query for mobile */
     @media (max-width: 767px) {
-        .dropdown-menu-columns {
-            flex-direction: column; /* Cambia la dirección de las columnas a vertical */
-        }
+      .dropdown-menu-columns {
+        flex-direction: column;
+        /* Cambia la dirección de las columnas a vertical */
+      }
     }
 
     /* New CSS for desktop */
     @media (min-width: 768px) {
-        .dropdown-menu-columns {
-            justify-content: center; /* Centra las columnas en escritorio */
-            gap: 1rem; /* Espacio entre columnas */
-        }
-        .dropdown-menu-columns .column {
-            border-right: 1px solid var(--menu-separator); /* Línea de separación entre columnas */
-            padding-bottom: 1rem; /* Espacio en la parte inferior de las columnas */
-        }
-        .dropdown-menu-columns .column:last-child {
-            border-right: none; /* Quita el borde derecho de la última columna */
-        }
-        .dropdown-menu-columns .dropdown-item {
-            padding: 0.5rem 0; /* Añade espaciado a cada elemento */
-        }
-        .dropdown-menu-columns .dropdown-item:last-child {
-           /* border-bottom: 1px solid #ccc; /* Línea de separación entre elementos  */
-        }
+      .dropdown-menu-columns {
+        justify-content: center;
+        /* Centra las columnas en escritorio */
+        gap: 1rem;
+        /* Espacio entre columnas */
+      }
 
-        /* Alinea el dropdown en el centro */
-        .navbar-nav .dropdown-menu {
-            left: 45% !important;
-            right: auto !important;
-            transform: translateX(-45%);
-        }
-        
-        .dropdown-menu-columns .full-width {
-            width: 100%; /* Ocupa todo el ancho de la columna */
-            text-align: center !important; /* Centrado del texto */
-            border-top: 1px solid var(--menu-separator); /* Línea de separación con las demás columnas */
-            padding: 1rem 0; /* Espaciado interno */
-        }
+      .dropdown-menu-columns .column {
+        border-right: 1px solid var(--menu-separator);
+        /* Línea de separación entre columnas */
+        padding-bottom: 1rem;
+        /* Espacio en la parte inferior de las columnas */
+      }
+
+      .dropdown-menu-columns .column:last-child {
+        border-right: none;
+        /* Quita el borde derecho de la última columna */
+      }
+
+      .dropdown-menu-columns .dropdown-item {
+        padding: 0.5rem 0;
+        /* Añade espaciado a cada elemento */
+      }
+
+      .dropdown-menu-columns .dropdown-item:last-child {
+        /* border-bottom: 1px solid #ccc; /* Línea de separación entre elementos  */
+      }
+
+      /* Alinea el dropdown en el centro */
+      .navbar-nav .dropdown-menu {
+        left: 45% !important;
+        right: auto !important;
+        transform: translateX(-45%);
+      }
+
+      .dropdown-menu-columns .full-width {
+        width: 100%;
+        /* Ocupa todo el ancho de la columna */
+        text-align: center !important;
+        /* Centrado del texto */
+        border-top: 1px solid var(--menu-separator);
+        /* Línea de separación con las demás columnas */
+        padding: 1rem 0;
+        /* Espaciado interno */
+      }
     }
 
     @media (max-width: 450px) {
@@ -157,14 +191,42 @@
         width: 200px;
       }
     }
+  </style>
+  <style>
+    footer {
+      background-color: #f8f9fa;
+      padding: 40px 0;
+      color: #333;
+      box-shadow: 0 -4px 2px -2px gray;
+    }
 
-</style>
+    footer .footer-column {
+      margin-bottom: 30px;
+    }
+
+    footer .footer-column h6 {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    footer .footer-column a {
+      color: #007bff;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    footer .footer-column a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  </style>
   <script>
     // Menu side toggle
     document.addEventListener('DOMContentLoaded', function () {
       var toggler = document.querySelector('.navbar-toggler');
       var navbarCollapse = document.querySelector('.navbar-collapse');
-  
+
       toggler.addEventListener('click', function () {
         navbarCollapse.classList.toggle('open');
       });
@@ -326,7 +388,7 @@
   <div class="container-fluid">
     <div class="row">
 
-  
+
 
       <!-- Main Content -->
       <div class="col" id="main-content">
