@@ -1,0 +1,153 @@
+<!-- app/templates/tools/dmains/whois.html -->
+
+{% extends "base.html" %}
+
+{% block title %}{{title}}{% endblock %}
+
+
+{% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .results-table {
+        margin-top: 20px;
+    }
+
+    .results-table th,
+    .results-table td {
+        text-align: left;
+        padding: 10px;
+    }
+
+    .results-table th {
+        background-color: #f8f9fa;
+    }
+
+    .results-table td {
+        background-color: #fff;
+    }
+
+    .duration {
+        font-style: italic;
+    }
+
+    #duration-chart-container {
+        max-width: 400px;
+        /* Adjusted the maximum width */
+        margin: 20px auto;
+    }
+
+    #duration-chart {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .status-icon {
+        font-size: 2rem;
+    }
+
+    .status-icon.valid {
+        color: green;
+    }
+
+    .status-icon.invalid {
+        color: red;
+    }
+</style>
+<div class="container mt-5">
+    <h2>{{title}}</h2>
+    <p>{{ definition }}</p>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.domain.label }}
+            {{ form.domain(class="form-control") }}
+            {% for error in form.domain.errors %}
+            <small class="form-text text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    <hr>
+    {% if results %}
+    <h3>Resultados de {{ title }}:</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="duration">Duración del scan: {{ duration }} segundos</p>
+            <div id="duration-chart-container">
+                <canvas id="duration-chart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            {% if is_results_valid %}
+            <i class="fas fa-check-circle status-icon valid"></i>
+            <p class="text-success">Resultados válidos</p>
+            {% else %}
+            <i class="fas fa-exclamation-circle status-icon invalid"></i>
+            <p class="text-danger">Resultados no válidos</p>
+            {% endif %}
+        </div>
+    </div>
+    {% if is_results_valid %}
+    <table class="table table-striped table-bordered results-table">
+        <thead>
+            <tr>
+                <th>Campo</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in results['whois_lookup'].items() %}
+            {% if value %}
+            <tr>
+                <th>{{ key | replace("_", " ") | title }}</th>
+                <td>
+                    {% if value is string %}
+                    {{ value }}
+                    {% elif value is iterable and not value is string %}
+                    <ul>
+                        {% for item in value %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    {{ value }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No se encontraron resultados válidos.</p>
+    {% endif %}
+    {% endif %}
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var ctx = document.getElementById('duration-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Duración del scan'],
+                datasets: [{
+                    label: 'Tiempo (segundos)',
+                    data: [{{ duration }}],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+            options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+            });
+        });
+</script>
+</div>
+{% endblock %}

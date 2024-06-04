@@ -55,7 +55,7 @@ app.logger.addHandler(file_handler)
 
 from app.controllers import main_controller, user_controller, tools_controller, admin_controller, logs_controller, spider_tools, mobile_tools, image_tools, speller_tool
 from app.controllers.logs_controller import log_event
-from app.views import user_views, tools_views, logs_views
+from app.views import user_views, tools_views, logs_views, domain_tools
 from app.models.user_model import Users
 #from app.forms import LoginForm, ConfigForm
 
