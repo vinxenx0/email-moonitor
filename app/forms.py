@@ -95,3 +95,8 @@ class EditProfileForm(FlaskForm):
         user = Users.query.filter_by(username=username.data).first()
         if user and user.id != current_user.id:
             raise ValidationError('Este nombre de usuario ya está en uso. Por favor, elija otro.')
+
+
+class DomainToolsForm(FlaskForm):
+    domain = StringField('Dominio', validators=[DataRequired()])
+    submit = SubmitField('Enviar')
