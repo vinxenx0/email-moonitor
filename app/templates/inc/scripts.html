@@ -12,3 +12,26 @@
   <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  -->
+
+    <script>
+      $(document).ready(function () {
+        
+        $('#showSidebar').click(function() {
+            $('#sidebar').toggleClass('show');
+        });
+        $('#closeSidebar').click(function() {
+            $('#sidebar').removeClass('show');
+        });
+    
+        $('#helpBubble').click(function() {
+            $('#helpWidget').toggle();
+            $('#helpBubble i').toggleClass('bi-question-circle bi-x-circle');
+        });
+    
+        $('#closeHelpWidget').click(function() {
+            $('#helpWidget').hide();
+            $('#helpBubble i').removeClass('bi-x-circle').addClass('bi-question-circle');
+        });
+    
+    });
+    </script>

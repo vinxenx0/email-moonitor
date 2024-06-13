@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,12 +15,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
   <!-- SimpleDatatables CSS -->
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
   <style>
     :root {
@@ -359,29 +359,12 @@
 
   {% include 'inc/header.html' %}
 
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h5>Noticias</h5>
-      <button class="btn btn-close" id="closeSidebar"></button>
-    </div>
-    <div class="sidebar-content">
-      <!-- Add news items here -->
-      <div class="news-item">
-        <h6>Noticia 1</h6>
-        <p>Detalles de la noticia 1...</p>
-      </div>
-      <div class="news-item">
-        <h6>Noticia 2</h6>
-        <p>Detalles de la noticia 2...</p>
-      </div>
-      <!-- Add more news items as needed -->
-    </div>
-  </div>
+
+  {% include 'inc/comunicados.html' %}
+
 
   <div class="container-fluid">
     <div class="row">
-
-
 
       <!-- Main Content -->
       <div class="col" id="main-content">
@@ -400,65 +383,14 @@
       </div>
       <!-- /Main Content -->
     </div>
-  </div>
-  <!-- Help Bubble -->
-  <div class="help-bubble" id="helpBubble">
-    <i class="bi bi-question-circle"></i>
-  </div>
+  </div> 
 
-  <!-- Help Widget -->
-  <div class="help-widget" id="helpWidget">
-    <div class="help-widget-header">
-      <h5>¡Hola! ¿Cómo podemos ayudarte?</h5>
-      <button class="btn btn-close" id="closeHelpWidget"></button>
-    </div>
-    <div class="help-widget-content">
-      <h6>Hacer una pregunta</h6>
-      <p>Nuestro bot y nuestro equipo te ayudarán.</p>
-      <input type="text" class="form-control mb-2" placeholder="Buscar ayuda">
-      <ul class="list-unstyled">
-        <li><a href="#">Importar la información de tu negocio</a></li>
-        <li><a href="#">¿Qué puedes hacer en la sección de Bancos?</a></li>
-        <li><a href="#">Crear pagos y cobros</a></li>
-        <li><a href="#">Más opciones...</a></li>
-      </ul>
-    </div>
-    <div class="help-widget-icons">
-      <i class="fas fa-file-alt" title="Documentation"></i>
-      <i class="fas fa-video" title="Tutorials"></i>
-      <i class="fas fa-headset" title="Support"></i>
-    </div>
-  </div>
-
- 
+  {% include 'inc/helpdesk.html' %}
 
   {% include 'inc/scripts.html' %}
 
 
 
 </body>
-
-<script>
-  $(document).ready(function () {
-    
-    $('#showSidebar').click(function() {
-        $('#sidebar').toggleClass('show');
-    });
-    $('#closeSidebar').click(function() {
-        $('#sidebar').removeClass('show');
-    });
-
-    $('#helpBubble').click(function() {
-        $('#helpWidget').toggle();
-        $('#helpBubble i').toggleClass('bi-question-circle bi-x-circle');
-    });
-
-    $('#closeHelpWidget').click(function() {
-        $('#helpWidget').hide();
-        $('#helpBubble i').removeClass('bi-x-circle').addClass('bi-question-circle');
-    });
-
-});
-</script>
 
 </html>
