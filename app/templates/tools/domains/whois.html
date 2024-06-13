@@ -63,24 +63,27 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-md-3">
-            <form method="POST">
-                {{ form.hidden_tag() }}
-                <div class="form-group">
-                    {{ form.domain.label }}
-                    {{ form.domain(class="form-control") }}
-                    {% for error in form.domain.errors %}
-                    <small class="form-text text-danger">{{ error }}</small>
-                    {% endfor %}
-                </div>
-                <!-- <button type="submit" class="btn btn-primary"></button> -->
-            </form>
-        </div>
-        <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">Enviar</button>
-        </div>
+        <form method="POST">
+        {{ form.hidden_tag() }}
+            <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.domain.label }}
+                        {{ form.domain(class="form-control") }}
+                        {% for error in form.domain.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                    <!-- <button type="submit" class="btn btn-primary"></button> -->
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+            </div>
+        </form>
     </div>
 
+    <hr>
+    {% if results %}
+    <h3>Resultados de {{ title }}:</h3>
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="card border-info">
@@ -120,9 +123,6 @@
         </div>
     </div>
 
-    <hr>
-    {% if results %}
-    <h3>Resultados de {{ title }}:</h3>
     <div class="row">
         <div class="col-md-6">
             <p class="duration">Duración del scan: {{ duration }} segundos</p>
@@ -140,6 +140,25 @@
             {% endif %}
         </div>
     </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <canvas id="fcpEvolution"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="lcpEvolution"></canvas>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <canvas id="fidEvolution"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="clsEvolution"></canvas>
+        </div>
+    </div>
+
+
     {% if is_results_valid %}
     <table class="table table-striped table-bordered results-table">
         <thead>
@@ -176,6 +195,29 @@
     {% endif %}
     {% endif %}
 </div>
+     <!-- Help Modal -->
+     <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoModalLabel">Core Web Vitals Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Core Web Vitals are a set of specific factors that Google considers important in a webpage's overall user experience.</p>
+                    <ul>
+                        <li><strong>First Contentful Paint (FCP):</strong> Measures the time from when the page starts loading to when any part of the page's content is rendered on the screen.</li>
+                        <li><strong>Largest Contentful Paint (LCP):</strong> Measures the time from when the page starts loading to when the largest text block or image element is rendered on the screen.</li>
+                        <li><strong>First Input Delay (FID):</strong> Measures the time from when a user first interacts with the page (i.e., when they click a link, tap on a button) to the time when the browser is able to begin processing event handlers in response to that interaction.</li>
+                        <li><strong>Cumulative Layout Shift (CLS):</strong> Measures the sum total of all individual layout shift scores for every unexpected layout shift that occurs during the entire lifespan of the page.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var ctx = document.getElementById('duration-chart').getContext('2d');
@@ -201,5 +243,72 @@
             });
         });
 </script>
-</div>
+
+<script>
+    $(document).ready(function () {
+        $('#webVitalsPageType').DataTable();
+        $('#webVitalsPages').DataTable();
+    });
+
+    const fcpCtx = document.getElementById('fcpEvolution').getContext('2d');
+    const lcpCtx = document.getElementById('lcpEvolution').getContext('2d');
+    const fidCtx = document.getElementById('fidEvolution').getContext('2d');
+    const clsCtx = document.getElementById('clsEvolution').getContext('2d');
+
+    const fcpChart = new Chart(fcpCtx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'FCP Evolution',
+                data: [2.5, 2.2, 2.3, 2.1, 2.4],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
+        }
+    });
+
+    const lcpChart = new Chart(lcpCtx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'LCP Evolution',
+                data: [3.0, 3.2, 3.1, 2.9, 3.3],
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
+        }
+    });
+
+    const fidChart = new Chart(fidCtx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'FID Evolution',
+                data: [600, 580, 590, 570, 610],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
+        }
+    });
+
+    const clsChart = new Chart(clsCtx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'CLS Evolution',
+                data: [0.08, 0.09, 0.07, 0.06, 0.1],
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
+        }
+    });
+</script>
 {% endblock %}
