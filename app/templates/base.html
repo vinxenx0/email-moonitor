@@ -370,15 +370,14 @@
 
       <!-- Main Content -->
       <div class="col" id="main-content">
-        <div class="p-0">
-          {% include 'inc/breadcrumbs.html' %}
 
+ 
           <div id="container">
             {% include 'inc/flashmsg.html' %}
+           
             {% block content %}
             {% endblock %}
           </div>
-        </div>
 
         {% include 'inc/footer.html' %}
 

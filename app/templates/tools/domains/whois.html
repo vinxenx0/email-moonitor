@@ -55,6 +55,9 @@
     }
 </style>
 <div class="container content"> <!-- mt-5 -->
+
+    {% include 'inc/breadcrumbs.html' %}
+
     <h2  class="mb-3">{{title}} <i class="bi bi-info-circle info-icon" data-bs-toggle="modal" data-bs-target="#infoModal"></i></h2>
     <p  class="mb-3">{{ definition }}</p>
 
@@ -62,25 +65,28 @@
         <p class="mb-0">{{ definition }}</p>
     </div>
 
-    <div class="row mb-3">
-        <form method="POST" class="w-100 d-flex">
-            {{ form.hidden_tag() }}
-            <div class="col-md-9">
-                <div class="form-group">
-                    {{ form.domain.label }}
-                    {{ form.domain(class="form-control") }}
-                    {% for error in form.domain.errors %}
-                    <small class="form-text text-danger">{{ error }}</small>
-                    {% endfor %}
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-8">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            {{ form.domain.label }}
+                            {{ form.domain(class="form-control") }}
+                            {% for error in form.domain.errors %}
+                            <small class="form-text text-danger">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Enviar</button>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-100">Enviar</button>
-            </div>
-        </form>
-        <div class="col-md-3">test</div>
-        <div class="col-md-3">test</div>
+            </form>
+        </div>
     </div>
+    
     
 
     <hr>
