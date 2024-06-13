@@ -1,7 +1,11 @@
 {
     "cSpell.words": [
+        "ipwhois",
+        "pyasn",
+        "rdatatype",
         "sqlalchemy",
-        "werkzeug"
+        "werkzeug",
+        "whois"
     ]
    
 }

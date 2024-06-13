@@ -26,7 +26,17 @@ def whois_domain():
     if form.validate_on_submit():
         domain = form.domain.data
         results = {'whois_lookup': whois_lookup(domain)}
-        is_results_valid = results['whois_lookup']['domain_name'] is not None
+        
+        # Debugging: Print the type and content of results['whois_lookup']
+        print(f"whois_lookup result: {results['whois_lookup']}")
+        print(f"type: {type(results['whois_lookup'])}")
+        
+        # Check if results['whois_lookup'] is a dictionary before accessing its keys
+        if isinstance(results['whois_lookup'], dict):
+            is_results_valid = results['whois_lookup'].get('domain_name') is not None
+        else:
+            # Handle the case where whois_lookup did not return a dictionary
+            is_results_valid = False
 
     end_time = time.time()
     duration = end_time - start_time

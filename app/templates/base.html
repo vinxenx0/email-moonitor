@@ -20,6 +20,8 @@
   <!-- SimpleDatatables CSS -->
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
   <style>
     :root {
       --primary-color: #007bff;
@@ -222,6 +224,122 @@
       text-decoration: underline;
     }
   </style>
+  <style>
+    .card-icon {
+      font-size: 2rem;
+    }
+
+    .sidebar {
+      position: fixed;
+      right: -300px;
+      top: 0;
+      height: 100%;
+      width: 300px;
+      background-color: white;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+      transition: right 0.3s;
+      overflow-y: auto;
+      z-index: 1040;
+    }
+
+    .sidebar.show {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar-content {
+      padding: 1rem;
+    }
+
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1030;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e7e7e7;
+    }
+
+    .content {
+      margin-top: 4rem;
+    }
+
+    .info-icon {
+      cursor: pointer;
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    .info-icon:hover {
+      background-color: #e0e0e0;
+      /* Cambia este color según tu preferencia */
+    }
+
+    .help-bubble {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #007bff!important;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1050;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .help-bubble i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .help-widget {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      max-height: 70vh;
+      background-color: #0066cc;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1051;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .help-widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .help-widget-content {
+      padding: 10px;
+    }
+
+    .help-widget-icons {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+    }
+
+    .help-widget-icons i {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
   </style>
   <script>
     // Menu side toggle
@@ -234,158 +352,31 @@
       });
     });
   </script>
-  <!--
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const sidebar = document.getElementById('sidebar');
-      const mainContent = document.getElementById('main-content');
-      const toggleSidebarBtn = document.getElementById('toggle-sidebar');
-      const collapseStates = JSON.parse(localStorage.getItem('collapseStates')) || {};
-      let sidebarState;
 
-      // Retrieve sidebar state from localStorage
-      if (localStorage.getItem('sidebarState') === 'hidden') {
-        sidebarState = 'hidden';
-      } else {
-        sidebarState = 'visible';
-      }
-
-      // Si no hay un estado previamente guardado, ocultar la barra lateral en pantallas pequeñas
-      if (!sidebarState && window.innerWidth <= 567) {
-        sidebarState = 'hidden';
-      }
-
-      // Set initial collapse states for acordeons
-      for (const collapseId in collapseStates) {
-        if (Object.prototype.hasOwnProperty.call(collapseStates, collapseId)) {
-          const collapse = document.getElementById(collapseId);
-          if (collapse && collapseStates[collapseId]) {
-            collapse.classList.add('show');
-          }
-        }
-      }
-
-
-      // Toggle sidebar visibility based on stored state
-      if (sidebarState === 'hidden') {
-        sidebar.classList.add('d-none');
-        mainContent.classList.remove('col');
-        mainContent.classList.add('col-12');
-      } else {
-        sidebar.classList.remove('d-none');
-        mainContent.classList.remove('col-12');
-        mainContent.classList.add('col');
-      }
-
-      // Toggle sidebar visibility
-      toggleSidebarBtn.addEventListener('click', function () {
-        if (sidebar.classList.contains('d-none')) {
-          sidebar.classList.remove('d-none');
-          mainContent.classList.remove('col-12');
-          mainContent.classList.add('col');
-          localStorage.setItem('sidebarState', 'visible');
-        } else {
-          sidebar.classList.add('d-none');
-          mainContent.classList.remove('col');
-          mainContent.classList.add('col-12');
-          localStorage.setItem('sidebarState', 'hidden');
-        }
-      });
-
-      // Save collapse states on toggle
-      const accordionItems = document.querySelectorAll('.accordion-item');
-      accordionItems.forEach(item => {
-        item.addEventListener('click', function () {
-          const collapseId = this.querySelector('.accordion-collapse').id;
-          const isExpanded = this.querySelector('.accordion-collapse').classList.contains('show');
-          collapseStates[collapseId] = isExpanded;
-          localStorage.setItem('collapseStates', JSON.stringify(collapseStates));
-        });
-      });
-
-      // Toggle dark mode
-      const darkModeToggleBtn = document.getElementById('dark-mode-toggle');
-      const body = document.body;
-
-      darkModeToggleBtn.addEventListener('click', function () {
-        body.classList.toggle('dark-mode');
-      });
-    });
-
-  </script>
--->
-  <!--
-    <script>
-  document.addEventListener('DOMContentLoaded', function () {
-  const sidebar = document.getElementById('sidebar');
-  const mainContent = document.getElementById('main-content');
-  const toggleSidebarBtn = document.getElementById('toggle-sidebar');
-  const collapseStates = JSON.parse(localStorage.getItem('collapseStates')) || {};
-  const sidebarState = localStorage.getItem('sidebarState');
-
-  // Set initial collapse states for acordeons
-  for (const collapseId in collapseStates) {
-    const collapse = document.getElementById(collapseId);
-    if (collapseStates[collapseId]) {
-      collapse.classList.add('show');
-    }
-  }
-
-  // Toggle sidebar visibility based on stored state
-  if (sidebarState === 'hidden') {
-    sidebar.classList.add('d-none');
-    mainContent.classList.remove('col');
-    mainContent.classList.add('col-12');
-  } else {
-    sidebar.classList.remove('d-none');
-    mainContent.classList.remove('col-12');
-    mainContent.classList.add('col');
-  }
-
-  // Toggle sidebar visibility
-  toggleSidebarBtn.addEventListener('click', function () {
-    if (sidebar.classList.contains('d-none')) {
-      sidebar.classList.remove('d-none');
-      mainContent.classList.remove('col-12');
-      mainContent.classList.add('col');
-      localStorage.setItem('sidebarState', 'visible');
-    } else {
-      sidebar.classList.add('d-none');
-      mainContent.classList.remove('col');
-      mainContent.classList.add('col-12');
-      localStorage.setItem('sidebarState', 'hidden');
-    }
-  });
-
-  // Save collapse states on toggle
-  const accordionItems = document.querySelectorAll('.accordion-item');
-  accordionItems.forEach(item => {
-    item.addEventListener('click', function () {
-      const collapseId = this.querySelector('.accordion-collapse').id;
-      const isExpanded = this.querySelector('.accordion-collapse').classList.contains('show');
-      collapseStates[collapseId] = isExpanded;
-      localStorage.setItem('collapseStates', JSON.stringify(collapseStates));
-    });
-  });
-
-  // Toggle dark mode
-  const darkModeToggleBtn = document.getElementById('dark-mode-toggle');
-  const body = document.body;
-
-  darkModeToggleBtn.addEventListener('click', function () {
-    body.classList.toggle('dark-mode');
-  });
-});
-
-  </script>
--->
 </head>
 
 <body>
 
   {% include 'inc/header.html' %}
 
-
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h5>Noticias</h5>
+      <button class="btn btn-close" id="closeSidebar"></button>
+    </div>
+    <div class="sidebar-content">
+      <!-- Add news items here -->
+      <div class="news-item">
+        <h6>Noticia 1</h6>
+        <p>Detalles de la noticia 1...</p>
+      </div>
+      <div class="news-item">
+        <h6>Noticia 2</h6>
+        <p>Detalles de la noticia 2...</p>
+      </div>
+      <!-- Add more news items as needed -->
+    </div>
+  </div>
 
   <div class="container-fluid">
     <div class="row">
@@ -410,15 +401,64 @@
       <!-- /Main Content -->
     </div>
   </div>
-  <!--
-  <script src="{{ url_for('static', filename='bootstrap.bundle.min.js')}}"></script>
-  -->
+  <!-- Help Bubble -->
+  <div class="help-bubble" id="helpBubble">
+    <i class="bi bi-question-circle"></i>
+  </div>
 
+  <!-- Help Widget -->
+  <div class="help-widget" id="helpWidget">
+    <div class="help-widget-header">
+      <h5>¡Hola! ¿Cómo podemos ayudarte?</h5>
+      <button class="btn btn-close" id="closeHelpWidget"></button>
+    </div>
+    <div class="help-widget-content">
+      <h6>Hacer una pregunta</h6>
+      <p>Nuestro bot y nuestro equipo te ayudarán.</p>
+      <input type="text" class="form-control mb-2" placeholder="Buscar ayuda">
+      <ul class="list-unstyled">
+        <li><a href="#">Importar la información de tu negocio</a></li>
+        <li><a href="#">¿Qué puedes hacer en la sección de Bancos?</a></li>
+        <li><a href="#">Crear pagos y cobros</a></li>
+        <li><a href="#">Más opciones...</a></li>
+      </ul>
+    </div>
+    <div class="help-widget-icons">
+      <i class="fas fa-file-alt" title="Documentation"></i>
+      <i class="fas fa-video" title="Tutorials"></i>
+      <i class="fas fa-headset" title="Support"></i>
+    </div>
+  </div>
+
+ 
 
   {% include 'inc/scripts.html' %}
 
 
 
 </body>
+
+<script>
+  $(document).ready(function () {
+    
+    $('#showSidebar').click(function() {
+        $('#sidebar').toggleClass('show');
+    });
+    $('#closeSidebar').click(function() {
+        $('#sidebar').removeClass('show');
+    });
+
+    $('#helpBubble').click(function() {
+        $('#helpWidget').toggle();
+        $('#helpBubble i').toggleClass('bi-question-circle bi-x-circle');
+    });
+
+    $('#closeHelpWidget').click(function() {
+        $('#helpWidget').hide();
+        $('#helpBubble i').removeClass('bi-x-circle').addClass('bi-question-circle');
+    });
+
+});
+</script>
 
 </html>

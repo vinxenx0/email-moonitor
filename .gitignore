@@ -2,7 +2,6 @@
 .vscode
 .trash
 __pycache__
-*.bak
 *.log
 instance/*
 migrations/*
