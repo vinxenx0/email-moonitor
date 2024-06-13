@@ -75,6 +75,8 @@
                     </div>
                     <!-- <button type="submit" class="btn btn-primary"></button> -->
             </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
             <div class="col-md-3 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary w-100">Enviar</button>
             </div>
@@ -323,17 +325,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="infoModalLabel">Core Web Vitals Information</h5>
+                    <h5 class="modal-title" id="infoModalLabel">{{ title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Core Web Vitals are a set of specific factors that Google considers important in a webpage's overall user experience.</p>
-                    <ul>
-                        <li><strong>First Contentful Paint (FCP):</strong> Measures the time from when the page starts loading to when any part of the page's content is rendered on the screen.</li>
-                        <li><strong>Largest Contentful Paint (LCP):</strong> Measures the time from when the page starts loading to when the largest text block or image element is rendered on the screen.</li>
-                        <li><strong>First Input Delay (FID):</strong> Measures the time from when a user first interacts with the page (i.e., when they click a link, tap on a button) to the time when the browser is able to begin processing event handlers in response to that interaction.</li>
-                        <li><strong>Cumulative Layout Shift (CLS):</strong> Measures the sum total of all individual layout shift scores for every unexpected layout shift that occurs during the entire lifespan of the page.</li>
-                    </ul>
+                    <p>{{ definition }}</p>
+                    <p>{{ definition }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
