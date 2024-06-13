@@ -83,116 +83,239 @@
 
     <hr>
     {% if results %}
-    <h3>Resultados de {{ title }}:</h3>
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card border-info">
-                <div class="card-body text-center">
-                    <div class="card-icon text-info"><i class="fas fa-stopwatch"></i></div>
-                    <h5 class="card-title">First Contentful Paint (FCP)</h5>
-                    <p class="card-text">2.1 seconds</p>
+        <h3>Resultados de {{ title }}:</h3>
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card border-info">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-info"><i class="fas fa-stopwatch"></i></div>
+                        <h5 class="card-title">First Contentful Paint (FCP)</h5>
+                        <p class="card-text">2.1 seconds</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-warning">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-warning"><i class="fas fa-image"></i></div>
+                        <h5 class="card-title">Largest Contentful Paint (LCP)</h5>
+                        <p class="card-text">2.94 seconds</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-danger">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-danger"><i class="fas fa-hand-pointer"></i></div>
+                        <h5 class="card-title">First Input Delay (FID)</h5>
+                        <p class="card-text">553 milliseconds</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-primary">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-primary"><i class="fas fa-ruler-combined"></i></div>
+                        <h5 class="card-title">Cumulative Layout Shift (CLS)</h5>
+                        <p class="card-text">0.7813</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card border-warning">
-                <div class="card-body text-center">
-                    <div class="card-icon text-warning"><i class="fas fa-image"></i></div>
-                    <h5 class="card-title">Largest Contentful Paint (LCP)</h5>
-                    <p class="card-text">2.94 seconds</p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p class="duration">Duración del scan: {{ duration }} segundos</p>
+                <div id="duration-chart-container">
+                    <canvas id="duration-chart"></canvas>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-danger">
-                <div class="card-body text-center">
-                    <div class="card-icon text-danger"><i class="fas fa-hand-pointer"></i></div>
-                    <h5 class="card-title">First Input Delay (FID)</h5>
-                    <p class="card-text">553 milliseconds</p>
-                </div>
+            <div class="col-md-6 text-center">
+                {% if is_results_valid %}
+                <i class="fas fa-check-circle status-icon valid"></i>
+                <p class="text-success">Resultados válidos</p>
+                {% else %}
+                <i class="fas fa-exclamation-circle status-icon invalid"></i>
+                <p class="text-danger">Resultados no válidos</p>
+                {% endif %}
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card border-primary">
-                <div class="card-body text-center">
-                    <div class="card-icon text-primary"><i class="fas fa-ruler-combined"></i></div>
-                    <h5 class="card-title">Cumulative Layout Shift (CLS)</h5>
-                    <p class="card-text">0.7813</p>
-                </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <canvas id="fcpEvolution"></canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="lcpEvolution"></canvas>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <p class="duration">Duración del scan: {{ duration }} segundos</p>
-            <div id="duration-chart-container">
-                <canvas id="duration-chart"></canvas>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <canvas id="fidEvolution"></canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="clsEvolution"></canvas>
             </div>
         </div>
-        <div class="col-md-6 text-center">
-            {% if is_results_valid %}
-            <i class="fas fa-check-circle status-icon valid"></i>
-            <p class="text-success">Resultados válidos</p>
-            {% else %}
-            <i class="fas fa-exclamation-circle status-icon invalid"></i>
-            <p class="text-danger">Resultados no válidos</p>
-            {% endif %}
-        </div>
-    </div>
 
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <canvas id="fcpEvolution"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="lcpEvolution"></canvas>
-        </div>
-    </div>
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <canvas id="fidEvolution"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="clsEvolution"></canvas>
-        </div>
-    </div>
-
-
-    {% if is_results_valid %}
-    <table class="table table-striped table-bordered results-table">
-        <thead>
-            <tr>
-                <th>Campo</th>
-                <th>Valor</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for key, value in results['whois_lookup'].items() %}
-            {% if value %}
-            <tr>
-                <th>{{ key | replace("_", " ") | title }}</th>
-                <td>
-                    {% if value is string %}
-                    {{ value }}
-                    {% elif value is iterable and not value is string %}
-                    <ul>
-                        {% for item in value %}
-                        <li>{{ item }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                    {{ value }}
+        {% if is_results_valid %}
+            <table class="table table-striped table-bordered results-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in results['whois_lookup'].items() %}
+                    {% if value %}
+                    <tr>
+                        <th>{{ key | replace("_", " ") | title }}</th>
+                        <td>
+                            {% if value is string %}
+                            {{ value }}
+                            {% elif value is iterable and not value is string %}
+                            <ul>
+                                {% for item in value %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            {{ value }}
+                            {% endif %}
+                        </td>
+                    </tr>
                     {% endif %}
-                </td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p>No se encontraron resultados válidos.</p>
-    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No se encontraron resultados válidos.</p>
+        {% endif %}
+
+        <h4 class="mb-3">FandangoSEO's Data</h4>
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card border-info">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-info"><i class="fas fa-stopwatch"></i></div>
+                        <h5 class="card-title">First Contentful Paint (FCP)</h5>
+                        <p class="card-text">2.64 seconds</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-warning">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-warning"><i class="fas fa-image"></i></div>
+                        <h5 class="card-title">Largest Contentful Paint (LCP)</h5>
+                        <p class="card-text">3.03 seconds</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-danger">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-danger"><i class="fas fa-hand-pointer"></i></div>
+                        <h5 class="card-title">First Input Delay (FID)</h5>
+                        <p class="card-text">597 milliseconds</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-primary">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-primary"><i class="fas fa-ruler-combined"></i></div>
+                        <h5 class="card-title">Cumulative Layout Shift (CLS)</h5>
+                        <p class="card-text">0.0005</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mb-3">Web Vitals by PageType</h4>
+        <table id="webVitalsPageType" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Pagetype</th>
+                    <th>Section</th>
+                    <th>Level</th>
+                    <th>FCP</th>
+                    <th>LCP</th>
+                    <th>FID</th>
+                    <th>CLS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Posts</td>
+                    <td>General</td>
+                    <td>Level 16</td>
+                    <td><span class="text-danger">●</span></td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-success">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                </tr>
+                <tr>
+                    <td>Home</td>
+                    <td>General</td>
+                    <td>Level 0</td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-success">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                </tr>
+                <tr>
+                    <td>Category</td>
+                    <td>General</td>
+                    <td>Level 16</td>
+                    <td><span class="text-danger">●</span></td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-success">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <h4 class="mb-3">Web Vitals by Pages</h4>
+        <table id="webVitalsPages" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Page URL</th>
+                    <th>FCP</th>
+                    <th>LCP</th>
+                    <th>FID</th>
+                    <th>CLS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>/resultados-bonoloto-jueves-26-de-noviembre-1618</td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                </tr>
+                <tr>
+                    <td>/resultados-bonoloto-sabado-2-de-abril-2057</td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                </tr>
+                <tr>
+                    <td>/resultados-primitiva-jueves-21-de-enero-1798</td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-warning">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                    <td><span class="text-danger">●</span></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
     {% endif %}
 </div>
      <!-- Help Modal -->
@@ -305,4 +428,11 @@
         }
     });
 </script>
+<script>
+    $(document).ready(function () {
+        $('#webVitalsPageType').DataTable();
+        $('#webVitalsPages').DataTable();
+    });
+</script>
+
 {% endblock %}
