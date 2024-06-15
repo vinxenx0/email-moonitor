@@ -1,5 +1,5 @@
 ### WHOIS
-
+  
 **Descripción Corta:**  
 WHOIS es una herramienta esencial en SEO para obtener información sobre el propietario de un dominio, la fecha de registro y otros datos cruciales. Esta información ayuda a los profesionales de marketing digital a analizar la legitimidad y antigüedad de un dominio, factores que influyen en la estrategia SEO.
 

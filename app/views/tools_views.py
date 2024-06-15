@@ -36,18 +36,18 @@ def check_domain(domain):
     if domain:
         results = {
             'mx_lookup': mx_lookup(domain),
-            'whois_lookup': whois_lookup(domain),
+            # 'whois_lookup': whois_lookup(domain),
             'dmarc_lookup': dmarc_lookup(domain),
             'spf_lookup': spf_lookup(domain),
             'dns_lookup': dns_lookup(domain),
-            'reverse_lookup': reverse_lookup(domain),
+            # 'reverse_lookup': reverse_lookup(domain),
             'dkim_lookup': dkim_lookup(domain),
-            'aaaa_lookup': aaaa_lookup(domain),
+            #'aaaa_lookup': aaaa_lookup(domain),
             'srv_lookup': srv_lookup('_service', '_protocol', domain),
             'cert_lookup': cert_lookup(domain),
             'bimi_lookup': bimi_lookup(domain),
-            'ip_lookup': ip_lookup(domain),
-            'cname_lookup': cname_lookup(domain),
+            #'ip_lookup': ip_lookup(domain),
+            #'cname_lookup': cname_lookup(domain),
             'soa_lookup': soa_lookup(domain),
             'txt_lookup': txt_lookup(domain),
             'dnskey_lookup': dnskey_lookup(domain),
@@ -64,7 +64,7 @@ def check_domain(domain):
             'http_lookup': http_lookup(domain),
             'https_lookup': https_lookup(domain),
             'ping': ping_lookup(domain),
-            'traceroute': traceroute_lookup(domain),
+            #'traceroute': traceroute_lookup(domain),
             'nmap': nmap_lookup(domain)
         }
 

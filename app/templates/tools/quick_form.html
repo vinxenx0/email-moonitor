@@ -1,0 +1,23 @@
+<div class="row justify-content-center mb-3">
+        <div class="col-md-8">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            {{ form.domain.label }}
+                            {{ form.domain(class="form-control") }}
+                            {% for error in form.domain.errors %}
+                            <small class="form-text text-danger">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
