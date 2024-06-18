@@ -70,13 +70,13 @@
     <table class="table table-striped hop-table">
         <thead>
             <tr>
-                <th scope="col">Hop</th>
-                <th scope="col">IP Address</th>
-                <th scope="col">Response Times</th>
+                <th scope="col">PORT</th>
+                <th scope="col">STATE</th>
+                <th scope="col">SERVICE</th>
             </tr>
         </thead>
         <tbody>
-            {% for line in results['traceroute_lookup']['stdout'].split('\n')[1:] %}
+            {% for line in results['nmap']['stdout'].split('\n')[1:] %}
             {% if line %}
             {% set hop_data = line.split() %}
             <tr>
