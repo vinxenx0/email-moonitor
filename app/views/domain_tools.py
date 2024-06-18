@@ -1,9 +1,121 @@
 import time
-from flask import jsonify, render_template
-from app import app
+from flask import render_template
+from flask_login import current_user
+from flask import render_template, request
+from app import app, db
 from app.controllers.logs_controller import log_event
 from app.controllers.tools_controller import traceroute_lookup, whois_lookup, reverse_lookup, cname_lookup, ip_lookup, aaaa_lookup
 from app.forms import DomainToolsForm
+from datetime import datetime
+from app.models.usage_model import Activity
+
+##########
+###
+###
+###
+#######
+
+@app.route("/tools/domains/<string:tool>", methods=["GET", "POST"])
+def tools_domains(tool):
+    definition = ""
+    slogan = ""
+    keywords = ""
+    info_popup = ""
+    start_time = time.time()
+    breadcrumbs = [
+        {"url": "/tools", "text": "Tools"},
+        {"url": "/tools/domains/", "text": "Dominios"},
+        {"url": "/tools/domains/"+tool, "text": tool},
+    ]
+    form = DomainToolsForm()
+    results = None
+    is_results_valid = False
+    if form.validate_on_submit():
+        domain = form.domain.data
+
+        # activity
+
+        # Obtener información del usuario
+        username = 'Anonymous'
+        email = ''
+        if current_user.is_authenticated:
+            username = current_user.username
+            email = current_user.email  # Ajustar según tu formulario
+
+        url = form.url.data
+        ip_address = request.remote_addr
+        user_agent = request.user_agent.string
+        country = 'Spain'  #get_country_from_ip(ip_address)
+        language = request.accept_languages.best
+
+        # Obtener fecha y hora actual
+        timestamp = datetime.utcnow()
+
+        # Obtener URL de la página actual
+        page_url = request.url
+
+        # Guardar la información del usuario en la base de datos
+        user_usage = Activity(username=username,
+                              email=email,
+                              target=url,
+                              ip_address=ip_address,
+                              user_agent=user_agent,
+                              country=country,
+                              language=language,
+                              timestamp=timestamp,
+                              page_url=page_url)
+        db.session.add(user_usage)
+        db.session.commit()
+
+
+        if tool == 'traceroute':
+            results = {'traceroute_lookup': traceroute_lookup(domain)}
+        elif tool == 'aaaa':
+            results = {'aaaa_lookup': aaaa_lookup(domain)}
+        elif tool == 'ip':
+            results = {'ip_lookup': ip_lookup(domain)}
+        elif tool == 'cname':
+            results = {'cname_lookup': cname_lookup(domain)}
+        elif tool == 'reverse':
+            results = {'reverse_lookup': reverse_lookup(domain)}
+        elif tool == 'whois':
+            results = {"whois_lookup": whois_lookup(domain)}
+        else:
+            # Si la herramienta no está definida, puedes devolver un error 404 o redirigir a una página de error
+            results = [{'Herramienta no encontrada':tool}]
+
+        print(f"results: {results[0]}")
+        print(f"type: {type(results[0])}")
+
+        if results[0] is not None or results[0] is not '':
+            log_event(tool, domain)
+            is_results_valid= True
+        else:
+            log_event(tool, 'Fail:'+domain)
+
+        #if isinstance(results["traceroute_lookup"], dict):
+        #if results['traceroute_lookup']['stderr'] is not '':
+        #    is_results_valid = False
+        #else:
+        #    is_results_valid = True
+
+    end_time = time.time()
+    duration = end_time - start_time
+    return render_template(
+        "tools/domains/'+tool+'.html",
+        title=tool,
+        is_results_valid=is_results_valid,
+        duration=duration,
+        form=form,
+        results=results,
+        breadcrumbs=breadcrumbs,
+        definition=definition,
+        slogan=slogan,
+        info_popup=info_popup,
+        keywords=keywords,
+    )
+
+
 
 @app.route("/tools/domains/traceroute", methods=["GET", "POST"])
 def traceroute():
