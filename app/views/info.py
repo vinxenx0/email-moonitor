@@ -28,7 +28,7 @@ tool_info = {
         'definition': "CNAME (Canonical Name) es un tipo de registro DNS que permite mapear un dominio a otro. En SEO, es crucial para gestionar dominios y subdominios, facilitando la redirección y la gestión de URLs canónicas.",
         'slogan': "Alias perfectos para una gestión de dominios impecable",
         'keywords': "dns, cname, lookup",
-        'info_popup': "El registro CNAME se utiliza en el sistema de nombres de dominio (DNS) para alias de un dominio a otro, conocido como el dominio canónico. Esto es útil para redireccionar tráfico de una URL a otra sin alterar la URL visible en el navegador del usuario. Por ejemplo, puedes tener "www.ejemplo.com" apuntando a "ejemplo.com". En términos de SEO, los CNAMEs son útiles para gestionar subdominios, redirecciones y evitar problemas de contenido duplicado. Además, facilitan la implementación de servicios externos como plataformas de marketing o análisis que requieren redirección de subdominios."
+        'info_popup': "El registro CNAME se utiliza en el sistema de nombres de dominio (DNS) para alias de un dominio a otro, conocido como el dominio canónico. Esto es útil para redireccionar tráfico de una URL a otra sin alterar la URL visible en el navegador del usuario. Por ejemplo, puedes tener www.ejemplo.com apuntando a ejemplo.com. En términos de SEO, los CNAMEs son útiles para gestionar subdominios, redirecciones y evitar problemas de contenido duplicado. Además, facilitan la implementación de servicios externos como plataformas de marketing o análisis que requieren redirección de subdominios."
     },
     'reverse': {
         'definition': "El Reverse Domain es una técnica que permite identificar todos los dominios asociados a una dirección IP específica. Es útil en SEO para descubrir redes de sitios web, entender la estructura de enlaces y evaluar posibles riesgos de spam.",
@@ -41,5 +41,145 @@ tool_info = {
         'slogan': "Descubre quién está detrás del dominio",
         'keywords': "domain, whois, registration",
         'info_popup': "WHOIS es un protocolo que se utiliza para consultar bases de datos que almacenan la información de registro de nombres de dominio en internet. Esta herramienta revela detalles importantes como el registrante, la fecha de creación y vencimiento del dominio, y los servidores DNS asociados. Por ejemplo, conocer la antigüedad de un dominio puede indicar su autoridad y confiabilidad, factores importantes en la evaluación de un sitio web para SEO. Además, WHOIS permite identificar cambios recientes en la propiedad de un dominio, lo cual puede ser relevante para entender fluctuaciones en su rendimiento SEO."
+    },
+    #
+    'nsec3param': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'mtasts': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'arin': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'nsec': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'rrsig': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'asn': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'ipseckey': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'loc': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'ssl': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'soa': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'txt': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'bimi': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'dns': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'http': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'https': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'dnskey': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'cert': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'srv': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'dkim': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'dns_server': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'spf': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'dmarc': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
+    },
+    'mx': {
+        'definition': "",
+        'slogan': "",
+        'keywords': "",
+        'info_popup': ""
     }
+
 }

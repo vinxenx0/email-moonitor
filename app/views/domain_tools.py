@@ -9,7 +9,7 @@ from app.forms import DomainToolsForm
 from datetime import datetime
 from app.models.usage_model import Activity
 
-from info import tool_info
+from app.views.info import tool_info
 
 ##########
 ###
@@ -86,34 +86,34 @@ def tools_domains(tool):
         db.session.commit()
 
         _results = {
-            'mx_lookup': mx_lookup(domain),
+            #'mx_lookup': mx_lookup(domain),
             # 'whois_lookup': whois_lookup(domain),
-            'dmarc_lookup': dmarc_lookup(domain),
-            'spf_lookup': spf_lookup(domain),
-            'dns_lookup': dns_lookup(domain),
+            #'dmarc_lookup': dmarc_lookup(domain),
+            #'spf_lookup': spf_lookup(domain),
+            #'dns_lookup': dns_lookup(domain),
             # 'reverse_lookup': reverse_lookup(domain),
-            'dkim_lookup': dkim_lookup(domain),
+            #'dkim_lookup': dkim_lookup(domain),
             #'aaaa_lookup': aaaa_lookup(domain),
-            'srv_lookup': srv_lookup('_service', '_protocol', domain),
-            'cert_lookup': cert_lookup(domain),
-            'bimi_lookup': bimi_lookup(domain),
+            #'srv_lookup': srv_lookup('_service', '_protocol', domain),
+            #'cert_lookup': cert_lookup(domain),
+            #'bimi_lookup': bimi_lookup(domain),
             #'ip_lookup': ip_lookup(domain),
             #'cname_lookup': cname_lookup(domain),
-            'soa_lookup': soa_lookup(domain),
-            'txt_lookup': txt_lookup(domain),
-            'dnskey_lookup': dnskey_lookup(domain),
-            'ssl_lookup': ssl_lookup(domain),
-            'loc_lookup': loc_lookup(domain),
-            'ipseckey_lookup': ipseckey_lookup(domain),
-            'asn_lookup': asn_lookup(domain),
-            'rrsig_lookup': rrsig_lookup(domain),
-            'nsec_lookup': nsec_lookup(domain),
-            'arin_lookup': arin_lookup(domain),
-            'mta_sts_lookup': mta_sts_lookup(domain),
-            'nsec3param_lookup': nsec3param_lookup(domain),
-            'dns_servers_lookup': dns_servers_lookup(domain),
-            'http_lookup': http_lookup(domain),
-            'https_lookup': https_lookup(domain),
+            #'soa_lookup': soa_lookup(domain),
+            #'txt_lookup': txt_lookup(domain),
+            #'dnskey_lookup': dnskey_lookup(domain),
+            #'ssl_lookup': ssl_lookup(domain),
+            #'loc_lookup': loc_lookup(domain),
+            #'ipseckey_lookup': ipseckey_lookup(domain),
+            #'asn_lookup': asn_lookup(domain),
+            #'rrsig_lookup': rrsig_lookup(domain),
+            #'nsec_lookup': nsec_lookup(domain),
+            #'arin_lookup': arin_lookup(domain),
+            #'mta_sts_lookup': mta_sts_lookup(domain),
+            #'nsec3param_lookup': nsec3param_lookup(domain),
+            #'dns_servers_lookup': dns_servers_lookup(domain),
+            #'http_lookup': http_lookup(domain),
+            #'https_lookup': https_lookup(domain),
             'ping': ping_lookup(domain),
             #'traceroute': traceroute_lookup(domain),
             #'nmap': nmap_lookup(domain)
@@ -135,6 +135,74 @@ def tools_domains(tool):
             results = {'reverse_lookup': reverse_lookup(domain)}
         elif tool == 'whois':
             results = {"whois_lookup": whois_lookup(domain)}
+        
+        elif tool == 'nsec3param':
+            results = {'nsec3param_lookup': nsec3param_lookup(domain)}
+
+        elif tool == 'mtasts':
+            results = { 'mta_sts_lookup': mta_sts_lookup(domain)}
+
+        elif tool == 'arin':
+            results = { 'arin_lookup': arin_lookup(domain)}
+        
+        elif tool == 'nsec':
+            results = { 'nsec_lookup': nsec_lookup(domain)}
+
+        elif tool == 'rrsig':
+            results = {  'rrsig_lookup': rrsig_lookup(domain)}
+
+        elif tool == 'asn':
+            results = {'asn_lookup': asn_lookup(domain)}
+        
+        elif tool == 'ipseckey':
+            results = {'ipseckey_lookup': ipseckey_lookup(domain)}
+
+        elif tool == 'loc':
+            results = { 'loc_lookup': loc_lookup(domain)}
+
+        elif tool == 'ssl':
+            results = {'ssl_lookup': ssl_lookup(domain),}
+
+        elif tool == 'soa':
+            results = {'soa_lookup': soa_lookup(domain)}
+
+        elif tool == 'txt':
+            results = { 'txt_lookup': txt_lookup(domain)}
+
+        elif tool == 'bimi':
+            results = {'bimi_lookup': bimi_lookup(domain)}
+
+        elif tool == 'dns_server':
+            results = {'dns_servers_lookup': dns_servers_lookup(domain)}
+
+        elif tool == 'http':
+            results = {'http_lookup': http_lookup(domain)}
+
+        elif tool == 'https':
+            results = {'https_lookup': https_lookup(domain),}
+
+        elif tool == 'dnskey':
+            results = {'dnskey_lookup': dnskey_lookup(domain)}
+
+        elif tool == 'cert':
+            results = {'cert_lookup': cert_lookup(domain)}
+
+        elif tool == 'srv':
+            results = {'srv_lookup': srv_lookup('_service', '_protocol', domain)}
+        elif tool == 'dkim':
+            results = {'dkim_lookup': dkim_lookup(domain)}
+        elif tool == 'dns':
+            results = {'dns_lookup': dns_lookup(domain)}
+        elif tool == 'spf':
+            results = {'spf_lookup': spf_lookup(domain)}
+        elif tool == 'dmarc':
+            results = {'dmarc_lookup': dmarc_lookup(domain)}
+        elif tool == 'mx':
+            results = {'mx_lookup': mx_lookup(domain)}
+
+
+
+
 
         if results is not None:
             log_event(tool, domain)
