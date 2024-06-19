@@ -9,12 +9,13 @@ from app.forms import DomainToolsForm
 from datetime import datetime
 from app.models.usage_model import Activity
 
+from info import tool_info
+
 ##########
 ###
 ###
 ###
 #######
-
 
 @app.route("/tools/domains/<string:tool>", methods=["GET", "POST"])
 def tools_domains(tool):
@@ -41,12 +42,17 @@ def tools_domains(tool):
     results = None
     is_results_valid = False
 
-    # comprobar que existe la herramienta primero
-    
+    # Comprobar que existe la herramienta primero
+    if tool in tool_info:
+        definition = tool_info[tool]['definition']
+        slogan = tool_info[tool]['slogan']
+        keywords = tool_info[tool]['keywords']
+        info_popup = tool_info[tool]['info_popup']
+    else:
+        return render_template("tools/domains/notfound.html")
+
     if form.validate_on_submit():
         domain = form.domain.data
-
-        # activity
 
         # Obtener información del usuario
         username = 'Anonymous'
@@ -55,10 +61,10 @@ def tools_domains(tool):
             username = current_user.username
             email = current_user.email
 
-        url = form.domain.data  # arreglar esto
+        url = form.domain.data
         ip_address = request.remote_addr
         user_agent = request.user_agent.string
-        country = 'Spain'  #get_country_from_ip(ip_address)
+        country = 'Spain'  # get_country_from_ip(ip_address)
         language = request.accept_languages.best
 
         timestamp = datetime.utcnow()
@@ -113,6 +119,8 @@ def tools_domains(tool):
             #'nmap': nmap_lookup(domain)
         }
 
+
+        # Ejecutar la función correspondiente
         if tool == 'nmap':
             results = {'nmap': nmap_lookup(domain)}
         elif tool == 'traceroute':
@@ -127,26 +135,13 @@ def tools_domains(tool):
             results = {'reverse_lookup': reverse_lookup(domain)}
         elif tool == 'whois':
             results = {"whois_lookup": whois_lookup(domain)}
-        else:
-            return render_template("tools/domains/notfound.html")
 
-        print(f"results: {results}")
-        print(f"type: {type(results)}")
-
-        #### IMPORTANTE comprobar resultados
-
-        if results is not None:  #or results[0] is not '':
+        if results is not None:
             log_event(tool, domain)
             is_results_valid = True
         else:
             log_event(tool, 'Fail:' + domain)
 
-        #if isinstance(results["traceroute_lookup"], dict):
-        #if results['traceroute_lookup']['stderr'] is not '':
-        #    is_results_valid = False
-        #else:
-        #    is_results_valid = True
- 
     end_time = time.time()
     duration = end_time - start_time
     return render_template(
@@ -162,5 +157,3 @@ def tools_domains(tool):
         info_popup=info_popup,
         keywords=keywords,
     )
-
-   
