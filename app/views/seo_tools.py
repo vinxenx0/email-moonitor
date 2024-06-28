@@ -19,7 +19,7 @@ from app.views.info import tool_info
 #######
 
 @app.route("/tools/seo/<string:tool>", methods=["GET", "POST"])
-def tools_domains(tool):
+def tools_seo(tool):
     definition = ""
     slogan = ""
     keywords = ""
