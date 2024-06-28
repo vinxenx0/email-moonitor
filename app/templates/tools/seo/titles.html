@@ -47,8 +47,91 @@
 
         {% if is_results_valid %}
             <h1>
-                {{ results['cert_lookup'] }}
+                {{ results }}
+
             </h1>
+            <h2 class="section-title">Page Title Issues</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Missing"
+                        data-bs-html="true">
+                        <strong>Missing:</strong> {% if
+                        results['Missing'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Duplicate"
+                        data-bs-html="true">
+                        <strong>Duplicate:</strong> {% if
+                            results['Duplicate'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Over 60 characters"
+                        data-bs-html="true">
+                        <strong>Over 60 characters:</strong> {% if
+                            results['Over_60_characters'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Below 30 characters"
+                        data-bs-html="true">
+                        <strong>Below 30 characters:</strong> {% if
+                            results['Below_30_characters'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Same as h1"
+                        data-bs-html="true"><strong>Same as
+                            h1:</strong> {% if
+                                results['Same_as_h1'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}</p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Multiple"
+                        data-bs-html="true">
+                        <strong>Multiple:</strong> {% if
+                            results['Multiple'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Outside &lt;head&gt;"
+                        data-bs-html="true">
+                        <strong>Outside &lt;head&gt;:</strong> {% if
+                            results['Outside_head'] %}<span class="badge bg-success"><i
+                                    class="fas fa-check"></i> True</span>{% else
+                            %}<span class="badge bg-danger"><i
+                                    class="fas fa-times"></i> False</span>{%
+                            endif %}
+                    </p>
+                </div>
+            </div>
         {% else %}
             <p>No se encontraron resultados válidos.</p>
         {% endif %}

@@ -102,5 +102,5 @@ class DomainToolsForm(FlaskForm):
     submit = SubmitField('Enviar')
 
 class SeoToolsForm(FlaskForm):
-    domain = StringField('Página analizar', validators=[DataRequired()])
+    domain = StringField('Página analizar incluyendo http o https', validators=[DataRequired()])
     submit = SubmitField('Enviar')
