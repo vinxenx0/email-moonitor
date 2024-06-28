@@ -5,7 +5,6 @@ from urllib.parse import urlparse
 import requests
 import json
 from bs4 import BeautifulSoup
-import app.controllers.mobile_tools
 import xml.etree.ElementTree as ET
 import aspell
 
