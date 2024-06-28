@@ -1116,7 +1116,7 @@ def __get_url_details(url_info):
 
     return url_details
 
-
+#
 def get_page_info(url):
     
     soup = get_soup(url)

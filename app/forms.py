@@ -100,3 +100,7 @@ class EditProfileForm(FlaskForm):
 class DomainToolsForm(FlaskForm):
     domain = StringField('Dominio', validators=[DataRequired()])
     submit = SubmitField('Enviar')
+
+class SeoToolsForm(FlaskForm):
+    page = StringField('Página analizar', validators=[DataRequired()])
+    submit = SubmitField('Enviar')
