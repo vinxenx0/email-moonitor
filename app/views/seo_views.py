@@ -50,7 +50,8 @@ def tools_seo(tool):
         keywords = tool_info[tool]['keywords']
         info_popup = tool_info[tool]['info_popup']
     else:
-        return render_template("tools/seo/notfound.html")
+        print("no existe la herramienta")
+        #return render_template("tools/seo/notfound.html")
 
     if form.validate_on_submit():
 
