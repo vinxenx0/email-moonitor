@@ -8,7 +8,54 @@
 
 
 {% block content %}
+<style>
+.bg-success {
+    background-color: green !important;
+}
 
+.bg-danger {
+    background-color: red !important;
+}
+
+.badge.bg-black {
+    background-color: black;
+    color: white;
+}
+
+.badge.text-success {
+    color: green;
+}
+
+.badge.text-danger {
+    color: red;
+}
+
+.accordion-button.collapsed .row .text-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+</style>
+<style>
+    .dashboard-header {
+        margin-bottom: 30px;
+    }
+    .chart-container {
+        position: relative;
+        margin: auto;
+        height: 150px;
+        width: 150px;
+    }
+    .percentage {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    .badge-custom {
+        font-size: 1.25rem;
+    }
+</style>
 
 {% include 'tools/styles.html' %}
 
@@ -42,6 +89,31 @@
                 <i class="fas fa-exclamation-circle status-icon invalid"></i>
                 <p class="text-danger">Resultados no válidos</p>
                 {% endif %}
+            </div>
+        </div>
+
+        <div class="dashboard-header row text-center">
+            <div class="col-md-3">
+                <h5>Total Checks</h5>
+                <span class="badge badge-custom bg-info">{{ total_checks }}</span>
+            </div>
+            <div class="col-md-3">
+                <div class="chart-container">
+                    <canvas id="successChart"></canvas>
+                </div>
+                <h5>Success Checks</h5>
+                <span class="badge badge-custom bg-success">{{ success_count }}</span>
+            </div>
+            <div class="col-md-3">
+                <div class="chart-container">
+                    <canvas id="dangerChart"></canvas>
+                </div>
+                <h5>Danger Checks</h5>
+                <span class="badge badge-custom bg-danger">{{ danger_count }}</span>
+            </div>
+            <div class="col-md-3">
+                <h5>Danger Percentage</h5>
+                <span class="percentage">{{ danger_percentage }}%</span>
             </div>
         </div>
 
@@ -468,5 +540,76 @@
     {% endif %}
 
     {% include 'tools/help_modal.html' %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Calculate data for the charts
+            const successCount = {{ success_count }};
+            const dangerCount = {{ danger_count }};
+            const totalCount = successCount + dangerCount;
+    
+            // Success Chart
+            const successCtx = document.getElementById('successChart').getContext('2d');
+            const successChart = new Chart(successCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Success'],
+                    datasets: [{
+                        label: 'Success Checks',
+                        data: [successCount, totalCount - successCount],
+                        backgroundColor: ['#28a745', '#e9ecef'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+    
+            // Danger Chart
+            const dangerCtx = document.getElementById('dangerChart').getContext('2d');
+            const dangerChart = new Chart(dangerCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Danger'],
+                    datasets: [{
+                        label: 'Danger Checks',
+                        data: [dangerCount, totalCount - dangerCount],
+                        backgroundColor: ['#dc3545', '#e9ecef'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 
 {% endblock %}
