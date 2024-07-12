@@ -112,9 +112,9 @@ def tools_seo(tool):
                     
                 elif tool == 'headings':
                     results = {
-                         
-                        'H1_Issues': get_h1_issues(soup),
-                        'H2_Issues': get_h2_issues(soup)
+                         get_h1_issues(soup)
+                        #'H1_Issues': get_h1_issues(soup),
+                        #'H2_Issues': get_h2_issues(soup)
                         }
                 elif tool == 'meta-keywords':
                     results = {
