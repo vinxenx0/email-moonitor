@@ -1,5 +1,6 @@
 import time
 from flask import render_template
+from app.controllers.spider_tools import get_meta_description_issues, get_page_title_issues
 from flask_login import current_user
 from flask import render_template, request
 from app import app, db
@@ -96,8 +97,10 @@ def tools_seo(tool):
                 # Ejecutar la función correspondiente
                 if tool == 'titles':
                     results = {'titles': get_page_title_issues(soup)}
-                elif tool == 'titlres':
-                    results = {'titles': get_page_title_issues(soup)}
+                elif tool == 'meta-description':
+                    results = {
+                        'Meta_Description_Issues': get_meta_description_issues(soup)
+                        }
 
             except Exception as e:
                 print(f"Error processing page info: {e}")

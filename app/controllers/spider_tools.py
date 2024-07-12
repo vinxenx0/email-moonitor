@@ -240,7 +240,7 @@ def get_page_title_issues(soup):
                 'Below_30_characters': title_below_30_characters,
                 'Same_as_h1': title_same_as_h1,
                 'Multiple': title_multiple,
-                'Outside_<head>': title_outside_head,
+                'Outside_head': title_outside_head,
                 
 
             }
@@ -265,7 +265,7 @@ def get_meta_description_issues(soup):
                 'Over_155_characters': meta_description_over_155_characters,
                 'Below_70_characters': meta_description_below_70_characters,
                 'Multiple': meta_description_multiple,
-                'Outside_<head>': meta_description_outside_head
+                'Outside_head': meta_description_outside_head
              }
 
 def get_meta_keywords_issues(soup):
