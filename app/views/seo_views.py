@@ -1,6 +1,7 @@
 import time
 from flask import render_template
-from app.controllers.spider_tools import get_h1_issues, get_h2_issues, get_meta_description_issues, get_meta_keywords_issues, get_page_title_issues, get_soup
+import requests
+from app.controllers.spider_tools import get_directive_issues, get_h1_issues, get_h2_issues, get_meta_description_issues, get_meta_keywords_issues, get_page_title_issues, get_soup
 from flask_login import current_user
 from flask import render_template, request
 from app import app, db
@@ -92,6 +93,7 @@ def tools_seo(tool):
 
 
         soup = get_soup(url)
+        response = requests.get(url)
         if soup:
             try:
                 # Ejecutar la función correspondiente
@@ -111,10 +113,16 @@ def tools_seo(tool):
                 elif tool == 'headings':
                     results = {
                          
-                    'H1_Issues': get_h1_issues(soup),
-                'H2_Issues': get_h2_issues(soup)
+                        'H1_Issues': get_h1_issues(soup),
+                        'H2_Issues': get_h2_issues(soup)
+                        }
+                elif tool == 'meta-keywords':
+                    results = {
+                             'Directives_Issues': get_directive_issues(soup,response)
+            
                         }
                 
+
                     
 
                    
