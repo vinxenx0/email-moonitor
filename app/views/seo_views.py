@@ -111,11 +111,11 @@ def tools_seo(tool):
                         }
                     
                 elif tool == 'headings':
-                    results = {
-                         get_h1_issues(soup)
-                        #'H1_Issues': get_h1_issues(soup),
+                    results = get_h1_issues(soup)
+                        #{
+                        # #'H1_Issues': get_h1_issues(soup),
                         #'H2_Issues': get_h2_issues(soup)
-                        }
+                        #}
                 elif tool == 'meta-keywords':
                     results = {
                              'Directives_Issues': get_directive_issues(soup,response)
