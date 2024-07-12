@@ -129,7 +129,7 @@ def tools_seo(tool):
         slogan=slogan,
         info_popup=info_popup,
         keywords=keywords,
-        total_checks = results,
+        total_checks = 10,
         success_count = 2,
         danger_count=8,
         danger_percentage=80
