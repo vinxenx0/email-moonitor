@@ -98,18 +98,13 @@ def tools_seo(tool):
             try:
                 # Ejecutar la función correspondiente
                 if tool == 'titles':
-                    results = {
-                        'titles': get_page_title_issues(soup)
-                        }
+                    results = get_page_title_issues(soup)
+                        
                 elif tool == 'meta-description':
-                    results = {
-                        'Meta_Description_Issues': get_meta_description_issues(soup)
-                        }
+                    results =  get_meta_description_issues(soup)
+                       
                 elif tool == 'meta-keywords':
-                    results = {
-                         'Meta_Keywords_Issues': get_meta_keywords_issues(soup)
-                        }
-                    
+                    results = get_meta_keywords_issues(soup)
                 elif tool == 'headings':
                     results = get_h1_issues(soup)
                         #{
@@ -117,15 +112,7 @@ def tools_seo(tool):
                         #'H2_Issues': get_h2_issues(soup)
                         #}
                 elif tool == 'meta-keywords':
-                    results = {
-                             'Directives_Issues': get_directive_issues(soup,response)
-            
-                        }
-                
-
-                    
-
-                   
+                    results = get_directive_issues(soup,response)
 
             except Exception as e:
                 print(f"Error processing page info: {e}")
