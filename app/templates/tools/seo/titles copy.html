@@ -13,16 +13,8 @@
     .chart-container {
         position: relative;
         margin: auto;
-        height: 100px;
-        width: 100px;
-
-    }
-
-    #durationChart, #totalChecksChart {
-
-        height: 150px!important;
-        width: 150px!important;
-
+        height: 150px;
+        width: 150px;
     }
 
     .bg-success {
@@ -94,7 +86,7 @@
     <hr>
     {% if results %}
         <h3>Resultados de {{ title }}:</h3>
-     
+
     <div class="row">
         <div class="col-md-3 chart-container">
             <canvas id="durationChart"></canvas>
@@ -102,18 +94,18 @@
         <div class="col-md-3 chart-container">
             <canvas id="validResultsChart"></canvas>
         </div>
-        <div class="col-md-3 chart-container">     
-            <canvas id="dangerPercentageChart"></canvas>
-        </div>
         <div class="col-md-3 chart-container">
             <canvas id="totalChecksChart"></canvas>
+        </div>
+        <div class="col-md-3 chart-container">
+            <canvas id="dangerPercentageChart"></canvas>
         </div>
     </div>
 
     <div class="row text-center mt-4">
         <div class="col-md-3">
-            <h5>Duration</h5>
-            <span class="badge badge-custom bg-info">{{ duration }}</span>
+            <h5>Total Checks</h5>
+            <span class="badge badge-custom bg-info">{{ total_checks }}</span>
         </div>
         <div class="col-md-3">
             <h5>Success Checks</h5>
@@ -121,15 +113,200 @@
         </div>
         <div class="col-md-3">
             <h5>Danger Checks</h5>
-            <span class="badge badge-custom bg-danger">{{ danger_count }}-{{ danger_percentage }}%</span>
+            <span class="badge badge-custom bg-danger">{{ danger_count }}</span>
         </div>
         <div class="col-md-3">
-            <h5>Results</h5>
-            <span class="badge badge-custom bg-info">{{ total_checks }}</span>
+            <h5>Danger Percentage</h5>
+            <span class="percentage">{{ danger_percentage }}%</span>
         </div>
     </div>
 
+        <div class="row">
+            <div class="col-md-6">
+                <p class="duration">Duración del scan: {{ duration }} segundos</p>
+                <div id="duration-chart-container">
+                    <canvas id="duration-chart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                {% if is_results_valid %}
+                <i class="fas fa-check-circle status-icon valid"></i>
+                <p class="text-success">Resultados válidos</p>
+                {% else %}
+                <i class="fas fa-exclamation-circle status-icon invalid"></i>
+                <p class="text-danger">Resultados no válidos</p>
+                {% endif %}
+            </div>
+        </div>
 
+        <div class="dashboard-header row text-center">
+            <div class="col-md-3">
+                <div class="col-md-3 chart-container">
+                    <canvas id="totalChecksChart"></canvas>
+                </div>
+                <h5>Total Checks</h5>
+                <span class="badge badge-custom bg-info">{{ total_checks }}</span>
+            </div>
+            <div class="col-md-3">
+                <div class="chart-container">
+                    <canvas id="successChart"></canvas>
+                </div>
+                <h5>Success Checks</h5>
+                <span class="badge badge-custom bg-success">{{ success_count }}</span>
+            </div>
+            <div class="col-md-3">
+                <div class="chart-container">
+                    <canvas id="dangerChart"></canvas>
+                </div>
+                <h5>Danger Checks</h5>
+                <span class="badge badge-custom bg-danger">{{ danger_count }}</span>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-3 chart-container">
+                    <canvas id="durationChart"></canvas>
+                </div>
+                <h5>Duration</h5>
+                <span class="percentage">{{ danger_percentage }}%</span>
+            </div>
+        </div>
+
+        {% if is_results_valid %}
+           
+            <h2 class="section-title">Page Title Issues</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Missing"
+                        data-bs-html="true">
+                        <strong>Title:</strong> {{ results['Title_1']}} 
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Missing"
+                    data-bs-html="true">
+                    <strong>Title lenght:</strong>{{ results['Title_1_Length']}}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Missing"
+                        data-bs-html="true">
+                        <strong>Missing:</strong> {% if
+                        results['Missing'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Duplicate"
+                        data-bs-html="true">
+                        <strong>Duplicate:</strong> {% if
+                            results['Duplicate'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Over 60 characters"
+                        data-bs-html="true">
+                        <strong>Over 60 characters:</strong> {% if
+                            results['Over_60_characters'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Below 30 characters"
+                        data-bs-html="true">
+                        <strong>Below 30 characters:</strong> {% if
+                            results['Below_30_characters'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Same as h1"
+                        data-bs-html="true"><strong>Same as
+                            h1:</strong> {% if
+                                results['Same_as_h1'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}</p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Multiple"
+                        data-bs-html="true">
+                        <strong>Multiple:</strong> {% if
+                            results['Multiple'] %}<span
+                            class="badge bg-success"><i class="fas fa-check"></i>
+                            True</span>{% else
+                        %}<span class="badge bg-danger"><i class="fas fa-times"></i>
+                            False</span>{% endif
+                        %}
+                    </p>
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Outside &lt;head&gt;"
+                        data-bs-html="true">
+                        <strong>Outside &lt;head&gt;:</strong> {% if
+                            results['Outside_head'] %}<span class="badge bg-success"><i
+                                    class="fas fa-check"></i> True</span>{% else
+                            %}<span class="badge bg-danger"><i
+                                    class="fas fa-times"></i> False</span>{%
+                            endif %}
+                    </p>
+                </div>
+            </div>
+        {% else %}
+            <p>No se encontraron resultados válidos.</p>
+        {% endif %}
+
+        {% if is_results_valid %}
+            <h2 class="section-title">Page Title Issues</h2>
+            <div class="accordion" id="resultsAccordion">
+                {% for key, value in results.items() %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading-{{ key }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ key }}" aria-expanded="false" aria-controls="collapse-{{ key }}">
+                                <div class="row w-100">
+                                    <div class="col-md-4">
+                                        <strong>{{ key.replace('_', ' ').title() }}:</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {% if value is boolean %}
+                                            {% if value %}
+                                                <span class="badge bg-success"><i class="fas fa-check"></i> True</span>
+                                            {% else %}
+                                                <span class="badge bg-danger"><i class="fas fa-times"></i> False</span>
+                                            {% endif %}
+                                        {% else %}
+                                            {{ value }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <i class="fas fa-info-circle"></i> More Info
+                                    </div>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse-{{ key }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ key }}" data-bs-parent="#resultsAccordion">
+                            <div class="accordion-body">
+                                <p>Additional information about {{ key.replace('_', ' ').title() }}.</p>
+                                <!-- You can add more detailed information here if available -->
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No se encontraron resultados válidos.</p>
+        {% endif %}
 
         {% if is_results_valid %}
             <h2 class="section-title">Page Title Issues</h2>
@@ -410,11 +587,84 @@
             <p>No results found.</p>
         {% endif %}
 
+
+        {% include 'tools/buzz_report.html' %}
+
     {% endif %}
 
     {% include 'tools/help_modal.html' %}
 
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Calculate data for the charts
+            const successCount = {{ success_count }};
+            const dangerCount = {{ danger_count }};
+            const totalCount = successCount + dangerCount;
+    
+            // Success Chart
+            const successCtx = document.getElementById('successChart').getContext('2d');
+            const successChart = new Chart(successCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Success'],
+                    datasets: [{
+                        label: 'Success Checks',
+                        data: [successCount, totalCount - successCount],
+                        backgroundColor: ['#28a745', '#e9ecef'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+    
+            // Danger Chart
+            const dangerCtx = document.getElementById('dangerChart').getContext('2d');
+            const dangerChart = new Chart(dangerCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Danger'],
+                    datasets: [{
+                        label: 'Danger Checks',
+                        data: [dangerCount, totalCount - dangerCount],
+                        backgroundColor: ['#dc3545', '#e9ecef'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    
 <script>
     const durationCtx = document.getElementById('durationChart').getContext('2d');
     const durationChart = new Chart(durationCtx, {
