@@ -228,8 +228,8 @@ def get_page_title_issues(soup):
     title_same_as_h1 = any(title.text.strip() == (soup.find('h1').text.strip() if soup.find('h1') else '') for title in soup.find_all('title')) if soup else False
     title_multiple = len(soup.find_all('title')) > 1 if soup else False
     title_outside_head = any(title.find_parent('head') is None for title in soup.find_all('title')) if soup else False
-    title_1 = soup.find('title').text if soup.find('title') else ''
-    title_1_Length = len(soup.find('title').text) if soup.find('title') else 0
+    title_1 = soup.find('title').text # if soup.find('title') else ''
+    title_1_Length = len(soup.find('title').text) # if soup.find('title') else 0
     
     return {
                 'Title_1': title_1,
