@@ -106,59 +106,67 @@
             <h2 class="section-title">Meta Description URL Issues</h2>
             <div class="accordion" id="resultsAccordion">
                 
-                <!-- Missing -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading-Title">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-Title" aria-expanded="false" aria-controls="collapse-Title">
-                            <div class="row w-100">
-                                <div class="col-md-1">
-                                    <i class="fas fa-heading"></i>
-                                </div>
-                                <div class="col-md-3">
-                                    <strong>Missing:</strong>
-                                </div>
-                                <div class="col-md-4">
-                                    {{ results['Missing'] }}
-                                </div>
-                                <div class="col-md-4 text-end">
-                                    <i class="fas fa-info-circle"></i> More Info
-                                </div>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse-Title" class="accordion-collapse collapse" aria-labelledby="heading-Title" data-bs-parent="#resultsAccordion">
-                        <div class="accordion-body">
-                            <p>Additional information about the Title.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Duplicate -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading-Title-Length">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-Title-Length" aria-expanded="false" aria-controls="collapse-Title-Length">
-                            <div class="row w-100">
-                                <div class="col-md-1">
-                                    <i class="fas fa-text-width"></i>
-                                </div>
-                                <div class="col-md-3">
-                                    <strong>Duplicate:</strong>
-                                </div>
-                                <div class="col-md-4">
-                                    {{ results['Duplicate'] }}
-                                </div>
-                                <div class="col-md-4 text-end">
-                                    <i class="fas fa-info-circle"></i> More Info
+                             <!-- Missing -->
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading-Multiple">
+                                    <button class="accordion-button collapsed {% if results['Missing'] %}bg-success{% else %}bg-danger{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-Multiple" aria-expanded="false" aria-controls="collapse-Multiple">
+                                        <div class="row w-100">
+                                            <div class="col-md-1">
+                                                <i class="fas fa-clone"></i>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong>Missing:</strong>
+                                            </div>
+                                            <div class="col-md-4">
+                                                {% if results['Missing'] %}
+                                                    <span class="badge bg-black text-success"><i class="fas fa-check"></i> True</span>
+                                                {% else %}
+                                                    <span class="badge bg-black text-danger"><i class="fas fa-times"></i> False</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-4 text-end">
+                                                <i class="fas fa-info-circle"></i> More Info
+                                            </div>
+                                        </div>
+                                    </button>
+                                </h2>
+                                <div id="collapse-Multiple" class="accordion-collapse collapse" aria-labelledby="heading-Multiple" data-bs-parent="#resultsAccordion">
+                                    <div class="accordion-body">
+                                        <p>Additional information about the Multiple test.</p>
+                                    </div>
                                 </div>
                             </div>
-                        </button>
-                    </h2>
-                    <div id="collapse-Title-Length" class="accordion-collapse collapse" aria-labelledby="heading-Title-Length" data-bs-parent="#resultsAccordion">
-                        <div class="accordion-body">
-                            <p>Additional information about the Title Length.</p>
-                        </div>
-                    </div>
-                </div>
+            
+                            <!-- Duplicate -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading-Outside-head">
+                                    <button class="accordion-button collapsed {% if results['Duplicate'] %}bg-success{% else %}bg-danger{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-Outside-head" aria-expanded="false" aria-controls="collapse-Outside-head">
+                                        <div class="row w-100">
+                                            <div class="col-md-1">
+                                                <i class="fas fa-code"></i>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong>Duplicate:</strong>
+                                            </div>
+                                            <div class="col-md-4">
+                                                {% if results['Duplicate'] %}
+                                                    <span class="badge bg-black text-success"><i class="fas fa-check"></i> True</span>
+                                                {% else %}
+                                                    <span class="badge bg-black text-danger"><i class="fas fa-times"></i> False</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-4 text-end">
+                                                <i class="fas fa-info-circle"></i> More Info
+                                            </div>
+                                        </div>
+                                    </button>
+                                </h2>
+                                <div id="collapse-Outside-head" class="accordion-collapse collapse" aria-labelledby="heading-Outside-head" data-bs-parent="#resultsAccordion">
+                                    <div class="accordion-body">
+                                        <p>Additional information about the Outside &lt;head&gt; test.</p>
+                                    </div>
+                                </div>
+                            </div>
 
                 <!-- Over_155_character -->
                 <div class="accordion-item">
