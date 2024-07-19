@@ -1,7 +1,7 @@
 import time
 from flask import render_template
 import requests
-from app.controllers.spider_tools import get_canonical_info, get_directive_issues, get_h1_issues, get_h2_issues, get_meta_description_issues, get_meta_keywords_issues, get_page_title_issues, get_soup
+from app.controllers.spider_tools import get_canonical_info, get_directive_issues, get_h1_issues, get_h2_issues, get_hreflang_issues, get_meta_description_issues, get_meta_keywords_issues, get_page_title_issues, get_soup, get_structured_data_issues
 from flask_login import current_user
 from flask import render_template, request
 from app import app, db
@@ -113,9 +113,14 @@ def tools_seo(tool):
                         #}
                 elif tool == 'canonicals':
                     results = get_canonical_info(soup, url, response)
-                    
                 elif tool == 'directives':
                     results = get_directive_issues(soup,response)
+                elif tool == 'shema-org':
+                    results = get_structured_data_issues(soup)
+                elif tool == 'opengraph':
+                    results = {"sin hacer aun"}
+                elif tool == 'hreflang':
+                    results = get_hreflang_issues(soup)                    
 
             except Exception as e:
                 print(f"Error processing page info: {e}")
