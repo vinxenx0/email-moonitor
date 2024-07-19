@@ -1,7 +1,7 @@
 import time
 from flask import render_template
 import requests
-from app.controllers.spider_tools import get_canonical_info, get_directive_issues, get_h1_issues, get_h2_issues, get_hreflang_issues, get_meta_description_issues, get_meta_keywords_issues, get_page_title_issues, get_soup, get_structured_data_issues
+from app.controllers.spider_tools import check_css_status, check_deprecated_tags, check_gzip, get_canonical_info, get_common_url_issues, get_directive_issues, get_h1_issues, get_h2_issues, get_hreflang_issues, get_meta_description_issues, get_meta_keywords_issues, get_page_title_issues, get_soup, get_structured_data_issues
 from flask_login import current_user
 from flask import render_template, request
 from app import app, db
@@ -105,22 +105,43 @@ def tools_seo(tool):
                        
                 elif tool == 'meta-keywords':
                     results = get_meta_keywords_issues(soup)
+                    
                 elif tool == 'headings':
                     results = get_h1_issues(soup)
                         #{
                         # #'H1_Issues': get_h1_issues(soup),
                         #'H2_Issues': get_h2_issues(soup)
                         #}
+
                 elif tool == 'canonicals':
                     results = get_canonical_info(soup, url, response)
+
                 elif tool == 'directives':
                     results = get_directive_issues(soup,response)
+
                 elif tool == 'shema-org':
                     results = get_structured_data_issues(soup)
+
                 elif tool == 'opengraph':
                     results = {"sin hacer aun"}
+
                 elif tool == 'hreflang':
-                    results = get_hreflang_issues(soup)                    
+                    results = get_hreflang_issues(soup)  
+
+                elif tool == 'urls':
+                    results = get_common_url_issues(url) 
+
+                elif tool == 'gzip':
+                    results = check_gzip(url)  
+
+                elif tool == 'deprecated-html':
+                    results = check_deprecated_tags(soup) 
+
+                elif tool == 'css':
+                    results = check_css_status(response)
+
+                
+                      
 
             except Exception as e:
                 print(f"Error processing page info: {e}")
