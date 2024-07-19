@@ -1,7 +1,7 @@
 import time
 from flask import render_template
 import requests
-from app.controllers.spider_tools import get_directive_issues, get_h1_issues, get_h2_issues, get_meta_description_issues, get_meta_keywords_issues, get_page_title_issues, get_soup
+from app.controllers.spider_tools import get_canonical_info, get_directive_issues, get_h1_issues, get_h2_issues, get_meta_description_issues, get_meta_keywords_issues, get_page_title_issues, get_soup
 from flask_login import current_user
 from flask import render_template, request
 from app import app, db
@@ -111,7 +111,10 @@ def tools_seo(tool):
                         # #'H1_Issues': get_h1_issues(soup),
                         #'H2_Issues': get_h2_issues(soup)
                         #}
-                elif tool == 'meta-keywords':
+                elif tool == 'canonicals':
+                    results = get_canonical_info(soup, url, response)
+                    
+                elif tool == 'directives':
                     results = get_directive_issues(soup,response)
 
             except Exception as e:
