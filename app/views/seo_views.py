@@ -159,9 +159,14 @@ def tools_seo(tool):
                 log_event(tool, 'Fail:' + page)
                 results = {'error': 'Unable to parse HTML'}
 
+    # añadir la info extra
+    # contar los true, false, y none
+    # añadir ayuda
+
     end_time = time.time()
     duration = end_time - start_time
     return render_template(
+        # "tools/seo/results_seo.html",
         "tools/seo/" + tool + ".html",
         title=tool,
         is_results_valid=is_results_valid,
