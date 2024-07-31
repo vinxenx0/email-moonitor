@@ -151,6 +151,23 @@ def tools_seo(tool):
             if results is not None:
                 log_event(tool, page)
                 is_results_valid = True
+
+                # Inicializar los contadores
+                total_entries = 0
+                true_count = 0
+                false_count = 0
+                none_or_empty_count = 0
+
+                # Recorrer el diccionario y contar los valores según las condiciones dadas
+                for key, value in results.items():
+                    total_entries += 1
+                    if value is True:
+                        true_count += 1
+                    elif value is False:
+                        false_count += 1
+                    elif value is None or value == '':
+                        none_or_empty_count += 1
+
             else:
                 log_event(tool, 'Fail:' + page)
                 results = {'error': 'Fail None results'}
@@ -163,21 +180,7 @@ def tools_seo(tool):
     # contar los true, false, y none
     # añadir ayuda
 
-    # Inicializar los contadores
-    total_entries = 0
-    true_count = 0
-    false_count = 0
-    none_or_empty_count = 0
-
-    # Recorrer el diccionario y contar los valores según las condiciones dadas
-    for key, value in results.items():
-        total_entries += 1
-        if value is True:
-            true_count += 1
-        elif value is False:
-            false_count += 1
-        elif value is None or value == '':
-            none_or_empty_count += 1
+   
 
     end_time = time.time()
     duration = end_time - start_time
