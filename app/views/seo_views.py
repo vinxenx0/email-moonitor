@@ -163,11 +163,13 @@ def tools_seo(tool):
     # contar los true, false, y none
     # añadir ayuda
 
+    print(results)
+
     end_time = time.time()
     duration = end_time - start_time
     return render_template(
-        # "tools/seo/results_seo.html",
-        "tools/seo/" + tool + ".html",
+        "tools/seo/results_seo.html",
+        # "tools/seo/" + tool + ".html",
         title=tool,
         is_results_valid=is_results_valid,
         duration=duration,
