@@ -163,7 +163,21 @@ def tools_seo(tool):
     # contar los true, false, y none
     # añadir ayuda
 
-    print(results)
+    # Inicializar los contadores
+    total_entries = 0
+    true_count = 0
+    false_count = 0
+    none_or_empty_count = 0
+
+    # Recorrer el diccionario y contar los valores según las condiciones dadas
+    for key, value in results.items():
+        total_entries += 1
+        if value is True:
+            true_count += 1
+        elif value is False:
+            false_count += 1
+        elif value is None or value == '':
+            none_or_empty_count += 1
 
     end_time = time.time()
     duration = end_time - start_time
@@ -180,8 +194,9 @@ def tools_seo(tool):
         slogan=slogan,
         info_popup=info_popup,
         keywords=keywords,
-        total_checks = 10,
-        success_count = 2,
-        danger_count=8,
-        danger_percentage=80
+        total_checks =  total_entries,
+        success_count = true_count,
+        empty_checks = none_or_empty_count
+        danger_count=false_count,
+        danger_percentage=(false_count*100)/total_entries
     )
