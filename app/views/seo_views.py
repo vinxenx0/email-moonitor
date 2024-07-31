@@ -182,8 +182,12 @@ def tools_seo(tool):
     # contar los true, false, y none
     # añadir ayuda
 
+    # Calcular el porcentaje de valores False con respecto al total
+    if total_entries > 0:
+        false_percentage = (false_count / total_entries) * 100
+    else:
+        false_percentage = 0
    
-
     end_time = time.time()
     duration = end_time - start_time
     return render_template(
@@ -203,5 +207,5 @@ def tools_seo(tool):
         success_count = true_count,
         empty_checks = none_or_empty_count,
         danger_count=false_count,
-        danger_percentage=(false_count*100)/total_entries
+        danger_percentage=false_percentage
     )
