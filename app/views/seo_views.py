@@ -21,13 +21,19 @@ from app.views.info import tool_info
 
 @app.route("/tools/seo/<string:tool>", methods=["GET", "POST"])
 def tools_seo(tool):
+    start_time = time.time()
     definition = ""
     slogan = ""
     keywords = ""
     info_popup = ""
     soup = None
     response = None
-    start_time = time.time()
+
+    # Inicializar los contadores
+    total_entries = 0
+    true_count = 0
+    false_count = 0
+    none_or_empty_count = 0
     breadcrumbs = [
         {
             "url": "/tools",
@@ -152,11 +158,7 @@ def tools_seo(tool):
                 log_event(tool, page)
                 is_results_valid = True
 
-                # Inicializar los contadores
-                total_entries = 0
-                true_count = 0
-                false_count = 0
-                none_or_empty_count = 0
+                
 
                 # Recorrer el diccionario y contar los valores según las condiciones dadas
                 for key, value in results.items():
@@ -199,7 +201,7 @@ def tools_seo(tool):
         keywords=keywords,
         total_checks =  total_entries,
         success_count = true_count,
-        empty_checks = none_or_empty_count
+        empty_checks = none_or_empty_count,
         danger_count=false_count,
         danger_percentage=(false_count*100)/total_entries
     )
