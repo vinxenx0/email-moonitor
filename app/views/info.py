@@ -180,6 +180,12 @@ tool_info = {
         'slogan': "",
         'keywords': "",
         'info_popup': ""
+    },
+    'titles': {
+        'definition': "Los títulos son esenciales para el SEO, ya que indican a los motores de búsqueda y a los usuarios de qué trata una página. Un título optimizado debe ser relevante, incluir palabras clave y atraer clics.",
+        'slogan': "Títulos impactantes, clics garantizados",
+        'keywords': "",
+        'info_popup': "Los títulos (o title tags) son elementos HTML que especifican el título de una página web. Este título aparece en la pestaña del navegador y en los resultados de búsqueda. Un título bien escrito es crucial para el SEO porque proporciona a los motores de búsqueda información sobre el contenido de la página y ayuda a los usuarios a decidir si hacer clic en el enlace. Por ejemplo, un título como 'Guía Completa de SEO para Principiantes' es más efectivo que 'SEO'. El primero es específico, incluye palabras clave relevantes y es más probable que atraiga a usuarios interesados en aprender sobre SEO. Además, los títulos deben ser concisos, preferiblemente de menos de 60 caracteres, para evitar que se corten en los resultados de búsqueda."
     }
 
 }
