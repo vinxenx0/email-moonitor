@@ -9,6 +9,7 @@
 {% block content %}
 
 <style>
+    /* General Styling */
     .results-table {
         margin-top: 20px;
     }
@@ -41,21 +42,22 @@
         height: auto !important;
     }
 
+    /* Status Icon Styling */
     .status-icon {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
-    .status-icon.valid {
+    .status-icon.valid,
+    .badge.text-success {
         color: green;
     }
 
-    .status-icon.invalid {
+    .status-icon.invalid,
+    .badge.text-danger {
         color: red;
     }
-</style>
 
-<!-- header dashboard-->
-<style>
+    /* Dashboard Header Styling */
     .chart-container {
         position: relative;
         margin: auto;
@@ -76,23 +78,14 @@
         background-color: red !important;
     }
 
+    .badge {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+
     .badge.bg-black {
         background-color: black;
         color: white;
-    }
-
-    .badge.text-success {
-        color: green;
-    }
-
-    .badge.text-danger {
-        color: red;
-    }
-
-    .accordion-button.collapsed .row .text-end {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
     }
 
     .dashboard-header {
@@ -108,29 +101,17 @@
         font-size: 1.25rem;
     }
 
-    .status-icon {
-        font-size: 2.5rem;
+    /* Accordion Button */
+    .accordion-button.collapsed .row .text-end {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
 
-    .valid {
-        color: green;
-    }
-
-    .invalid {
-        color: red;
-    }
-</style>
-
-<!-- Adjusted Styles -->
-<style>
+    /* Card Title */
     .card-title {
         font-size: 1.2rem;
         font-weight: 600;
-    }
-
-    .badge {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
     }
 
     /* Responsive adjustments for small screens */
@@ -153,9 +134,49 @@
     <div class="row dashboard-header">
         <div class="col text-center">
             <h3>Analytics Dashboard<br />{{title}}</h3>
-            <p class="lead">A comprehensive view of your data metrics</p>
+            <p class="lead">A comprehensive view of your data metrics @@</p>
         </div>
     </div>
+
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card border-info">
+                <div class="card-body text-center">
+                    <div class="card-icon text-info"><i class="fas fa-stopwatch"></i></div>
+                    <h5 class="card-title">Total Check</h5>
+                    <p class="card-text">{{total_checks}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-warning">
+                <div class="card-body text-center">
+                    <div class="card-icon text-warning"><i class="fas fa-image"></i></div>
+                    <h5 class="card-title">Duration</h5>
+                    <p class="card-text">{{duration}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-danger">
+                <div class="card-body text-center">
+                    <div class="card-icon text-danger"><i class="fas fa-hand-pointer"></i></div>
+                    <h5 class="card-title">Success Checks</h5>
+                    <p class="card-text">{{success_count}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-primary">
+                <div class="card-body text-center">
+                    <div class="card-icon text-primary"><i class="fas fa-ruler-combined"></i></div>
+                    <h5 class="card-title">Danger Checks</h5>
+                    <p class="card-text">{{danger_percentage}}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Charts Section -->
     <div class="row">
