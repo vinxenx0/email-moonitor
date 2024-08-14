@@ -1,4 +1,4 @@
-<!-- Breadcrumb -->
+<!-- Breadcrumb 
 {% if breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -12,4 +12,28 @@
         {% endfor %}
     </ol>
 </nav>
+{% endif %}
+-->
+
+{% if breadcrumbs %}
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent p-0 mb-4">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-decoration-none">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                </li>
+                {% for crumb in breadcrumbs %}
+                {% if loop.last %}
+                <li class="breadcrumb-item active" aria-current="page">{{ crumb.text }}</li>
+                {% else %}
+                <li class="breadcrumb-item">
+                    <a href="{{ crumb.url }}" class="text-decoration-none">{{ crumb.text }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ol>
+        </nav>
+
 {% endif %}

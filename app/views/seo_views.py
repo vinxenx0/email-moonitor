@@ -21,6 +21,7 @@ from app.views.info import tool_info
 
 @app.route("/tools/seo/<string:tool>", methods=["GET", "POST"])
 def tools_seo(tool):
+    print("tool_seo")
     start_time = time.time()
     definition = ""
     slogan = ""

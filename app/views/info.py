@@ -44,52 +44,52 @@ tool_info = {
     },
     #
     'nsec3param': {
-        'definition': "",
-        'slogan': "",
+        'definition': "NSEC3PARAM es un registro DNS que define los parámetros para el hashing en NSEC3, mejorando la seguridad y privacidad en DNSSEC. Es crucial en SEO para proteger contra el zone walking y asegurar la integridad DNS.",
+        'slogan': "Mejora la seguridad y privacidad de tu DNS",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "NSEC3PARAM es un tipo de registro DNS utilizado en DNSSEC que especifica los parámetros de configuración para NSEC3, una extensión de NSEC que utiliza hashing criptográfico para mejorar la seguridad. NSEC3 evita el 'zone walking', un proceso donde un atacante puede enumerar todos los nombres de dominio en una zona. Mediante el uso de NSEC3 y NSEC3PARAM, se asegura que los registros DNS solo muestren información limitada y cifrada, mejorando la privacidad y la seguridad. En términos de SEO, implementar NSEC3 con parámetros adecuados es vital para proteger la integridad de la zona DNS y mantener la confianza del usuario. Por ejemplo, proteger contra el zone walking previene la exposición de todos los subdominios, lo cual es crucial para la seguridad del sitio."
     },
     'mtasts': {
-        'definition': "",
-        'slogan': "",
+        'definition': "MTA-STS (Mail Transfer Agent Strict Transport Security) es un protocolo que asegura la entrega de correos electrónicos utilizando conexiones cifradas. Es esencial en SEO para proteger la reputación del dominio y asegurar la entrega segura de emails.",
+        'slogan': "Entrega de correos segura y cifrada, siempre",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "MTA-STS es un protocolo que permite a los administradores de correo electrónico forzar el uso de conexiones cifradas (TLS) al enviar correos electrónicos entre servidores. Este protocolo ayuda a prevenir ataques como el downgrade y la interceptación de correos electrónicos. En el contexto del SEO, implementar MTA-STS es vital para proteger la reputación del dominio, ya que los correos electrónicos no cifrados pueden ser fácilmente interceptados y manipulados, afectando negativamente la confianza del usuario. Además, asegurar la entrega de correos electrónicos de manera segura mejora la fiabilidad de las comunicaciones del dominio, lo que puede tener un impacto positivo en la percepción del usuario y, potencialmente, en el ranking de los motores de búsqueda."
     },
     'arin': {
-        'definition': "",
-        'slogan': "",
+        'definition': "ARIN Lookup proporciona detalles sobre los registros de direcciones IP y ASN administrados por el American Registry for Internet Numbers (ARIN). Es crucial en SEO para verificar la propiedad y localización de direcciones IP.",
+        'slogan': "Verifica y localiza tu red en América del Norte",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "ARIN Lookup es una herramienta que permite consultar la base de datos del American Registry for Internet Numbers (ARIN) para obtener información sobre las direcciones IP y los números de sistemas autónomos (ASN) registrados en América del Norte. Esta información incluye detalles como el propietario del recurso, la organización registrada y los puntos de contacto. En SEO, esta herramienta es útil para verificar la propiedad y autenticidad de las direcciones IP que acceden a tu sitio web, y para entender mejor la distribución geográfica de tu tráfico. Por ejemplo, si identificas un volumen significativo de tráfico procedente de ciertas direcciones IP, puedes utilizar ARIN Lookup para investigar y optimizar tus estrategias de marketing regional."
     },
     'nsec': {
-        'definition': "",
-        'slogan': "",
+        'definition': "NSEC Lookup es una herramienta utilizada en DNSSEC para verificar la no existencia de un registro DNS en una zona. Es vital en SEO para asegurar la integridad y transparencia de la configuración DNS.",
+        'slogan': "Asegura la inexistencia y protege tu DNS",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "NSEC (Next Secure) es un registro DNS utilizado en DNSSEC (Domain Name System Security Extensions) que proporciona pruebas de no existencia para nombres de dominio y tipos de registros en una zona DNS. NSEC Lookup permite verificar estas pruebas, asegurando que ciertos nombres o registros no existen en una zona específica. Esto es importante para evitar respuestas DNS fraudulentas y para asegurar la integridad de la configuración DNS. En SEO, la transparencia y la seguridad de la configuración DNS son cruciales para mantener la confianza del usuario y proteger el sitio web contra ataques maliciosos. Por ejemplo, NSEC puede prevenir el envenenamiento de caché DNS, mejorando así la fiabilidad del sitio web."
     },
     'rrsig': {
-        'definition': "",
-        'slogan': "",
+        'definition': "RRSIG Lookup permite verificar las firmas criptográficas de los registros DNSSEC, asegurando la autenticidad e integridad de las respuestas DNS. Es fundamental en SEO para mantener la seguridad y confiabilidad del sitio web.",
+        'slogan': "Verifica la autenticidad de tus registros DNS",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "RRSIG (Resource Record Signature) es un tipo de registro DNS utilizado en DNSSEC (Domain Name System Security Extensions) que contiene la firma digital de un conjunto de registros DNS. RRSIG Lookup permite verificar estas firmas criptográficas, asegurando que los registros DNS no han sido manipulados y provienen de una fuente auténtica. Esto es crucial para la seguridad del sitio web, ya que protege contra ataques como el envenenamiento de caché DNS. En términos de SEO, la seguridad y confiabilidad del sitio web son factores importantes que pueden influir en la clasificación en los motores de búsqueda y en la confianza del usuario. Implementar y verificar RRSIG contribuye a mantener la integridad de la información DNS y a asegurar una experiencia segura para los usuarios."
     },
     'asn': {
-        'definition': "",
-        'slogan': "",
+        'definition': "ASN Lookup identifica el Sistema Autónomo (ASN) al que pertenece una dirección IP, proporcionando información sobre la red y su propietario. Es útil en SEO para analizar la distribución de red y optimizar la estrategia de geolocalización.",
+        'slogan': "Descubre la red detrás de cada IP",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "ASN Lookup es una herramienta que permite identificar el Sistema Autónomo (AS) al que pertenece una dirección IP. Un ASN (Autonomous System Number) es una colección de redes IP administradas por una o varias entidades que presentan una política de enrutamiento común. Este lookup proporciona información detallada sobre la red, como el nombre del propietario y el rango de IPs administradas. Para estrategias de SEO, entender la distribución de red y la localización de los usuarios puede ser crucial para optimizar la entrega de contenido y mejorar la experiencia del usuario. Por ejemplo, conocer los ASNs que envían la mayor parte del tráfico a tu sitio web puede ayudar a identificar oportunidades para mejorar la infraestructura de red y el rendimiento del sitio."
     },
     'ipseckey': {
-        'definition': "",
-        'slogan': "",
+        'definition': "IP Sec Key es un registro DNS que almacena claves criptográficas para la implementación de IPsec, una suite de protocolos de seguridad. En SEO, es importante para asegurar comunicaciones seguras y confiables en la red.",
+        'slogan': "Seguridad de red sólida para un SEO confiable",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "IP Sec Key es un registro DNS utilizado para almacenar claves criptográficas necesarias para la configuración de IPsec (Internet Protocol Security), una suite de protocolos que asegura la comunicación en la red mediante cifrado y autenticación. Este registro es crucial para establecer túneles seguros y proteger los datos en tránsito, especialmente en redes sensibles. En el contexto del SEO y la seguridad del sitio web, la implementación de IPsec y el uso de IP Sec Key ayudan a asegurar que las comunicaciones entre servidores sean seguras y confiables, lo cual es esencial para proteger la integridad de los datos y la privacidad de los usuarios. Un sitio web seguro no solo protege contra ataques, sino que también mejora la confianza del usuario y puede influir positivamente en la clasificación de los motores de búsqueda."
     },
     'loc': {
-        'definition': "",
+        'definition': "LOC Entry es un tipo de registro DNS que especifica la ubicación geográfica de un dominio. Es útil en SEO para estrategias de marketing local y para mejorar la precisión de la geolocalización del sitio web.",
         'slogan': "",
-        'keywords': "",
-        'info_popup': ""
+        'keywords': "Geolocaliza tu dominio para un SEO local preciso",
+        'info_popup': "LOC Entry es un registro DNS que permite especificar la ubicación geográfica (latitud, longitud y altitud) asociada a un nombre de dominio. Esta información puede ser utilizada por los motores de búsqueda para mejorar la precisión de la geolocalización y la relevancia de los resultados de búsqueda locales. Por ejemplo, un negocio local puede beneficiarse de un registro LOC preciso al mejorar su visibilidad en las búsquedas de usuarios cercanos. Para estrategias de SEO, utilizar LOC Entries puede ayudar a optimizar la presencia en búsquedas locales y aumentar la relevancia del contenido para usuarios en áreas geográficas específicas."
     },
     'ssl': {
         'definition': "",
@@ -98,16 +98,16 @@ tool_info = {
         'info_popup': ""
     },
     'soa': {
-        'definition': "",
-        'slogan': "",
+        'definition': "SOA Lookup permite obtener el registro de Start of Authority (SOA) de un dominio, que contiene información clave sobre la zona DNS. Es vital en SEO para gestionar y optimizar la estructura DNS del sitio web.",
+        'slogan': "La clave de tu DNS comienza aquí",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "El registro SOA (Start of Authority) es fundamental en la configuración DNS de un dominio, ya que contiene información crucial como el servidor de nombres principal, la dirección de correo electrónico del administrador, el número de serie de la zona DNS y varios parámetros de temporización. SOA Lookup permite consultar estos detalles, lo cual es esencial para la gestión y optimización de la estructura DNS. Por ejemplo, el número de serie en el SOA se incrementa cada vez que se realizan cambios en la zona DNS, lo cual es importante para asegurar que todos los servidores de nombres secundarios estén actualizados. Para SEO, mantener una configuración DNS precisa y eficiente puede mejorar la velocidad de resolución del dominio, lo que contribuye a una mejor experiencia del usuario y a un potencial mejoramiento en el ranking de búsqueda."
     },
     'txt': {
-        'definition': "",
-        'slogan': "",
+        'definition': "TXT Lookup se utiliza para consultar los registros TXT de un dominio, que pueden contener diversas informaciones, como configuraciones de SPF, DKIM y DMARC. Es crucial en SEO para verificar y optimizar la autenticación de correos electrónicos.",
+        'slogan': "Cada texto cuenta para una autenticación perfecta",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "Los registros TXT (Text) son un tipo de registro DNS que permite a los administradores de dominios almacenar cualquier texto en el sistema de nombres de dominio. TXT Lookup es una herramienta que permite consultar estos registros, que a menudo incluyen configuraciones críticas como SPF, DKIM y DMARC, fundamentales para la autenticación de correos electrónicos. Por ejemplo, un registro TXT puede contener una política de SPF que indique qué servidores están autorizados a enviar correos en nombre del dominio, o una clave DKIM utilizada para firmar correos electrónicos. Para estrategias de SEO, verificar y optimizar estos registros ayuda a mantener la seguridad y la reputación del dominio, asegurando la correcta entrega de correos y protegiendo contra ataques de phishing y spam."
     },
     'bimi': {
         'definition': "",
@@ -134,10 +134,10 @@ tool_info = {
         'info_popup': ""
     },
     'dnskey': {
-        'definition': "",
-        'slogan': "",
+        'definition': "DNS Key es un tipo de registro DNS que se utiliza en la implementación de DNSSEC para asegurar la autenticidad e integridad de las respuestas DNS. En SEO, asegura que el sitio web sea confiable y seguro para los usuarios.",
+        'slogan': "Seguridad y autenticidad desde el DNS",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "DNS Key es un registro utilizado en DNSSEC (Domain Name System Security Extensions) que contiene las claves criptográficas necesarias para firmar y autenticar las respuestas DNS. Esto asegura que las respuestas no hayan sido manipuladas y provienen de una fuente legítima. La implementación de DNSSEC y el uso de DNS Key son esenciales para proteger contra ataques como el envenenamiento de caché DNS. En el contexto del SEO, la seguridad del sitio web es un factor crucial. Un sitio protegido por DNSSEC es más confiable, lo que puede influir positivamente en la percepción del usuario y en la clasificación del sitio en los motores de búsqueda."
     },
     'cert': {
         'definition': "",
@@ -146,16 +146,16 @@ tool_info = {
         'info_popup': ""
     },
     'srv': {
-        'definition': "",
-        'slogan': "",
+        'definition': "SRV Lookup se utiliza para encontrar los servidores que proporcionan servicios específicos para un dominio, como correo o VoIP. Es importante en SEO para la configuración precisa y eficiente de servicios de red.",
+        'slogan': "Encuentra y configura tus servicios de red con precisión",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "El registro SRV (Service) en DNS permite especificar la ubicación de los servidores que proporcionan servicios específicos para un dominio, tales como correo (SMTP), VoIP (SIP), y otros servicios de red. SRV Lookup es una herramienta que permite consultar estos registros, proporcionando información detallada sobre los servidores y puertos utilizados. En el ámbito del SEO, una configuración precisa y eficiente de los registros SRV es crucial para garantizar la correcta prestación de servicios y mejorar la experiencia del usuario. Por ejemplo, si un sitio web utiliza servicios externos para manejar llamadas VoIP, los registros SRV asegurarán que las conexiones se dirijan al servidor correcto, optimizando así el rendimiento y la fiabilidad del servicio."
     },
     'dkim': {
-        'definition': "",
-        'slogan': "",
+        'definition': "DKIM Lookup verifica la autenticidad de los correos electrónicos mediante firmas criptográficas. En SEO, es crucial para asegurar que los emails no sean alterados en tránsito, manteniendo la integridad y confianza en las comunicaciones del dominio.",
+        'slogan': "Firmeza en cada correo, confianza en cada clic",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "DKIM (DomainKeys Identified Mail) es un protocolo de autenticación de correos electrónicos que utiliza firmas criptográficas para asegurar que los mensajes no hayan sido alterados en tránsito. DKIM Lookup permite verificar estas firmas y confirmar que los correos provienen realmente del dominio especificado. Esto es esencial para mantener la integridad y la confianza en las comunicaciones de correo electrónico, lo cual es crucial para estrategias de marketing digital y SEO. Por ejemplo, un email firmado con DKIM puede ser validado por el servidor receptor, reduciendo la probabilidad de que sea considerado spam o phishing. Implementar DKIM contribuye a una mejor entrega de correos y a la protección de la reputación del dominio."
     },
     'dns_server': {
         'definition': "",
@@ -164,22 +164,22 @@ tool_info = {
         'info_popup': ""
     },
     'spf': {
-        'definition': "",
-        'slogan': "",
+        'definition': "SPF Lookup (Sender Policy Framework) verifica qué servidores están autorizados para enviar correos electrónicos en nombre de un dominio. Es fundamental en SEO para evitar la falsificación de correos y mantener la credibilidad del dominio.",
+        'slogan': "Autentica tus envíos y protege tu marca",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "SPF Lookup es una herramienta utilizada para consultar los registros SPF de un dominio, los cuales especifican qué servidores de correo están autorizados para enviar emails en nombre de ese dominio. Este mecanismo ayuda a prevenir el spoofing de correos electrónicos, asegurando que los emails no sean falsificados. Por ejemplo, si un dominio tiene un registro SPF bien configurado, los servidores de correo receptor pueden verificar la autenticidad del correo, reduciendo la probabilidad de que los correos legítimos sean marcados como spam. Para las estrategias de SEO, mantener una buena reputación del dominio es crucial, ya que la entrega efectiva y segura de correos electrónicos puede influir en la percepción del usuario y la interacción con el sitio web."
     },
     'dmarc': {
-        'definition': "",
-        'slogan': "",
+        'definition': "DMARC (Domain-based Message Authentication, Reporting & Conformance) es un protocolo de autenticación de email que ayuda a proteger contra el spoofing y phishing. En SEO, es importante para mantener la reputación del dominio y asegurar la confianza del usuario.",
+        'slogan': "Protege tu dominio, fortalece tu reputación",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "DMARC es un protocolo de autenticación de correos electrónicos que permite a los propietarios de dominios especificar qué mecanismos (SPF y/o DKIM) se utilizan para autenticar sus correos electrónicos y cómo deben manejarse los correos electrónicos que no pasen la autenticación. Este protocolo no solo ayuda a prevenir ataques de suplantación de identidad (spoofing) y phishing, sino que también proporciona informes detallados sobre los intentos de envío no autorizados. Para las estrategias de SEO, implementar DMARC es crucial para mantener la reputación del dominio, ya que los correos electrónicos fraudulentos pueden afectar negativamente la percepción del usuario y, en consecuencia, la confianza y el tráfico hacia el sitio web."
     },
     'mx': {
-        'definition': "",
-        'slogan': "",
+        'definition': "MX Discover es una herramienta crucial en SEO para identificar los servidores de correo responsables de recibir emails para un dominio. Esta información es vital para configurar y optimizar las estrategias de email marketing y asegurar una correcta entrega de correos electrónicos.",
+        'slogan': "Conecta tus correos con precisión y seguridad",
         'keywords': "",
-        'info_popup': ""
+        'info_popup': "MX Discover permite obtener los registros de intercambio de correo (MX) de un dominio, que especifican los servidores encargados de recibir los correos electrónicos dirigidos a ese dominio. Esta información es esencial para la configuración y optimización de campañas de email marketing, asegurando que los correos electrónicos se entreguen correctamente. Por ejemplo, si un dominio tiene múltiples registros MX, es posible determinar la prioridad y redundancia de los servidores de correo, lo cual puede influir en la fiabilidad y velocidad de entrega de los emails. Además, esta herramienta ayuda a diagnosticar problemas de entrega y a implementar medidas de seguridad como SPF, DKIM y DMARC."
     },
     'titles': {
         'definition': "Los títulos son esenciales para el SEO, ya que indican a los motores de búsqueda y a los usuarios de qué trata una página. Un título optimizado debe ser relevante, incluir palabras clave y atraer clics.",

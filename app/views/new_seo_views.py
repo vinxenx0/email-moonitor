@@ -54,6 +54,9 @@ def count_results(results):
 
 @app.route("/tools/seo/<string:tool>", methods=["GET", "POST"])
 def tools_seo(tool):
+    
+    
+    print("tool_seo new")
     start_time = time.time()
     definition, slogan, keywords, info_popup = "", "", "", ""
     soup, response, results = None, None, None

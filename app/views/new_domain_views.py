@@ -17,8 +17,14 @@ from app.views.info import tool_info
 ###
 #######
 
-@app.route("/tools/domains_old/<string:tool>", methods=["GET", "POST"])
-def tools_domains(tool):
+@app.route("/tools/domains/<string:tool>", methods=["GET", "POST"])
+def tools_domains_new(tool):
+
+    total_entries = 0
+    true_count = 0
+    false_count = 0
+    none_or_empty_count = 0
+    
     definition = ""
     slogan = ""
     keywords = ""
@@ -210,10 +216,29 @@ def tools_domains(tool):
         else:
             log_event(tool, 'Fail:' + domain)
 
+        
+        # Recorrer el diccionario y contar los valores según las condiciones dadas
+        for key, value in results.items():
+            total_entries += 1
+            if value is True:
+                true_count += 1
+            elif value is False:
+                false_count += 1
+            elif value is None or value == '':
+                none_or_empty_count += 1
+
+    # Calcular el porcentaje de valores False con respecto al total
+    if total_entries > 0:
+        false_percentage = (false_count / total_entries) * 100
+    else:
+        false_percentage = 0
+
     end_time = time.time()
     duration = end_time - start_time
+    
     return render_template(
-        "tools/domains/" + tool + ".html",
+        "tools/domains/results_domains.html",
+        # "tools/domains/" + tool + ".html",
         title=tool,
         is_results_valid=is_results_valid,
         duration=duration,
@@ -224,4 +249,9 @@ def tools_domains(tool):
         slogan=slogan,
         info_popup=info_popup,
         keywords=keywords,
+        total_checks =  total_entries,
+        success_count = true_count,
+        empty_checks = none_or_empty_count,
+        danger_count=false_count,
+        danger_percentage=false_percentage
     )
