@@ -131,14 +131,14 @@ def tools_usability(tool):
                 
 
                 # Recorrer el diccionario y contar los valores según las condiciones dadas
-                for key, value in results.items():
-                    total_entries += 1
-                    if value is True:
-                        true_count += 1
-                    elif value is False:
-                        false_count += 1
-                    elif value is None or value == '':
-                        none_or_empty_count += 1
+                #for key, value in results.items():
+                #    total_entries += 1
+                #    if value is True:
+                #        true_count += 1
+                #    elif value is False:
+                #        false_count += 1
+                #    elif value is None or value == '':
+                #        none_or_empty_count += 1
 
             else:
                 log_event(tool, 'Fail:' + page)
