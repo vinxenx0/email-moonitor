@@ -124,6 +124,8 @@ def tools_usability(tool):
                 log_event(tool, 'Fail:' + e)
                 results = {'error': e}
 
+            is_results_valid = True
+            
             if results is not None:
                 log_event(tool, page)
                 is_results_valid = True
