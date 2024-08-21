@@ -27,32 +27,7 @@
 
     
     {% if results %}
-        <h3>Resultados de {{ title }}:</h3>
-
-        {% for consejo in results %}
-        {% set is_fail = 'Fail' in consejo.code %}
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div
-                    class="card-header  {% if is_fail %}bg-danger text-white{% else %}bg-warning text-dark{% endif %}">
-                    {{ consejo.code }}</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ consejo.type }}</h5>
-                    <p class="card-text">{{ consejo.message }}</p>
-                    <p class="card-text"><strong>Contexto:</strong>
-                    <blockquote>{{ consejo.context }}</blockquote>
-                    </p>
-                    <p class="card-text"><strong>Selector:</strong>
-                    <blockquote>{{ consejo.selector }}</blockquote>
-                    </p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-        
-        {{ results }}
-
-        {% if is_results_valid %}
+      
 
 <div id="collapseZero" class="accordion-collapse collapse" aria-labelledby="headingZero"
 data-bs-parent="#accordionExample">
