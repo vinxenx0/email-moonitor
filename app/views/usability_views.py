@@ -116,7 +116,8 @@ def tools_usability(tool):
                 elif tool == 'x-card-missing':
                     results = check_x_card_tag(html_content)
                     
-                                     
+
+                print(results)   
 
             except Exception as e:
                 print(f"Error processing page info: {e}")
