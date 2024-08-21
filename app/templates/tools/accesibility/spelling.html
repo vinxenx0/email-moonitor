@@ -29,6 +29,28 @@
     {% if results %}
     {% if is_results_valid %}
 
+    <div class="tab-content mt-4" id="jsonTabsContent">
+        <div class="tab-pane fade show active" id="Ortografia" role="tabpanel"
+            aria-labelledby="Ortografia">
+
+            <div class="row">
+                {% set batch_size = results|length // 4 %}
+                {% set batches = results|batch(batch_size) %}
+                {% for batch in batches %}
+                <div class="col-md-3">
+                    {% for word, suggestions in batch %}
+                    <p class="list-item list-item-border" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="{{ suggestions|join('·') }}"
+                        data-bs-html="true">{{
+                        word }}</p>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
     <div id="collapseZero1" class="accordion-collapse collapse" aria-labelledby="headingZero1"
     data-bs-parent="#accordionExample">
     <div class="accordion-body">

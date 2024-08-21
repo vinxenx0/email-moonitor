@@ -100,9 +100,10 @@ def ortografia():
         response = requests.get(domain)
         spelling_errors, results = analizar_ortografia(response.text)
 
-        print(spelling_errors)
+        #print(spelling_errors)
         print("----")
         print(results)
+        print("----")
         
         if results is not None:
             is_results_valid = True
