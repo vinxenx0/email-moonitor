@@ -49,8 +49,8 @@
                         aria-labelledby="Ortografia">
 
                         <div class="row">
-                            {% set batch_size = grammar_errors|length // 4 %}
-                            {% set batches = grammar_errors|batch(batch_size) %}
+                            {% set batch_size = results|length // 4 %}
+                            {% set batches = results|batch(batch_size) %}
                             {% for batch in batches %}
                             <div class="col-md-3">
                                 {% for word, suggestions in batch %}
