@@ -1,0 +1,64 @@
+import json
+import time
+from app.controllers.spider_tools import ejecutar_pa11y
+from flask import render_template
+from flask_login import current_user
+from flask import render_template, request
+from app import app, db
+from app.controllers.logs_controller import log_event
+from app.controllers.tools_controller import *
+from app.forms import DomainToolsForm
+from datetime import datetime
+from app.models.usage_model import Activity
+
+from app.views.info import tool_info
+
+@app.route("/tools/accesibility/wcag", methods=["GET", "POST"])
+def wcag():
+    definition = ""
+    slogan = ""
+    keywords = ""
+    info_popup = ""
+    start_time = time.time()
+    breadcrumbs = [
+        {
+            "url": "/tools",
+            "text": "Tools"
+        },
+        {
+            "url": "/tools/domains/",
+            "text": "Accesibilidad"
+        },
+        {
+            "url": "/tools/accesiblity/wcag",
+            "text": "WCAG"
+        },
+    ]
+    form = DomainToolsForm()
+    results = None
+    is_results_valid = False
+    if form.validate_on_submit():
+        domain = form.domain.data
+
+        results = json.loads(ejecutar_pa11y(domain)) 
+        
+        if results is not None:
+            is_results_valid = True
+        else:
+            is_results_valid = False
+
+    end_time = time.time()
+    duration = end_time - start_time
+    return render_template(
+        "tools/accesibility/wcag.html",
+        title="Traceroute",
+        is_results_valid=is_results_valid,
+        duration=duration,
+        form=form,
+        results=results,
+        breadcrumbs=breadcrumbs,
+        definition=definition,
+        slogan=slogan,
+        info_popup=info_popup,
+        keywords=keywords,
+    )
