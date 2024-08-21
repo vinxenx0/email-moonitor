@@ -98,11 +98,11 @@ def ortografia():
     if form.validate_on_submit():
         domain = form.domain.data
         response = requests.get(domain)
-        results, grammar_errors = analizar_ortografia(response.text)
+        spelling_errors, results = analizar_ortografia(response.text)
 
-        print(results)
+        print(spelling_errors)
         print("----")
-        print(grammar_errors)
+        print(results)
         
         if results is not None:
             is_results_valid = True
