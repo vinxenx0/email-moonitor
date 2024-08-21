@@ -98,9 +98,9 @@ def ortografia():
     if form.validate_on_submit():
         domain = form.domain.data
         response = requests.get(domain)
-        spelling_errors, grammar_errors = analizar_ortografia(response.text)
+        results, grammar_errors = analizar_ortografia(response.text)
 
-        print(spelling_errors)
+        print(results)
         print("----")
         print(grammar_errors)
         
