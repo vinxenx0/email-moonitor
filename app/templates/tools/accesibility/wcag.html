@@ -24,9 +24,13 @@
     {% include 'tools/quick_form.html' %}
 
     <hr>
+
+    
     {% if results %}
         <h3>Resultados de {{ title }}:</h3>
-
+        
+        {{ results }}
+        
         {% if is_results_valid %}
 
 <div id="collapseZero" class="accordion-collapse collapse" aria-labelledby="headingZero"
