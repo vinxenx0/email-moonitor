@@ -40,7 +40,8 @@ def wcag():
     if form.validate_on_submit():
         domain = form.domain.data
 
-        results = json.loads(ejecutar_pa11y(domain)) 
+        results = json.loads(ejecutar_pa11y(domain))
+        print(results)
         
         if results is not None:
             is_results_valid = True
@@ -51,7 +52,7 @@ def wcag():
     duration = end_time - start_time
     return render_template(
         "tools/accesibility/wcag.html",
-        title="Traceroute",
+        title="WCAG",
         is_results_valid=is_results_valid,
         duration=duration,
         form=form,
